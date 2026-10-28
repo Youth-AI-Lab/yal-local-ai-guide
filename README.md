@@ -8,12 +8,14 @@
   - Read the [Troubleshooting](#troubleshooting) section at the end of this guide.
   - Look at, or open, an [issue](https://github.com/Youth-AI-Lab/yal-local-ai-guide/issues).
 
-> **A guide for a computer of your organisation, to follow with the person who looks after your
-> computers.** You install **Ollama**, a free program that runs an AI model on the computer itself,
-> and **Open WebUI**, the chatbot tool of the
-> [Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide). The model answers from
-> your documents, on this computer: **the questions of your group are not sent to an AI company**,
-> and there is no key and no cost per question.
+> **Your chatbot, without an AI company.** In the
+> [Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide), each question of your
+> group goes to an AI company, paid with an API key. Here, the AI model runs on a computer of your
+> organisation: **the questions of your group stay on this computer**, and there is no key to buy
+> and no cost per question. You install two free programs on this computer: **Ollama**, which runs
+> the AI model, and **Open WebUI**, the chatbot tool of the Open WebUI guide. Some steps change the
+> settings of the computer: do them with the person who looks after the computers of your
+> organisation.
 
 This guide is for youth workers, facilitators and educators who work with young people (12 to 25),
 and for the person who looks after the computers of their organisation. It goes with the
@@ -74,18 +76,20 @@ organisation, and the participants may already know it.
 
 - **A computer** that stays on during the session, ideally with an **NVIDIA graphics card with at
   least 6 GB of memory** ([part 1](#part-1---check-the-computer)), and about 20 GB of free disk.
-- **Linux**: we tested Ubuntu. Ollama and Open WebUI also exist for Windows and macOS. Their
-  official installers are given below, but we did not test them for this guide.
-- **The administrator rights** of this computer, and **Docker**, a program that runs other programs
-  in a closed box called a *container* (<https://docs.docker.com/engine/install/>).
-- **A good internet connection** the first time: Open WebUI is a download of about 1.7 GB, a model
-  4.4 to 4.7 GB, plus Ollama and, if needed, a graphics driver.
+- **Linux**: we tested Ubuntu 26.04. Ollama and Open WebUI also exist for Windows and macOS, but
+  the commands of parts 2, 3 and 6 are for Linux, and we did not test the other systems.
+- **The administrator rights** of this computer. You do not need Python or anything else
+  beforehand: part 3 installs the version of Python that Open WebUI needs, in its own folder.
+- **A good internet connection** the first time: Open WebUI and what it needs are a download of
+  about 1 GB (about 3 GB once on the disk), a model 4.4 to 4.7 GB, plus Ollama and, if needed, a
+  graphics driver.
 
 **Words used in this guide.** A **terminal** is the window where you type commands (on Ubuntu:
 `Ctrl+Alt+T`). Commands that start with `sudo` run with the administrator rights: the terminal asks
 for the computer's password. A **driver** is the program that lets the computer use a piece of
-hardware, here the graphics card. A **port** is the number after an address, here 3000: it tells the
-computer which program should answer.
+hardware, here the graphics card. A **service** is a program that the computer starts by itself and
+keeps running in the background. A **port** is the number after an address, here 3000: it tells
+the computer which program should answer.
 
 **Are you ready?** You are if you have built a chatbot with the
 [Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide), or if you know which
@@ -254,22 +258,16 @@ off, so that no question can leave by mistake
 ([Ollama](https://docs.ollama.com/faq#how-do-i-disable-ollama-cloud-features)):
 
 ```bash
-sudo systemctl edit ollama
+sudo mkdir -p /etc/systemd/system/ollama.service.d
+printf '[Service]\nEnvironment="OLLAMA_NO_CLOUD=1"\n' | sudo tee /etc/systemd/system/ollama.service.d/no-cloud.conf
+sudo systemctl daemon-reload && sudo systemctl restart ollama
 ```
 
-In the editor that opens (on Ubuntu, nano), type these two lines in the empty space under the line
-that starts with `### Anything between here and the comment below`: lines typed lower down are
-thrown away. Save with `Ctrl+O` then `Enter`, and close with `Ctrl+X`:
-
-```
-[Service]
-Environment="OLLAMA_NO_CLOUD=1"
-```
-
-Then type `sudo systemctl restart ollama`.
+The second command writes a small settings file for the Ollama service, and shows its two lines.
+The third one starts Ollama again with this setting.
 
 **What you should see.** `systemctl show ollama -p Environment` shows `OLLAMA_NO_CLOUD=1`. If it
-does not, run `sudo systemctl edit ollama` again. According to Ollama's documentation,
+does not, type the three commands again. According to Ollama's documentation,
 `journalctl -u ollama --since today | grep -i "cloud disabled"` then shows
 `Ollama cloud disabled: true`. TO BE COMPLETED: both checked on a real installation.
 
@@ -320,11 +318,77 @@ ollama run qwen2.5:7b "Hello" && ollama ps
 
 ## Part 3 - Start Open WebUI
 
-*With your IT person.* Open WebUI runs in Docker on the same computer, and talks to Ollama. In this
+*With your IT person.* Open WebUI is a Python program. You install it in a folder of its own,
+`~/owui-local`, and the computer runs it as a service, on the same computer as Ollama. In this
 part, only this computer can open it. You open it to your local network in
 [part 6](#part-6---open-it-to-your-group), when your administrator account exists.
 
-### Step 1 - Get the settings for a group
+### Step 1 - Install uv
+
+**uv** is a free tool that installs Python programs, and the version of Python they need. Open
+WebUI 0.11.4 needs Python 3.11 or 3.12. Ubuntu 26.04 comes with Python 3.14, which is too new: uv
+downloads Python 3.12 for Open WebUI, without changing the Python of the computer.
+
+Do this whole part in a normal account of the computer, the one you will use for Open WebUI, not
+as `root`: `whoami` must not answer `root`. Open WebUI will run with the rights of this account.
+
+```bash
+curl -LsSf https://astral.sh/uv/0.13.1/install.sh | sh
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+The first command installs uv for your user, in `~/.local/bin`. The second one lets this terminal
+find it; the next terminals find it by themselves.
+
+**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.1`.
+
+### Step 2 - Create a virtual environment
+
+A **virtual environment** (often called a *venv*) is a folder that holds the programs installed for
+one project, apart from the rest of the computer. It uses the Python that uv downloaded. Deleting
+the folder deletes these programs. Create the folder of Open WebUI, and its virtual environment
+inside, named `venv`:
+
+```bash
+mkdir -p ~/owui-local && chmod 700 ~/owui-local && cd ~/owui-local
+uv venv --managed-python --python 3.12 venv
+source venv/bin/activate
+```
+
+`chmod 700` lets only your account open this folder: it will hold the conversations of your group.
+The second command downloads Python 3.12 (about 40 MB) the first time; `--managed-python` makes uv
+use its own copy, the one we tested, even if the computer already has a Python 3.12. The third one
+**activates** the virtual environment: in this terminal, `python` and the programs you install now
+are those of `venv`.
+
+**What you should see.** `(venv)` at the start of the line where you type. If you close the
+terminal before the end of this part, open a new one and type
+`cd ~/owui-local && source venv/bin/activate` before you go on.
+
+### Step 3 - Install Open WebUI
+
+```bash
+uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.11.4
+```
+
+This installs Open WebUI 0.11.4, the version we measured, in `venv`, with the programs it needs:
+about 1 GB to download, 2.5 GB once on the disk. Open WebUI uses **torch** to search in your
+documents. `--torch-backend cpu` installs the version of torch for the processor: the graphics card
+is for Ollama, and the version for the card is a much bigger download. `torch<=2.9.1` is the
+version in Open WebUI's own installation, the one we measured.
+
+Then download the small model that Open WebUI uses to search in your documents (about 90 MB). With
+the settings of this guide, Open WebUI never downloads anything by itself, so it needs it now:
+
+```bash
+SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
+```
+
+**What you should see.** `uv pip show open-webui` shows `Version: 0.11.4`. The second command may
+show a warning about "unauthenticated requests" and a "LOAD REPORT" with the word `UNEXPECTED`:
+they are normal. It must not end with `Error`.
+
+### Step 4 - Get the settings for a group
 
 The file [`openwebui.env`](openwebui.env) of this guide holds the settings we use with young
 people:
@@ -334,53 +398,74 @@ people:
 - the participants do not see the buttons to change a chatbot, or to upload files or photos. This
   hides the buttons; it is not a lock: a participant with technical skills could still send a file;
 - a banner asks them not to write personal information;
-- a sign-in lasts 12 hours, and the participants do not see your name and e-mail.
+- a sign-in lasts 12 hours, and the participants do not see your name and e-mail;
+- Open WebUI writes only warnings and errors in the computer's log (the *journal*), not the e-mail
+  used at each sign-in or the address of each phone.
 
-Each line of the file is explained. Make a folder for it, and download it there:
+Each line of the file is explained. Download it into the folder of Open WebUI:
 
 ```bash
-mkdir -p ~/owui-local && cd ~/owui-local
+cd ~/owui-local
 curl -fsSLO https://raw.githubusercontent.com/Youth-AI-Lab/yal-local-ai-guide/main/openwebui.env
 ```
 
 Open WebUI saves most of these settings in its own data at its very first start. After that,
-changing the file has no effect on them: you change them in the **Admin Panel**. So if you want to
-change the file, for example to translate the banner (its last line) into the language of your
-group, do it **now**, before step 2.
+changing the file has no effect on them: you change them in the **Admin Panel**. For example, to
+show the banner in the language of your group, change its text after
+[step 6](#step-6---create-your-administrator-account), in **Admin Panel** → **Settings** →
+**General**, in the part about banners ("Create announcements shown to users in the app."), then
+click **Save**.
 
-### Step 2 - Start it
+### Step 5 - Start Open WebUI as a service
 
-In the same folder, type:
+Copy this whole block into the terminal, from `sudo tee` to the second `EOF`, and press `Enter`.
+It writes the file of the service, with the name of your user and the paths of your folder:
 
 ```bash
-sudo docker run -d --name owui-local --network host --restart unless-stopped \
-  --env-file openwebui.env -e HOST=127.0.0.1 -e PORT=3000 \
-  -e OLLAMA_BASE_URL=http://127.0.0.1:11434 \
-  -v owui-local-data:/app/backend/data \
-  ghcr.io/open-webui/open-webui:v0.11.4
+sudo tee /etc/systemd/system/owui-local.service >/dev/null <<EOF
+[Unit]
+Description=Open WebUI for the group
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+User=$USER
+WorkingDirectory=$HOME/owui-local
+EnvironmentFile=$HOME/owui-local/openwebui.env
+Environment=DATA_DIR=$HOME/owui-local/data
+Environment=SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models
+ExecStart=$HOME/owui-local/venv/bin/open-webui serve --host 127.0.0.1 --port 3000
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
 ```
 
-This command:
+This service:
 
-- starts Open WebUI on **port 3000** of this computer, for this computer only (`HOST=127.0.0.1`);
-- keeps its data (accounts, chatbots, conversations, documents) in a Docker **volume**, a storage
-  space named `owui-local-data`;
-- starts it again after a restart of the computer;
-- with `--network host`, lets Open WebUI reach Ollama on the same computer. This works on Linux. On
-  Windows and macOS, Docker Desktop works differently (not tested).
+- starts Open WebUI on **port 3000** of this computer, for this computer only (`--host 127.0.0.1`),
+  with the settings of `openwebui.env`;
+- keeps its data (accounts, chatbots, conversations, documents) in the folder
+  `~/owui-local/data`;
+- starts it again after a restart of the computer, and if it stops by accident.
 
-The first time, Docker downloads Open WebUI (about 1.7 GB, 4.6 GB once on the disk). Then wait until
-this command says it is ready:
+Then start it, and wait until it is ready:
 
 ```bash
+sudo systemctl daemon-reload && sudo systemctl enable --now owui-local
 until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; echo "Open WebUI is ready"
 ```
 
-**What you should see.** `Open WebUI is ready`, usually within a minute or two after the download.
-If nothing appears after 5 minutes, press `Ctrl+C` and type `sudo docker logs --tail 20 owui-local`.
-A line with "address already in use" means another program uses port 3000: see your IT person.
+**What you should see.** `Open WebUI is ready`, usually within a minute. If nothing appears after
+5 minutes, press `Ctrl+C` and type `sudo journalctl -u owui-local -n 20 --no-pager`. A line with
+"address already in use" means another program uses port 3000: see your IT person.
 
-### Step 3 - Create your administrator account
+> [!TIP]
+> The file `.webui_secret_key` in `~/owui-local` keeps the sign-ins valid when Open WebUI starts
+> again. Keep it with the folder.
+
+### Step 6 - Create your administrator account
 
 Open <http://localhost:3000> on this computer. On the welcome page, click **Get started**. In the
 form **Get started with Group chatbots (Open WebUI)**, type:
@@ -398,7 +483,7 @@ Click **Create Admin Account**.
 Open WebUI then **closes the sign-ups** by itself. Nobody else can create an account until you open
 them in [part 6](#part-6---open-it-to-your-group).
 
-### Step 4 - Check the connection to Ollama
+### Step 7 - Check the connection to Ollama
 
 Click **New Chat**. In the list of models, at the bottom right of the message box, you should see
 `qwen2.5:7b`. Ask "Hello, who are you?": the first answer is slower, while the model loads. If the
@@ -488,24 +573,20 @@ organisation: the same Wi-Fi as the computer.
 *With your IT person.*
 
 1. **Open Open WebUI to the local network.** Your administrator account must exist
-   ([part 3](#step-3---create-your-administrator-account)). In the folder of `openwebui.env`, start
-   Open WebUI again without `HOST=127.0.0.1`. Its data and accounts are kept, and the restart signs
-   nobody out:
+   ([part 3](#step-6---create-your-administrator-account)). In the file of the service, replace
+   `--host 127.0.0.1` (this computer only) with `--host 0.0.0.0` (every network of the computer),
+   then start Open WebUI again. Its data and accounts are kept, and the restart signs nobody out:
 
    ```bash
-   cd ~/owui-local && ls openwebui.env && sudo docker rm -f owui-local
-   sudo docker run -d --name owui-local --network host --restart unless-stopped \
-     --env-file openwebui.env -e PORT=3000 \
-     -e OLLAMA_BASE_URL=http://127.0.0.1:11434 \
-     -v owui-local-data:/app/backend/data \
-     ghcr.io/open-webui/open-webui:v0.11.4
+   sudo sed -i 's/--host 127.0.0.1/--host 0.0.0.0/' /etc/systemd/system/owui-local.service
+   sudo systemctl daemon-reload && sudo systemctl restart owui-local
+   grep -o -- '--host [0-9.]*' /etc/systemd/system/owui-local.service
    ```
 
-   If the first line says "No such file or directory", Open WebUI is still running: download the
-   file again as in [part 3, step 1](#step-1---get-the-settings-for-a-group), then run both
-   commands again. Then wait as in [part 3, step 2](#step-2---start-it) until you see
-   `Open WebUI is ready`, and open <http://localhost:3000>. If the sign-in page shows, it is only
-   because a sign-in lasts 12 hours: sign in with your administrator account.
+   The last command must show `--host 0.0.0.0`. Then wait as in
+   [part 3, step 5](#step-5---start-open-webui-as-a-service) until you see `Open WebUI is ready`,
+   and open <http://localhost:3000>. If the sign-in page shows, it is only because a sign-in lasts
+   12 hours: sign in with your administrator account.
 2. **Check that the phones can reach the computer.** Type `hostname -I`: the first number, for
    example `192.168.1.20`, is the address of the computer. On your phone, on the same Wi-Fi as the
    computer (not the mobile network), open `http://` followed by this number and `:3000`, for
@@ -534,7 +615,8 @@ organisation: the same Wi-Fi as the computer.
 ### Before each session
 
 1. **Check the address**: `hostname -I`.
-2. **Start Open WebUI** if you stopped it after the last session: `sudo docker start owui-local`.
+2. **Start Open WebUI** if you stopped it after the last session:
+   `sudo systemctl enable --now owui-local`.
 3. **Check the sign-ups and the accounts.** In **Admin Panel** → **Settings** → **Authentication**,
    **New Sign Ups** must be off (if you forgot last time, turn it off and click **Save**). In
    **Admin Panel** → **Users**, check that you know every account.
@@ -583,8 +665,8 @@ organisation: the same Wi-Fi as the computer.
 
 1. Turn **New Sign Ups** off again, and click **Save**.
 2. Should the participants use the chatbot only during sessions? Then stop it:
-   `sudo docker stop owui-local`. It stays stopped, even after a restart of the computer, until
-   `sudo docker start owui-local`. If it stays on, the participants can use it at any time on the
+   `sudo systemctl disable --now owui-local`. It stays stopped, even after a restart of the
+   computer, until `sudo systemctl enable --now owui-local`. If it stays on, the participants can use it at any time on the
    Wi-Fi, without you: say so in the notice for the participants.
 
 The accounts stay: the participants can come back next time, at the address of the day.
@@ -595,12 +677,16 @@ The accounts stay: the participants can come back next time, at the address of t
 
 **Where it stays.** The accounts, the conversations, what the chatbot remembers about each
 participant (if its **Memory** is on), your documents and the feedback are stored on this
-computer, in the Docker volume `owui-local-data`. The questions are answered by the model on this
-computer: they are not sent to an AI company. Your administrator account, and the person who looks
-after the computer, can read this data. Decide with them who may read it, and when it is deleted.
+computer, in the folder `~/owui-local/data`. The questions are answered by the model on this
+computer: they are not sent to an AI company. Your administrator account, the person who looks
+after the computer, and anyone who uses the computer's account where Open WebUI is installed can
+read this data. Use this account only for Open WebUI and for you, lock the screen when you leave
+the computer, and choose a strong administrator password. Decide with them who may read the data,
+and when it is deleted.
 
 **What still goes out, or can be seen.**
-- The downloads: Ollama, the models and Open WebUI come from the internet, the first time.
+- The downloads: Ollama, the models, uv, Python, Open WebUI and its search model come from the
+  internet, the first time.
 - With [`openwebui.env`](openwebui.env), Open WebUI is set not to send anything by itself, and
   Ollama's cloud features are off ([part 2](#step-2---keep-ollama-on-this-computer)). We did not
   check the network traffic of either program. Ask your IT person if your organisation needs a
@@ -615,10 +701,23 @@ after the computer, can read this data. Decide with them who may read it, and wh
   in the same order. Where it says `openwebui reset`, the last resort here is the full deletion
   below.
 - *At the end of the project*: first keep what you want, your instruction files and your
-  documents. Then your IT person types
-  `sudo docker rm -f owui-local && sudo docker volume rm owui-local-data`. This deletes every
-  account, conversation, memory, feedback, chatbot and document of Open WebUI. Backups of this
-  computer may still hold copies. The models of Ollama hold no data of the participants.
+  documents. Then your IT person types, in the account where Open WebUI was installed
+  ([part 3](#part-3---start-open-webui)):
+
+  ```bash
+  ls -d ~/owui-local/data
+  sudo systemctl disable --now owui-local && sudo rm /etc/systemd/system/owui-local.service
+  sudo systemctl daemon-reload
+  rm -rf ~/owui-local
+  uv cache clean
+  ```
+
+  The first line must show the folder, for example `/home/anna/owui-local/data`. If it says "No
+  such file or directory", you are in another account: stop, and change account. The next lines
+  delete Open WebUI, and every account, conversation, memory, feedback, chatbot and document it
+  holds. `uv cache clean` deletes the copies of the downloads that uv kept (about 2.7 GB). Backups
+  of this computer may still hold copies. The models of Ollama hold no data of the participants.
+  uv and its copy of Python stay: they hold no data either.
 
 **Before any use with young people, your organisation decides**: whether a chatbot fits this group,
 who informs the participants and their parents, how long the data is kept. A local model changes
@@ -677,8 +776,10 @@ electricity.
 | `ollama pull qwen2.5:7b` | downloads a model |
 | `ollama list` | lists the downloaded models |
 | `ollama ps` | shows the loaded model, and whether it runs on the card (`GPU`) or on the processor (`CPU`) |
-| `sudo docker stop owui-local` / `sudo docker start owui-local` | stops or starts Open WebUI (its data is kept) |
-| `sudo docker logs --tail 20 owui-local` | shows the last messages of Open WebUI |
+| `sudo systemctl disable --now owui-local` / `sudo systemctl enable --now owui-local` | stops or starts Open WebUI, also after a restart of the computer (its data is kept) |
+| `systemctl status owui-local` | shows whether Open WebUI is running (`active (running)`); `q` to quit |
+| `sudo journalctl -u owui-local -n 20 --no-pager` | shows the last messages of Open WebUI |
+| `cd ~/owui-local && source venv/bin/activate` | activates the virtual environment of Open WebUI, to use `python` or `uv pip` in it |
 | `hostname -I` | shows the address of the computer on the local network |
 
 ---
@@ -720,20 +821,27 @@ the chatbot is still in `ollama list`.
 For a participant: the chatbot, its documents or the model under it is not **Public**
 ([before each session](#before-each-session), step 4).
 
-### "permission denied" with docker
+### "uv: command not found", or "No such file or directory" with `venv/bin/activate`
 
-Type `sudo` before the command, as in this guide.
+For uv: type `export PATH="$HOME/.local/bin:$PATH"`, or open a new terminal. For `venv`: type
+`cd ~/owui-local` first, or create the virtual environment
+([part 3, step 2](#step-2---create-a-virtual-environment)).
+
+### `uv venv` ends with an error about Python 3.12
+
+uv could not download Python 3.12. Check the internet connection, then type the command again.
 
 ### Open WebUI is never ready
 
-Press `Ctrl+C`, then type `sudo docker logs --tail 20 owui-local` and show the result to your IT
-person.
+Press `Ctrl+C`, then type `sudo journalctl -u owui-local -n 20 --no-pager` and show the result to
+your IT person. Check also that every step of [part 3](#part-3---start-open-webui) was done by the
+same user, in the folder `~/owui-local`: the service uses the paths of this user.
 
 ### The address does not open after a restart of the computer
 
 Type `hostname -I`: if the number changed, give the participants the new address. Open WebUI should
-start by itself (`--restart unless-stopped`), unless you stopped it after the last session: type
-`sudo docker start owui-local`, then wait a minute.
+start by itself, unless you stopped it after the last session: type
+`sudo systemctl enable --now owui-local`, then wait a minute.
 
 ### The participants cannot open the address
 
@@ -772,11 +880,30 @@ Measured on 28 October 2026 with Ollama 0.40.8 and Open WebUI v0.11.4, on Ubuntu
 ThinkPad P14s Gen 6 with an NVIDIA RTX PRO 500 (6 GB), with the 11 test questions of the workshop
 kit.
 
-Checked on 28 October 2026 on another Ubuntu computer, through Open WebUI's programming interface
-and with a tiny model (`qwen2.5:0.5b`): the commands of parts 3 and 6 (first account as
-administrator, sign-ups closed, settings of `openwebui.env` applied, Open WebUI out of reach of the
-network with `HOST=127.0.0.1`, then reachable with the sessions kept after the restart of part 6);
-**Hide Model** then **Make Public** on the base model; a participant account that reaches a
-**Public** chatbot, and also the hidden base model; the administrator's details hidden from it.
-TO BE COMPLETED: these steps on screen, an answer with documents for a participant, the commands of
-part 2 step 2, and part 6 with a real group.
+For the measures, Open WebUI ran from its official Docker image. The installation of part 3 uses the
+same version of Open WebUI, the same search model (`all-MiniLM-L6-v2`) and the same version of torch
+(2.9.1, for the processor).
+
+Checked on 28 October 2026 on another computer, under Ubuntu 26.04 (Python 3.14), through Open
+WebUI's programming interface:
+
+- the commands of part 3 as written, in an empty home folder (uv 0.13.1, Python 3.12 downloaded by
+  uv, about 1 GB downloaded, 2.6 GB for `venv`), and Open WebUI started from the file of the
+  service of step 5, as a service of the user rather than of the computer (no `sudo` on that
+  computer, so without its line `User=`, and on port 3101), reachable from this computer only. The
+  file of the service passes `systemd-analyze verify`;
+- the deletion at the end of the project, in the same way: nothing left of Open WebUI, and 2.7 GiB
+  freed by `uv cache clean`;
+- the settings applied (banner, sessions of 12 hours, administrator's details hidden, sign-ups
+  closed after the first account, Ollama only), the search model used without internet: the
+  37 documents of the workshop indexed in 19 seconds, and the passages of the right documents
+  found for a question;
+- the sessions kept when Open WebUI starts again;
+- with `GLOBAL_LOG_LEVEL=WARNING`, a sign-in leaves neither the e-mail nor the address in the
+  journal (without it, both are there);
+- with Open WebUI's Docker image of the same version and a tiny model (`qwen2.5:0.5b`): **Hide
+  Model** then **Make Public** on the base model, and a participant account that reaches a
+  **Public** chatbot, and also the hidden base model.
+
+TO BE COMPLETED: these steps on screen, the service of the computer (`sudo systemctl`), an answer
+with documents for a participant, the commands of part 2 step 2, and part 6 with a real group.
