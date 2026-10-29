@@ -81,8 +81,8 @@ organisation, and the participants may already know it.
 - **The administrator rights** of this computer. You do not need Python or anything else
   beforehand: part 3 installs the version of Python that Open WebUI needs, in its own folder.
 - **A good internet connection** the first time: Open WebUI and what it needs are a download of
-  about 1 GB (about 3 GB once on the disk), a model 4.4 to 4.7 GB, plus Ollama and, if needed, a
-  graphics driver.
+  about 1 GB (about 3 GB once on the disk; measured with Open WebUI 0.11.4, TO BE COMPLETED for
+  0.12.4), a model 4.4 to 4.7 GB, plus Ollama and, if needed, a graphics driver.
 
 **Words used in this guide.** A **terminal** is the window where you type commands (on Ubuntu:
 `Ctrl+Alt+T`). Commands that start with `sudo` run with the administrator rights: the terminal asks
@@ -161,7 +161,9 @@ everybody starts together reaches this limit.
 - bigger models, and other families of models (Gemma, Llama);
 - a graphics card with less than 6 GB, Windows and macOS;
 - the electricity used;
-- the Ollama setting that answers several questions in parallel (`OLLAMA_NUM_PARALLEL`).
+- the Ollama setting that answers several questions in parallel (`OLLAMA_NUM_PARALLEL`);
+- the answers with Open WebUI 0.12.4, the version that part 3 installs: our measures used 0.11.4
+  ([About](#about)).
 
 ---
 
@@ -343,22 +345,22 @@ part, only this computer can open it. You open it to your local network in
 ### Step 1 - Install uv
 
 **uv** is a free tool that installs Python programs, and the version of Python they need. Open
-WebUI 0.11.4 needs Python 3.11 or 3.12. Ubuntu 26.04 comes with Python 3.14, which is too new: uv
+WebUI 0.12.4 needs Python 3.11 or 3.12. Ubuntu 26.04 comes with Python 3.14, which is too new: uv
 downloads Python 3.12 for Open WebUI, without changing the Python of the computer.
 
 Do this whole part in a normal account of the computer, the one you will use for Open WebUI, not
 as `root`: `whoami` must not answer `root`. Open WebUI will run with the rights of this account.
 
-<!-- ci linux stage=install check="uv --version" expect="uv 0.13.1" -->
+<!-- ci linux stage=install check="uv --version" expect="uv 0.13.6" -->
 ```bash
-curl -LsSf https://astral.sh/uv/0.13.1/install.sh | sh
+curl -LsSf https://astral.sh/uv/0.13.6/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
 The first command installs uv for your user, in `~/.local/bin`. The second one lets this terminal
 find it; the next terminals find it by themselves.
 
-**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.1`. If uv
+**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.6`. If uv
 was already installed in `~/.local/bin`, the installer has replaced it with this version.
 
 <details>
@@ -375,7 +377,7 @@ Linux.
 **Windows.** Open **PowerShell**: in the Start menu, type `PowerShell` and click it. Then type:
 
 ```powershell
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/0.13.1/install.ps1 | iex"
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/0.13.6/install.ps1 | iex"
 ```
 
 Windows does not run a script downloaded from the internet by default: `-ExecutionPolicy ByPass`
@@ -383,7 +385,7 @@ allows it for this command only. The installer puts uv in the folder `.local\bin
 folder, and adds this folder to the list where Windows looks for programs (the *PATH*). Close
 PowerShell, and open a new one: only the new one finds uv.
 
-**What you should see**, on both: `uv --version` answers a line that starts with `uv 0.13.1`.
+**What you should see**, on both: `uv --version` answers a line that starts with `uv 0.13.6`.
 
 The rest of this part is written for Linux. On macOS and Windows, the commands of the next steps
 and the service of step 5 are different, and we did not test them.
@@ -416,14 +418,16 @@ terminal before the end of this part, open a new one and type
 
 ### Step 3 - Install Open WebUI
 
-<!-- ci linux stage=install check="uv pip show open-webui" expect="Version: 0.11.4" -->
+<!-- ci linux stage=install check="uv pip show open-webui" expect="Version: 0.12.4" -->
 ```bash
-uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.11.4
+uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.4
 ```
 
-This installs Open WebUI 0.11.4, the version we measured, in `venv`, with the programs it needs:
-about 1 GB to download, 2.5 GB once on the disk. On our laptop, it took a little more than a minute. Open WebUI uses **torch** to search in your
-documents. `--torch-backend cpu` installs the version of torch for the processor: the graphics card
+This installs Open WebUI 0.12.4 in `venv`, with the programs it needs. We measured the answers with
+an earlier version, 0.11.4 ([About](#about)). With 0.11.4, it was about 1 GB to download and
+2.5 GB once on the disk, and it took a little more than a minute on our laptop. TO BE COMPLETED:
+these figures for 0.12.4. Open WebUI uses **torch** to search in your documents.
+`--torch-backend cpu` installs the version of torch for the processor: the graphics card
 is for Ollama, and the version for the card is a much bigger download. `torch<=2.9.1` is the
 version in Open WebUI's own installation, the one we measured.
 
@@ -435,7 +439,7 @@ the settings of this guide, Open WebUI never downloads anything by itself, so it
 SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 ```
 
-**What you should see.** `uv pip show open-webui` shows `Version: 0.11.4`. The second command may
+**What you should see.** `uv pip show open-webui` shows `Version: 0.12.4`. The second command may
 show a warning about "unauthenticated requests" and a "LOAD REPORT" with the word `UNEXPECTED`:
 they are normal. It must not end with `Error`.
 
@@ -511,7 +515,8 @@ sudo systemctl daemon-reload && sudo systemctl enable --now owui-local
 until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; echo "Open WebUI is ready"
 ```
 
-**What you should see.** `Open WebUI is ready`, usually within a minute (20 seconds on our laptop).
+**What you should see.** `Open WebUI is ready`, usually within a minute (20 seconds on our laptop
+with Open WebUI 0.11.4; TO BE COMPLETED: the first start with 0.12.4, which prepares its database).
 If nothing appears after 5 minutes, press `Ctrl+C` and type
 `sudo journalctl -u owui-local -n 20 --no-pager`. A line with "address already in use" means that
 another program of the computer uses port 3000: stop this program first.
@@ -571,8 +576,8 @@ editor on your computer. To paste it into **System Prompt**, select everything u
 Everything else is the same, with **three differences** when you create the chatbot:
 
 1. **Base model.** In **Base Model (From)**, choose your Ollama model, for example `qwen2.5:7b`.
-2. **Function Calling: Legacy.** In the chatbot's form, under **Model Params**, click **Show** next
-   to **Advanced Params**. Find **Function Calling**, and click its button until it reads
+2. **Function Calling: Legacy.** In the chatbot's form, click the row **Advanced Params** (it reads
+   **Default**) to open it. Find **Function Calling**, and click its button until it reads
    **Legacy**. With this setting, Open WebUI searches your documents before each answer, and gives
    the model the passages it found. With the other settings (**Default**, **Native**), the model
    must decide to search by itself: `qwen2.5:7b` never did, and invented
@@ -584,7 +589,7 @@ Everything else is the same, with **three differences** when you create the chat
    documents and the answer must all fit in it. We did not test 4096 with documents: we measured
    with 8192, which leaves room.
 
-Then click **Save & Create**.
+The row **Advanced Params** now reads **2 modified**. Then click **Save & Create**.
 
 The Open WebUI guide says that, by default, the chatbot searches its knowledge by itself. That works
 with the large models of that guide, but the small local model we tested never searched. Set
@@ -599,10 +604,11 @@ summaries of the workshop got its answer in 5 to 6 seconds. Then, in a terminal,
 its column **CONTEXT** reads `8192`, the third difference above (**num_ctx**).
 
 **Legacy also keeps each question small.** With the other settings, Open WebUI also describes its
-own tools to the model (search, memory, notes…) with each question. On our laptop, a short "Hello,
-who are you?" sent that way was about 3,600 tokens: almost all of Ollama's default of 4096, before
-any document. A question to our chatbot in **Legacy**, its passages included, was about 2,000
-tokens: it leaves room in 8192.
+own tools to the model (search, memory, notes…) with each question. On our laptop, with Open WebUI
+0.11.4, a short "Hello, who are you?" sent that way was about 3,600 tokens: almost all of Ollama's
+default of 4096, before any document. A question to our chatbot in **Legacy**, its passages
+included, was about 2,000 tokens: it leaves room in 8192. TO BE COMPLETED: these two figures with
+Open WebUI 0.12.4, which offers the model more tools.
 
 > [!TIP]
 > If you already have chatbots from the Open WebUI guide, their instructions and documents work here
@@ -686,21 +692,29 @@ organisation: the same Wi-Fi as the computer.
       - in **System Prompt**, paste the *Never* rules of your template, then add: "You are not the
         group's chatbot. To any question, answer only: please choose the group's chatbot in the
         list.";
-      - click **Show** next to **Advanced Params**, find **Function Calling**, and click its button
-        until it reads **Legacy**, as in [part 4](#part-4---build-the-chatbot);
-      - under **Capabilities**, uncheck **Builtin Tools**.
+      - click the row **Advanced Params** to open it, find **Function Calling**, and click its
+        button until it reads **Legacy**, as in [part 4](#part-4---build-the-chatbot). The row
+        **Advanced Params** then reads **1 modified**;
+      - click the row **Capabilities** to open it, and switch off **Builtin Tools**.
 
-      Click **Save & Update**. If "Failed to save model" appears, close the settings window, open
-      it again, click the pencil again, and do the three changes again. Do all three: we tested
-      them together. On our laptop, with the System Prompt alone, the model still received Open
-      WebUI's tools with each question, and ignored the instruction. With the three changes, it
-      answered as asked.
+      Click **Save & Update**. If "Failed to save model" appears, reload the page, open
+      **Admin Panel** → **Settings** → **Models** again, click the pencil on the line of
+      `qwen2.5:7b`, and do the three changes again. Do all three: we tested them together. On our
+      laptop, with the System Prompt alone, the model still received Open WebUI's tools with each
+      question, and ignored the instruction. With the three changes, it answered as asked.
    2. **Hide it, then let the participants read it.** On the same line, click **…** (**More**) →
-      **Hide Model**, then **…** again → **Make Public**, in this order.
+      **Hide Model**, then **…** again → **Make Public**. With Open WebUI 0.12.4, the order of these
+      two does not matter.
+
+      **Never click Reset** in this menu: it erases the safety net, and undoes **Hide Model** and
+      **Make Public**. Open WebUI asks first: click **Cancel**. If you did reset the model, do the
+      whole of step 3 again.
    3. **Check.** Close the settings window, open **Settings** → **Models** again, and click **…** on
       the line of `qwen2.5:7b`: it should now offer **Show Model** and **Make Private**. If not, do
       the missing one again. Then click the pencil: the three changes of the safety net should still
-      be there.
+      be there (your System Prompt, **Advanced Params** reads **1 modified**, and in the row
+      **Capabilities**, the switch **Builtin Tools** is off). The separate row **Builtin Tools**,
+      below **Capabilities**, is gone: it appears only while this switch is on.
 
    Hidden, the model is no longer in the participants' list: they see only your chatbots, and one
    of them is already chosen when they open a new chat.
@@ -722,10 +736,12 @@ organisation: the same Wi-Fi as the computer.
    hidden, public; do the whole of step 3 again for a model you download later). Otherwise the
    chatbot is missing from their list, answers "Model not found", or answers without its documents.
    - **The chatbot**: **Workspace** → **Models** → **…** at the end of the line of your chatbot →
-     **Edit** → **Access** (next to its name) → choose **Public** ("Accessible to all users").
-     Close the window, then click **Save & Update**.
+     **Access** → click **Private** and choose **Public** ("Accessible to all users"). Open WebUI
+     saves it at once ("Saved"): close the window.
    - **Its documents**: **Workspace** → **Knowledge** → open your knowledge → **Access** → choose
      **Public**. Open WebUI saves it at once.
+   - In both windows, leave **Allow public write access** off: the participants only need to read
+     them.
    - **Several groups**: every account sees every **Public** chatbot. In **Workspace** → **Models**,
      switch on only the chatbots of this group, and switch the others off.
 5. **Test it as a participant**, from your own phone on the same Wi-Fi. No phone at hand: on the
@@ -757,9 +773,11 @@ organisation: the same Wi-Fi as the computer.
    - **Count the accounts**: in **Admin Panel** → **Users**, on your own screen, never projected.
      While sign-ups are open, anyone on your Wi-Fi who has the address can create an account.
      Delete the accounts you do not know.
-   - **A chatbot or documents created or changed during the session**: make them **Public** again
-     ([before each session](#before-each-session), step 4). If you do not, the participants do not
-     see a new chatbot, and a changed chatbot can answer without its new documents.
+   - **A chatbot or documents created during the session** (a new chatbot, a new knowledge): make
+     them **Public** ([before each session](#before-each-session), step 4). If you add a new
+     knowledge to a chatbot, make that knowledge **Public** too. If you do not, the participants do
+     not see a new chatbot, and a chatbot can answer without its new documents. A chatbot you only
+     change and save stays **Public**.
 
 ### After the session
 
@@ -816,9 +834,10 @@ your organisation who may read the data, and when it is deleted.
   The first line must show the folder, for example `/home/anna/owui-local/data`. If it says "No
   such file or directory", you are in another account: stop, and change account. The next lines
   delete Open WebUI, and every account, conversation, memory, feedback, chatbot and document it
-  holds. `uv cache clean` deletes the copies of the downloads that uv kept (about 2.7 GB). Backups
-  of this computer may still hold copies. The models of Ollama hold no data of the participants.
-  uv and its copy of Python stay: they hold no data either.
+  holds. `uv cache clean` deletes the copies of the downloads that uv kept (about 2.7 GB with
+  Open WebUI 0.11.4; TO BE COMPLETED for 0.12.4). Backups of this computer may still hold copies.
+  The models of Ollama hold no data of the participants. uv and its copy of Python stay: they hold
+  no data either.
 
 **Before any use with young people, your organisation decides**: whether a chatbot fits this group,
 who informs the participants and their parents, how long the data is kept. A local model changes
@@ -914,6 +933,14 @@ first start: starting it again with another `OLLAMA_BASE_URL` does not change it
 
 Do not open Ollama to the network to fix this ([part 2](#step-2---keep-ollama-on-this-computer)).
 
+### A model is missing from Admin Panel → Settings → Models
+
+This list opens on the view **Available**: your chatbots and the models that Ollama offers now. A
+model whose settings you changed (for example the safety net of
+[part 6](#before-the-first-session)) but which is no longer in `ollama list` appears only in the
+other views: click **Available**, to the right of the search box, and choose **Unavailable** or
+**All**.
+
 ### The answer is "does not support tools"
 
 The model you chose cannot use Open WebUI's tools, which Open WebUI offers by default. This happened
@@ -988,18 +1015,18 @@ Measured on 28 October 2026 with Ollama 0.40.8 and Open WebUI v0.11.4, on Ubuntu
 ThinkPad P14s Gen 6 with an NVIDIA RTX PRO 500 (6 GB), with the 11 test questions of the workshop
 kit.
 
-For the measures, Open WebUI ran from its official Docker image. The installation of part 3 uses the
-same version of Open WebUI, the same search model (`all-MiniLM-L6-v2`) and the same version of torch
-(2.9.1, for the processor).
+For the measures, Open WebUI v0.11.4 ran from its official Docker image. Part 3 installs v0.12.4,
+with the same search model (`all-MiniLM-L6-v2`) and the same version of torch (2.9.1, for the
+processor). We did not measure the answers again with 0.12.4.
 
-Checked on 28 October 2026 on another computer, under Ubuntu 26.04 (Python 3.14), through Open
-WebUI's programming interface:
+Checked on 28 October 2026 (with Open WebUI v0.11.4) on another computer, under Ubuntu 26.04
+(Python 3.14), through Open WebUI's programming interface:
 
-- the commands of part 3 as written, in an empty home folder (uv 0.13.1, Python 3.12 downloaded by
-  uv, about 1 GB downloaded, 2.6 GB for `venv`), and Open WebUI started from the file of the
-  service of step 5, as a service of the user rather than of the computer (no `sudo` on that
-  computer, so without its line `User=`, and on port 3101), reachable from this computer only. The
-  file of the service passes `systemd-analyze verify`;
+- the commands of part 3 as written then (`open-webui==0.11.4`, uv 0.13.1), in an empty home folder
+  (Python 3.12 downloaded by uv, about 1 GB downloaded, 2.6 GB for `venv`), and Open WebUI
+  started from the file of the service of step 5, as a service of the user rather than of the
+  computer (no `sudo` on that computer, so without its line `User=`, and on port 3101), reachable
+  from this computer only. The file of the service passes `systemd-analyze verify`;
 - the deletion at the end of the project, in the same way: nothing left of Open WebUI, and 2.7 GiB
   freed by `uv cache clean`;
 - the settings applied (banner, sessions of 12 hours, administrator's details hidden, sign-ups
@@ -1013,10 +1040,10 @@ WebUI's programming interface:
   Model** then **Make Public** on the base model, and a participant account that reaches a
   **Public** chatbot, and also the hidden base model.
 
-Followed on screen on 29 October 2026, on the laptop of the measures (Ubuntu 26.04, Python 3.14, an
-older uv already installed, other models of Ollama already there), parts 1 to 6 of the previous
-version of this guide. This version corrects what failed there: the model to choose in part 3,
-step 7, and the safety net of the base model in part 6. What we saw:
+Followed on screen on 29 October 2026 (with v0.11.4), on the laptop of the measures (Ubuntu
+26.04, Python 3.14, an older uv already installed, other models of Ollama already there), parts 1
+to 6 of the previous version of this guide. This version corrects what failed there: the model to
+choose in part 3, step 7, and the safety net of the base model in part 6. What we saw:
 
 - part 2: `OLLAMA_NO_CLOUD=1` in the service, `Ollama cloud disabled: true` in its journal, Ollama
   for this computer only (`127.0.0.1:11434`), `qwen2.5:7b` on the card (`100% GPU`, then
@@ -1034,9 +1061,28 @@ step 7, and the safety net of the base model in part 6. What we saw:
   chatbot in the list." to "Hello" once the three changes of its safety net were saved. With the
   System Prompt alone, it did not.
 
-The new order of part 6, step 3 (safety net first, then **Hide Model** and **Make Public**) and
-the line `ENABLE_EVALUATION_ARENA_MODELS=false` of [`openwebui.env`](openwebui.env) were not
-followed on screen.
+With v0.11.4, the new order of part 6, step 3 (safety net first, then **Hide Model** and **Make
+Public**) and the line `ENABLE_EVALUATION_ARENA_MODELS=false` of [`openwebui.env`](openwebui.env)
+were not followed on screen.
 
-TO BE COMPLETED: follow them on a fresh installation, and part 6 with a real group, from phones on
-the Wi-Fi.
+Checked on 29 October 2026 with Open WebUI v0.12.4, from its official Docker image with
+[`openwebui.env`](openwebui.env), and a small program in place of Ollama that answers fixed
+sentences (no real model, no answer measured):
+
+- in a browser driven by a program, the labels of parts 4 and 6: the row **Advanced Params**
+  (**1 modified**, **2 modified**), the row **Capabilities** and its switch **Builtin Tools**,
+  the menu **…** with **Reset**, **Hide Model** and **Make Public**, the views **Available**,
+  **Unavailable** and **All**, and the window **Access** of a chatbot and of a knowledge, saved at
+  once ("Saved");
+- the safety net of part 6, step 3, saved, then **Hide Model** and **Make Public** in both orders:
+  each time, the three changes, **Hide Model** and **Make Public** were kept. **Reset** erased all
+  of them;
+- a chatbot changed and saved with **Save & Update** stayed **Public**;
+- the checks of the guide's automatic test ([`ci/check_guide.py`](ci/check_guide.py)) for parts 3
+  to 6 that do not depend on a real model (settings, tools sent to the model, sources found),
+  except `ollama ps` (no real Ollama); the answers came from the stand-in program;
+- no e-mail and no address in the log of the container (`docker logs`).
+
+TO BE COMPLETED: follow parts 3 to 6 on a fresh installation of 0.12.4 (new editor: row
+**Advanced Params**, switches of **Capabilities**, **Access** saved at once), with a real model,
+and part 6 with a real group, from phones on the Wi-Fi.

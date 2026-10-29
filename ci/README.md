@@ -17,7 +17,7 @@ HTML comment that GitHub does not show, says which code blocks to run, and what 
 see:
 
 ```html
-<!-- ci linux stage=install check="uv --version" expect="uv 0.13.1" -->
+<!-- ci linux stage=install check="uv --version" expect="uv 0.13.6" -->
 ```
 
 - `linux`: the version of the guide this block belongs to (later also `macos`, `windows`);

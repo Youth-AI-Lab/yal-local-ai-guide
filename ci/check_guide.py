@@ -34,7 +34,8 @@ SAFETY = ("You are not the group's chatbot. To any question, answer only: please
           "chatbot in the list.")
 EVERYONE = [{"principal_type": "user", "principal_id": "*", "permission": "read"}]
 CHATBOT_ID = "camp-fire-rules-test"
-# Open WebUI's own tools add about 2,800 tokens to each question (measured on the guide's laptop).
+# Open WebUI's own tools add about 2,800 tokens to each question (measured on the guide's laptop with
+# Open WebUI 0.11.4; TO BE COMPLETED: with 0.12.4, which offers the model more tools).
 TOOLS_TOKENS = 1500
 
 failures = []
@@ -233,6 +234,8 @@ def phase_participants(state):
           "the safety net is still there after Hide Model and Make Public")
 
     print("Part 6, before each session, step 4: Public access")
+    # Access has its own call, as the window Access of the page: since Open WebUI 0.12.4, an update
+    # of the model (Save & Update) no longer changes who can read it.
     chatbot = admin.request("GET", "/models/model", query={"id": CHATBOT_ID})
     admin.request("POST", "/models/model/access/update",
                   body={"id": CHATBOT_ID, "name": chatbot["name"], "access_grants": EVERYONE})

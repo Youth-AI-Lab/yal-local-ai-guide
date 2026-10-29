@@ -3,7 +3,7 @@
 The commands come from README.md itself: each code block to run has a marker just before it,
 an HTML comment that GitHub does not show:
 
-    <!-- ci linux stage=install check="uv --version" expect="uv 0.13.1" -->
+    <!-- ci linux stage=install check="uv --version" expect="uv 0.13.6" -->
 
 - `linux` (or `macos`, `windows`): the version of the guide the block belongs to;
 - `stage=`: the blocks of one stage run in order, in one shell, like one terminal;
