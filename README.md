@@ -81,9 +81,9 @@ organisation, and the participants may already know it.
 - **Linux, macOS, Windows or Raspberry Pi OS**: each system has its own page for parts 1 to 3
   ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). We followed the guide on Ubuntu 26.04
   only: the pages for macOS, Windows and the Raspberry Pi are not tested on a real computer, but a
-  machine of GitHub runs their commands from start to end (macOS and Windows: done; the Raspberry
-  Pi page, on an arm64 machine under Ubuntu, with a stand-in for hailo-ollama and the AI HAT+ 2:
-  first run TO BE COMPLETED) ([how](ci/README.md)).
+  machine of GitHub runs their commands from start to end (for the Raspberry Pi, an arm64 machine
+  under Ubuntu, with a stand-in for hailo-ollama and the AI HAT+ 2; first run of the Raspberry Pi
+  page: 29 October 2026) ([how](ci/README.md)).
 - **The administrator rights** of this computer (on a Mac, an account of type **Admin**). You do not
   need Python or anything else beforehand: part 3 installs the version of Python that Open WebUI
   needs, in its own folder.
@@ -208,8 +208,8 @@ Choose the page of your system:
   Server 2025.
 - **[Raspberry Pi](raspberry-pi.md)**: a Raspberry Pi 5 with 8 GB, under Raspberry Pi OS Trixie
   (64-bit), on its processor, and optionally with the **AI HAT+ 2**. Not tested on a real Raspberry
-  Pi; to be run from start to end on an arm64 machine of GitHub, with a stand-in for hailo-ollama
-  and the AI HAT+ 2 (first run: TO BE COMPLETED).
+  Pi; run from start to end on an arm64 machine of GitHub, with a stand-in for hailo-ollama and the
+  AI HAT+ 2 (first run: 29 October 2026).
 
 Each page also has what part 6 and the deletion need on this system, its commands and its
 troubleshooting. When you have finished part 3 there, come back here for part 4.

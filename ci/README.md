@@ -9,8 +9,8 @@ without us). The goal: each kind of computer the guide is written for can do it 
 | Linux | [`linux.md`](../linux.md) | Ubuntu 26.04 (the system of the guide) and 24.04 | tested by the workflow |
 | macOS | [`macos.md`](../macos.md) | macOS 26 on an Apple chip (`macos-26`) | tested by the workflow (first run: 29 October 2026) |
 | Windows | [`windows.md`](../windows.md) | Windows Server 2025 (`windows-2025`) | tested by the workflow (first run: 29 October 2026); Windows 11 itself is not tested |
-| Raspberry Pi | [`raspberry-pi.md`](../raspberry-pi.md) | Ubuntu 24.04 on an arm64 processor (`ubuntu-24.04-arm`) | tested by the workflow (first run: TO BE COMPLETED); Raspberry Pi OS itself is not tested |
-| Raspberry Pi with the AI HAT+ 2 | [`raspberry-pi.md`](../raspberry-pi.md#with-the-ai-hat-2) | Ubuntu 24.04 on an arm64 processor (`ubuntu-24.04-arm`), with a stand-in for the AI HAT+ 2 ([below](#the-stand-in-for-the-ai-hat-2)) | tested by the workflow (first run: TO BE COMPLETED); Raspberry Pi OS and the AI HAT+ 2 themselves are not tested |
+| Raspberry Pi | [`raspberry-pi.md`](../raspberry-pi.md) | Ubuntu 24.04 on an arm64 processor (`ubuntu-24.04-arm`) | tested by the workflow (first run: 29 October 2026); Raspberry Pi OS itself is not tested |
+| Raspberry Pi with the AI HAT+ 2 | [`raspberry-pi.md`](../raspberry-pi.md#with-the-ai-hat-2) | Ubuntu 24.04 on an arm64 processor (`ubuntu-24.04-arm`), with a stand-in for the AI HAT+ 2 ([below](#the-stand-in-for-the-ai-hat-2)) | tested by the workflow (first run: 29 October 2026); Raspberry Pi OS and the AI HAT+ 2 themselves are not tested |
 
 The machines of GitHub are not the reader's computer: no graphics card, no Windows 11 (Windows
 Server instead), no Raspberry Pi and no AI HAT+ 2, and nobody in front of the screen to answer a

@@ -24,11 +24,11 @@ Another system: [Linux](linux.md), [macOS](macos.md), [Windows](windows.md).
 > **Not tested on a real Raspberry Pi.** We measured the guide on Linux only. The commands of this
 > page come from the documentation of Raspberry Pi, Hailo, Ollama and uv, and from the code of
 > hailo-ollama 5.1.1. A machine of GitHub with an arm64 processor, under Ubuntu 24.04 (not
-> Raspberry Pi OS), is set to follow step 1 of part 1, parts 2 and 3, parts 4 to 6 (the steps in
+> Raspberry Pi OS), follows step 1 of part 1, parts 2 and 3, parts 4 to 6 (the steps in
 > the browser through Open WebUI's programming interface) and the deletion. For the AI HAT+ 2, it
 > follows steps 3 to 10 of [With the AI HAT+ 2](#with-the-ai-hat-2) instead of part 2, with a small
 > program that answers like hailo-ollama 5.1.1 in place of hailo-ollama and the HAT
-> ([`ci/README.md`](ci/README.md)). Date of its first successful run: TO BE COMPLETED. TO BE
+> ([`ci/README.md`](ci/README.md)). First successful run: 29 October 2026. TO BE
 > COMPLETED: a run on a real Raspberry Pi 5, with and without the AI HAT+ 2, and a group.
 
 **Two ways to run the model.** By default, the model runs on the **processor** of the Pi, with
