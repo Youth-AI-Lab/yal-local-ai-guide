@@ -91,9 +91,13 @@ class Api:
         # The page of Open WebUI loads the list of models first (a new chatbot is unknown until then),
         # and sends a session id: without it, Open WebUI never offers its own tools to the model.
         self.request("GET", "/api/models")
+        # CI only: the tiny model of CI sometimes writes without end until its window is full (seen on
+        # ubuntu-24.04: "slot context shift" in Ollama's journal, then a 15-minute timeout). A limit on
+        # the length of this answer (max_tokens, num_predict for Ollama) changes no setting of the
+        # chatbot: the checks read the sources and the tokens sent, not a long answer.
         return self.request("POST", "/api/chat/completions", body={
             "model": model, "stream": False, "session_id": "ci-" + uuid.uuid4().hex[:8],
-            "messages": [{"role": "user", "content": question}]})
+            "max_tokens": 400, "messages": [{"role": "user", "content": question}]})
 
     def upload(self, path):
         boundary = uuid.uuid4().hex
