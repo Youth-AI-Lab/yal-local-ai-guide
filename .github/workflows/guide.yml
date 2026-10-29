@@ -1,0 +1,71 @@
+# Follows the guide from start to end on a fresh machine, with the commands of README.md itself
+# (ci/run_guide.py) and, for what is done in the browser, the same settings through the API of
+# Open WebUI (ci/check_guide.py). See ci/README.md.
+name: Guide end to end
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * 1"  # every Monday: the installers of Ollama and uv change without us
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    strategy:
+      fail-fast: false
+      matrix:
+        # 26.04: the system of the guide (Python 3.14, so uv brings Python 3.12); 24.04: still common.
+        os: [ubuntu-26.04, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 90
+    env:
+      CI_MODEL: qwen2.5:0.5b
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Documents and instructions for part 4
+        run: |
+          echo "KIT_DIR=$RUNNER_TEMP/kit" >> "$GITHUB_ENV"
+          echo "OWUI_GUIDE_DIR=$RUNNER_TEMP/openwebui-guide" >> "$GITHUB_ENV"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-workshop-kit "$RUNNER_TEMP/kit"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-openwebui-guide "$RUNNER_TEMP/openwebui-guide"
+
+      # Each step has its own time limit: the guide's "wait until it is ready" loops have none.
+      - name: Parts 2 and 3 - Ollama, uv, Open WebUI as a service
+        timeout-minutes: 30
+        run: python3 ci/run_guide.py --os linux --stage install
+
+      - name: Part 3, steps 6 and 7 - administrator account, settings, Ollama
+        timeout-minutes: 20
+        run: python3 ci/check_guide.py admin
+
+      - name: Parts 4 and 5 - the chatbot
+        timeout-minutes: 20
+        run: python3 ci/check_guide.py chatbot
+
+      - name: Part 6, before the first session, step 1 - open to the network
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os linux --stage network
+
+      - name: Part 6 - safety net, Public access, a participant
+        timeout-minutes: 20
+        run: python3 ci/check_guide.py participants
+
+      - name: Part 3, step 4 - nothing personal in the journal
+        timeout-minutes: 5
+        run: python3 ci/check_guide.py journal
+
+      - name: The participants' data - deletion at the end of the project
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os linux --stage delete
+
+      - name: Journals (when something failed)
+        if: failure() || cancelled()
+        run: |
+          sudo journalctl -u ollama -n 100 --no-pager || true
+          sudo journalctl -u owui-local -n 200 --no-pager || true

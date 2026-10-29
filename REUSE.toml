@@ -12,7 +12,7 @@ SPDX-License-Identifier = "CC-BY-SA-4.0"
 
 # Configuration files: EUPL-1.2.
 [[annotations]]
-path = ["openwebui.env", "REUSE.toml"]
+path = ["openwebui.env", "REUSE.toml", "ci/**", ".github/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Youth AI Lab partners"
 SPDX-License-Identifier = "EUPL-1.2"

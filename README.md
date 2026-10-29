@@ -248,6 +248,7 @@ only `nvidia-smi` (part 1) and `ollama ps` ([step 4](#step-4---download-the-mode
 
 On Linux, the official installation is one line ([Ollama](https://docs.ollama.com/linux)):
 
+<!-- ci linux stage=install check="ollama --version" expect="version" -->
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
@@ -263,6 +264,7 @@ Ollama also offers **cloud models**, which run on Ollama's servers, not on your 
 off, so that no question can leave by mistake
 ([Ollama](https://docs.ollama.com/faq#how-do-i-disable-ollama-cloud-features)):
 
+<!-- ci linux stage=install -->
 ```bash
 sudo mkdir -p /etc/systemd/system/ollama.service.d
 printf '[Service]\nEnvironment="OLLAMA_NO_CLOUD=1"\n' | sudo tee /etc/systemd/system/ollama.service.d/no-cloud.conf
@@ -274,6 +276,7 @@ The third one starts Ollama again with this setting.
 
 **What you should see.** Check the setting, then what Ollama says about it:
 
+<!-- ci linux stage=install expect="OLLAMA_NO_CLOUD=1" expect="Ollama cloud disabled: true" -->
 ```bash
 systemctl show ollama -p Environment --no-pager | tr ' ' '\n' | grep -i ollama
 sudo journalctl -u ollama --since today --no-pager | grep -i "cloud disabled"
@@ -307,12 +310,14 @@ reasonably believes breaks those terms. We did not measure these models.
 
 ### Step 4 - Download the model
 
+<!-- ci linux stage=install -->
 ```bash
 ollama pull qwen2.5:7b
 ```
 
 Then check that it runs, and where:
 
+<!-- ci linux stage=install expect="PROCESSOR" -->
 ```bash
 ollama run qwen2.5:7b "Hello" && ollama ps
 ```
@@ -344,6 +349,7 @@ downloads Python 3.12 for Open WebUI, without changing the Python of the compute
 Do this whole part in a normal account of the computer, the one you will use for Open WebUI, not
 as `root`: `whoami` must not answer `root`. Open WebUI will run with the rights of this account.
 
+<!-- ci linux stage=install check="uv --version" expect="uv 0.13.1" -->
 ```bash
 curl -LsSf https://astral.sh/uv/0.13.1/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
@@ -391,6 +397,7 @@ one project, apart from the rest of the computer. It uses the Python that uv dow
 the folder deletes these programs. Create the folder of Open WebUI, and its virtual environment
 inside, named `venv`:
 
+<!-- ci linux stage=install check="python --version" expect="Python 3.12" -->
 ```bash
 mkdir -p ~/owui-local && chmod 700 ~/owui-local && cd ~/owui-local
 uv venv --managed-python --python 3.12 venv
@@ -409,6 +416,7 @@ terminal before the end of this part, open a new one and type
 
 ### Step 3 - Install Open WebUI
 
+<!-- ci linux stage=install check="uv pip show open-webui" expect="Version: 0.11.4" -->
 ```bash
 uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.11.4
 ```
@@ -422,6 +430,7 @@ version in Open WebUI's own installation, the one we measured.
 Then download the small model that Open WebUI uses to search in your documents (about 90 MB). With
 the settings of this guide, Open WebUI never downloads anything by itself, so it needs it now:
 
+<!-- ci linux stage=install -->
 ```bash
 SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 ```
@@ -446,6 +455,7 @@ people:
 
 Each line of the file is explained. Download it into the folder of Open WebUI:
 
+<!-- ci linux stage=install -->
 ```bash
 cd ~/owui-local
 curl -fsSLO https://raw.githubusercontent.com/Youth-AI-Lab/yal-local-ai-guide/main/openwebui.env
@@ -463,6 +473,7 @@ click **Save**.
 Copy this whole block into the terminal, from `sudo tee` to the second `EOF`, and press `Enter`.
 It writes the file of the service, with the name of your user and the paths of your folder:
 
+<!-- ci linux stage=install -->
 ```bash
 sudo tee /etc/systemd/system/owui-local.service >/dev/null <<EOF
 [Unit]
@@ -494,6 +505,7 @@ This service:
 
 Then start it, and wait until it is ready:
 
+<!-- ci linux stage=install expect="Open WebUI is ready" check="ss -ltn" expect="127.0.0.1:3000" -->
 ```bash
 sudo systemctl daemon-reload && sudo systemctl enable --now owui-local
 until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; echo "Open WebUI is ready"
@@ -642,6 +654,7 @@ organisation: the same Wi-Fi as the computer.
    `--host 127.0.0.1` (this computer only) with `--host 0.0.0.0` (every network of the computer),
    then start Open WebUI again. Its data and accounts are kept, and the restart signs nobody out:
 
+   <!-- ci linux stage=network expect="--host 0.0.0.0" check="until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; ss -ltn" expect="0.0.0.0:3000" -->
    ```bash
    sudo sed -i 's/--host 127.0.0.1/--host 0.0.0.0/' /etc/systemd/system/owui-local.service
    sudo systemctl daemon-reload && sudo systemctl restart owui-local
@@ -791,6 +804,7 @@ your organisation who may read the data, and when it is deleted.
   documents. Then type, in the account where Open WebUI was installed
   ([part 3](#part-3---start-open-webui)):
 
+  <!-- ci linux stage=delete expect="/owui-local/data" check="test ! -e ~/owui-local && ! systemctl cat owui-local >/dev/null 2>&1 && echo removed" expect="removed" -->
   ```bash
   ls -d ~/owui-local/data
   sudo systemctl disable --now owui-local && sudo rm /etc/systemd/system/owui-local.service
