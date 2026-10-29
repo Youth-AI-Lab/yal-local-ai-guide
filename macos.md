@@ -178,12 +178,13 @@ screen), click this icon → **Quit Ollama** first. Then start it, and wait unti
 
 <!-- ci macos stage=install expect="Ollama is ready" -->
 ```bash
-open -a Ollama --args hidden
+open /Applications/Ollama.app --args hidden
 until ollama list >/dev/null 2>&1; do sleep 2; done; echo "Ollama is ready"
 ```
 
 The first line starts Ollama without opening its window, as Ollama's own installer does: its icon
-appears in the menu bar. The Ollama app also starts by itself each time you sign in on the Mac
+appears in the menu bar. It names the app by its place in **Applications**: just after an
+installation, macOS may not know the app by its name yet. The Ollama app also starts by itself each time you sign in on the Mac
 ([Ollama](https://docs.ollama.com/faq#how-can-i-stop-ollama-from-starting-when-i-login-to-my-computer)).
 The second line waits until Ollama answers.
 

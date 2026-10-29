@@ -38,8 +38,9 @@ SUBSTITUTIONS = [
     ("qwen2.5:7b", MODEL),
     # macOS CI: nobody can click Open in the Gatekeeper dialog of a quarantined app (the reader
     # does, macos.md part 2, step 2). Without this, the wait for Ollama would last until the timeout.
-    ("open -a Ollama --args hidden",
-     "xattr -dr com.apple.quarantine /Applications/Ollama.app 2>/dev/null || true; open -a Ollama --args hidden"),
+    ("open /Applications/Ollama.app --args hidden",
+     "xattr -dr com.apple.quarantine /Applications/Ollama.app 2>/dev/null || true; "
+     "open /Applications/Ollama.app --args hidden"),
 ]
 # Test the files of this commit, not those of the published guide: a download of openwebui.env or
 # owui-start.py, written exactly like this in the guide (curl on Linux and macOS, curl.exe in
