@@ -6,7 +6,8 @@ deletion at the end of the project, and the commands and troubleshooting of Wind
 for **Windows 11** on a usual PC (an Intel or AMD processor; a PC with an ARM processor, such as
 Snapdragon, is not covered). **We did not follow this page on a
 real Windows 11 computer** (not tested). Its commands come from the documentation of each program,
-and a machine of GitHub, under Windows Server 2025, is set to run them ([how](ci/README.md)).
+and a machine of GitHub, under Windows Server 2025, ran them from start to end on 29 October 2026
+([how](ci/README.md)).
 
 Do parts 1 to 3 on this page. Then go back to the guide for
 [part 4](README.md#part-4---build-the-chatbot), [part 5](README.md#part-5---test-it) and
@@ -68,12 +69,15 @@ smaller card: Ollama would then run a bigger part of the model on the processor,
 would be slower.
 
 Ollama needs an NVIDIA driver of version **551.61 or newer** on Windows
-([Ollama](https://docs.ollama.com/windows)). We found no official page that says where Windows puts
+([Ollama](https://docs.ollama.com/windows)). An older card (compute capability 5.0 to 6.2, see the
+list of [Ollama](https://docs.ollama.com/gpu)) needs **570 or newer**. A card that is not in this
+list runs the model on the processor. We found no official page that says where Windows puts
 `nvidia-smi`, or that PowerShell always finds it (not tested). If PowerShell answers that the term
-`nvidia-smi` is not recognized, or if the version is older than 551.61:
+`nvidia-smi` is not recognized, or if the version is older than the one your card needs:
 
-1. Install the driver through **Windows Update** (Microsoft's advice), or else from the website of
-   NVIDIA, and from nowhere else.
+1. Install the driver through **Windows Update** (Microsoft's advice): **Settings** → **Windows
+   Update** → **Advanced options** → **Optional updates** → **Driver updates** (not tested). If no
+   NVIDIA driver is offered there, use the website of NVIDIA, and nowhere else.
 2. Restart the computer.
 3. Type `nvidia-smi` again: the card, its memory and the driver version appear.
 
@@ -112,7 +116,8 @@ each time you sign in to Windows; to stop this, see the [Ollama FAQ](https://doc
 (Task Manager → **Startup apps**). It also downloads its updates by itself.
 
 **What you should see.** Type `ollama --version`: it answers with a version number. We tested
-0.40.8, on Linux.
+0.40.8 on Linux; the machine of GitHub got 0.40.13 on Windows Server 2025 (29 October 2026). Ollama
+updates itself, so you may see a newer number.
 
 ### Step 2 - Keep Ollama on this computer
 
@@ -165,7 +170,17 @@ them back on.
 Also keep Ollama **for this computer only**, as it is installed: Ollama has no accounts. If it were
 opened to the network (for example with `OLLAMA_HOST=0.0.0.0`, an example of its documentation, or
 with the setting of its app that exposes it to the network), anyone on your Wi-Fi could use the
-model directly, without the rules of your chatbot. Only Open WebUI is for the participants.
+model directly, without the rules of your chatbot. Only Open WebUI is for the participants. To
+check it, type:
+
+<!-- ci windows stage=install expect="127.0.0.1" -->
+```powershell
+Get-NetTCPConnection -LocalPort 11434 -State Listen
+```
+
+**What you should see.** The column **LocalAddress** shows `127.0.0.1`. If it shows `0.0.0.0` or
+`::`, turn off the setting of the Ollama app that exposes it to the network, remove `OLLAMA_HOST`
+from the settings of your account, and start Ollama again (not tested).
 
 ### Step 3 - Choose a model and read its licence
 
@@ -291,7 +306,7 @@ version in Open WebUI's own installation, the one we measured.
 Then download the small model that Open WebUI uses to search in your documents (about 90 MB). With
 the settings of this guide, Open WebUI never downloads anything by itself, so it needs it now:
 
-<!-- ci windows stage=install -->
+<!-- ci windows stage=install check="Test-Path (Join-Path $HOME 'owui-local\data\cache\embedding\models\models--sentence-transformers--all-MiniLM-L6-v2')" expect="True" -->
 ```powershell
 $env:SENTENCE_TRANSFORMERS_HOME = "$HOME\owui-local\data\cache\embedding\models"
 .\venv\Scripts\python.exe -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
@@ -302,7 +317,9 @@ downloads it.
 
 **What you should see.** `uv pip show --python venv open-webui` shows `Version: 0.12.4`. The second
 command may show warnings, for example about "unauthenticated requests", and a
-"LOAD REPORT" with the word `UNEXPECTED`: they are normal. It must not end with `Error`.
+"LOAD REPORT" with the word `UNEXPECTED`: they are normal. It must not end with `Error`. Then
+`Test-Path "$HOME\owui-local\data\cache\embedding\models\models--sentence-transformers--all-MiniLM-L6-v2"`
+answers `True`. If it answers `False`, type the two lines again, together, in this window.
 
 ### Step 4 - Get the settings for a group
 
@@ -330,7 +347,9 @@ curl.exe -fsSLO https://raw.githubusercontent.com/Youth-AI-Lab/yal-local-ai-guid
 curl.exe -fsSLO https://raw.githubusercontent.com/Youth-AI-Lab/yal-local-ai-guide/main/owui-start.py
 ```
 
-Type `curl.exe`, not `curl`: in Windows PowerShell, `curl` is another command.
+Type `curl.exe`, not `curl`: in Windows PowerShell, `curl` is another command. These two files come
+from the latest version of this guide. Keep the copies in `owui-local`: Open WebUI always starts
+with them, not with the ones on GitHub.
 
 Open WebUI saves most of these settings in its own data at its very first start. After that,
 changing the file has no effect on them: you change them in the **Admin Panel**. For example, to
@@ -452,7 +471,13 @@ rule of the next step works only on a **Private** network. If it shows `Public`,
 the Wi-Fi of your organisation, which you trust: open **Settings** → **Network & internet** →
 **Wi-Fi** (or **Ethernet**) → your connection, and choose **Private** as its network profile type.
 On a Private network, the other devices of the Wi-Fi, the participants' phones included, can find
-the computer. Never do this on a Wi-Fi open to anyone, such as the Wi-Fi of a café.
+the computer. Never do this on a Wi-Fi open to anyone, such as the Wi-Fi of a café. On a Private
+network, the other programs of the computer that accept connections on Private networks accept them
+from this Wi-Fi too. At the end of the project, choose **Public** again.
+
+On a computer managed by your organisation, it can show `DomainAuthenticated`: then the rule below
+does nothing. Do not change this network: ask the person who manages the computer to let port 3000
+in (not tested).
 
 **2. Let port 3000 in.** In a PowerShell window **as administrator** (see the top of this page),
 type:
@@ -511,7 +536,8 @@ ipconfig
 ```
 
 **What you should see.** A part for each connection of the computer. In the part of your Wi-Fi (or
-Ethernet) connection, the line **IPv4 Address** shows a number such as `192.168.1.20`: the address
+Ethernet) connection, the line **IPv4 Address** (in the language of Windows, for example **Adresse
+IPv4** in French) shows a number such as `192.168.1.20`: the address
 of the computer on the local network. The participants open `http://` followed by this number and
 `:3000`, for example `http://192.168.1.20:3000`. The address can change after a restart of the
 computer.
@@ -563,8 +589,9 @@ document it holds. `uv cache clean` deletes the copies of the downloads that uv 
 COMPLETED: the size on Windows); it also deletes what other projects of your account put in this
 cache.
 
-**What you should see.** No red error. Then `Test-Path "$HOME\owui-local"` answers `False`, and
-`Get-ScheduledTask -TaskName owui-local` answers that no task has this name.
+**What you should see.** No red error in these lines. Then `Test-Path "$HOME\owui-local"` answers
+`False`, and `Get-ScheduledTask -TaskName owui-local` answers, in red, that no task has this name:
+this is what you want.
 
 Backups of this computer may still hold copies. The models of Ollama hold no data of the
 participants. uv and its copy of Python stay: they hold no data either.
@@ -576,6 +603,8 @@ rule of the firewall, in a PowerShell window **as administrator**:
 ```powershell
 Remove-NetFirewallRule -DisplayName "Open WebUI (group)"
 ```
+
+If you changed your Wi-Fi to **Private** in part 6, choose **Public** again.
 
 **Ollama** is not deleted by these commands. To remove it too: **Settings** → **Apps** → **Installed
 apps** → **…** next to Ollama → **Uninstall** (not tested). Its uninstaller also deletes the models,
@@ -597,7 +626,7 @@ Type them in PowerShell, in the account where Open WebUI is installed.
 | `Get-ScheduledTask -TaskName owui-local` | shows whether Open WebUI is running (**State**: `Running`) |
 | `Get-Content -Tail 20 "$HOME\owui-local\open-webui.log"` | shows the last messages of Open WebUI |
 | `Set-Location "$HOME\owui-local"` | goes to the folder of Open WebUI, to use `.\venv\Scripts\python.exe` or `uv pip ... --python venv` |
-| `ipconfig` | shows the address of the computer on the local network (**IPv4 Address**) |
+| `ipconfig` | shows the address of the computer on the local network (**IPv4 Address**, in the language of Windows: **Adresse IPv4** in French) |
 | `winget upgrade --id astral-sh.uv -e` | updates uv to its latest version |
 
 The commands of Ollama (`ollama pull`, `ollama list`, `ollama ps`) are the same on every system:
@@ -612,7 +641,8 @@ see [Commands](README.md#commands) in the guide.
 **winget**: on a new PC, Windows installs it in the background after the first sign-in
 ([Microsoft](https://learn.microsoft.com/en-us/windows/package-manager/winget/)). Open the
 **Microsoft Store** and update **App Installer**, then open a new PowerShell. Or type the command of
-Microsoft that asks Windows to install it now, then open a new PowerShell (not tested):
+Microsoft that asks Windows to register it now (it does not download it), then open a new
+PowerShell (not tested):
 
 ```powershell
 Add-AppxPackage -RegisterByFamilyName -MainPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe
@@ -660,14 +690,15 @@ administrator**:
 Get-NetFirewallRule -Direction Inbound -Action Block | Format-Table DisplayName, Profile
 ```
 
-A rule whose name mentions Python blocks Open WebUI. This command, in the same window, deletes the
-blocking rules whose name contains `python`:
+A rule whose name mentions Python blocks Open WebUI. This command, in the same window, deletes only
+the blocking rules for the Python of uv or of `owui-local`, not those of other programs (not
+tested):
 
 ```powershell
-Get-NetFirewallRule -Direction Inbound -Action Block | Where-Object DisplayName -like "*python*" | Remove-NetFirewallRule
+Get-NetFirewallRule -Direction Inbound -Action Block | Where-Object { ($_ | Get-NetFirewallApplicationFilter).Program -match '\\uv\\|owui-local' } | Remove-NetFirewallRule
 ```
 
-Not tested: we do not know the exact name that Windows gives these rules. If the list showed
-another name for Python, show this list to someone who can read it.
+Then type the first command again. If a blocking rule for Python is still in the list, show this
+list to someone who can read it.
 
 For the other problems, see [Troubleshooting](README.md#troubleshooting) in the guide.

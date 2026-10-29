@@ -12,19 +12,22 @@ It must sit in the folder of Open WebUI (owui-local), next to openwebui.env, ven
 1. reads openwebui.env as systemd reads an EnvironmentFile, for the kind of lines this file has:
    blank lines and lines starting with '#' or ';' are skipped, each other line is cut at its first
    '=', and a value that starts and ends with the same quote (" or ') loses these two quotes. Other
-   quotes are kept as they are. With this rule, the 31 settings of openwebui.env come out the same
+   quotes are kept as they are. With this rule, the 32 settings of openwebui.env come out the same
    as under systemd (checked with systemd-run), including WEBUI_BANNERS, whose JSON has quotes and an
    apostrophe. systemd reads backslashes, and some other quotes, in its own way: after adding a value
    with a backslash or a new quote to openwebui.env, compare again with systemd-run;
-2. adds DATA_DIR (the folder of the data) and SENTENCE_TRANSFORMERS_HOME (the search model
-   downloaded in part 3), as the service of linux.md does, unless they are already set;
+2. sets DATA_DIR (the folder of the data) and SENTENCE_TRANSFORMERS_HOME (the search model
+   downloaded in part 3), as the service of linux.md does, whatever the account already has (only
+   openwebui.env can change them), and drops an inherited DATABASE_URL, which would move the
+   database out of the folder;
 3. starts "open-webui serve --host <address> --port 3000" from the virtual environment, in the
    folder owui-local, where Open WebUI keeps .webui_secret_key (the sign-ins survive a restart);
 4. writes everything Open WebUI says in owui-local/open-webui.log. This file replaces the journal
    of Linux. It is also needed on Windows: started without a window (pythonw), Open WebUI has
    nowhere to write and stops at once;
 5. ends with the exit code of Open WebUI, so that launchd (KeepAlive with SuccessfulExit false)
-   starts it again only after a crash. For Task Scheduler (RestartCount), whether an exit code other
+   starts it again only after a crash. A stop asked by a signal (launchctl, kill) ends with 0.
+   For Task Scheduler (RestartCount), whether an exit code other
    than 0 counts as a failure is not tested.
 
 The only argument is the address to listen on: 127.0.0.1 (this computer only, the default) or
@@ -107,10 +110,15 @@ def main():
     host = sys.argv[1] if len(sys.argv) > 1 else "127.0.0.1"
     log = open(FOLDER / "open-webui.log", "ab")  # append: the messages of earlier starts stay
     try:
+        settings = read_env_file(FOLDER / "openwebui.env")
         env = dict(os.environ)
-        env.update(read_env_file(FOLDER / "openwebui.env"))
-        env.setdefault("DATA_DIR", str(FOLDER / "data"))
-        env.setdefault("SENTENCE_TRANSFORMERS_HOME", str(FOLDER / "data" / "cache" / "embedding" / "models"))
+        # The data stays in owui-local, where the deletion of the guide looks for it, whatever the
+        # account already has: only openwebui.env can move it.
+        env.pop("DATABASE_URL", None)
+        env.update(settings)
+        env["DATA_DIR"] = settings.get("DATA_DIR", str(FOLDER / "data"))
+        env["SENTENCE_TRANSFORMERS_HOME"] = settings.get(
+            "SENTENCE_TRANSFORMERS_HOME", str(FOLDER / "data" / "cache" / "embedding" / "models"))
         # The log file in UTF-8 on every system (Windows would otherwise use its older code page).
         env.setdefault("PYTHONIOENCODING", "utf-8")
         # Every line in the log at once, for "tail -n 20" when something goes wrong.
@@ -135,13 +143,20 @@ def main():
         log.write(f"owui-start.py: cannot start Open WebUI: {error!r}\n".encode())
         log.close()
         return 1
+    stopping = []  # the signals received: a stop asked for, not a crash
     if not WINDOWS:
         # launchd stops a program with the signal TERM: pass it on to Open WebUI, and wait for it.
+        def stop(number, frame):
+            stopping.append(number)
+            child.send_signal(number)
+
         for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
-            signal.signal(sig, lambda number, frame: child.send_signal(number))
+            signal.signal(sig, stop)
     code = child.wait()
     del job  # Windows: the job, kept until now, closes with this program
     log.close()
+    if stopping and code in (-stopping[0], 128 + stopping[0]):
+        return 0  # stopped on request: not a crash, launchd must not start it again
     # A program stopped by a signal has a negative code here; the shell's convention is 128 + signal.
     return 128 - code if code < 0 else code
 

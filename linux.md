@@ -72,13 +72,19 @@ The messages of the computer said so too:
 sudo dmesg | grep -i "open kernel modules"
 ```
 
-In both cases:
+If it answers **"couldn't communicate with the NVIDIA driver"**, a driver is installed but not
+loaded: do the steps below, and read step 3 carefully.
+
+In each of these cases:
 
 1. List the drivers Ubuntu offers: `sudo ubuntu-drivers list`
 2. Install the driver it lists. For a recent card, choose the version whose name ends with
    **`-open`**: on Ubuntu, these packages use the open modules. On our laptop, it was
    `sudo apt install nvidia-driver-595-open`
-3. Restart the computer.
+3. During the installation, the terminal may ask you to choose a password for **Secure Boot**:
+   choose one and write it down. Restart the computer. If a blue screen **Perform MOK management**
+   appears, choose **Enroll MOK** → **Continue** → **Yes**, type this password, then **Reboot**. If
+   you skip this screen, the driver does not load.
 4. Type `nvidia-smi` again: the card and its memory appear.
 
 > [!WARNING]
@@ -96,7 +102,17 @@ only `nvidia-smi` (part 1) and `ollama ps` ([step 4](#step-4---download-the-mode
 
 ### Step 1 - Install Ollama
 
-On Linux, the official installation is one line ([Ollama](https://docs.ollama.com/linux)):
+Ubuntu does not always come with `curl`, the tool that the commands of this page use to download.
+Install it first:
+
+<!-- ci linux stage=install check="curl --version" expect="libcurl/" -->
+```bash
+sudo apt update && sudo apt install -y curl
+```
+
+**What you should see.** `curl --version` answers with a version number.
+
+On Linux, the official installation of Ollama is one line ([Ollama](https://docs.ollama.com/linux)):
 
 <!-- ci linux stage=install check="ollama --version" expect="version" -->
 ```bash
@@ -105,7 +121,11 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 It installs Ollama as a service that starts with the computer.
 
-**What you should see.** `ollama --version` answers with a version number. We tested 0.40.8.
+**What you should see.** `ollama --version` answers with a version number. We tested 0.40.8; on
+29 October 2026, this line installed 0.40.13 on the machines of GitHub, and the next steps showed
+the same. If
+`ollama --version` answers "command not found", the download failed: check `curl --version`, then
+type the line again.
 
 ### Step 2 - Keep Ollama on this computer
 
@@ -333,7 +353,12 @@ This service:
   `~/owui-local/data`;
 - starts it again after a restart of the computer, and if it stops by accident.
 
-Then start it, and wait until it is ready:
+First check that no other program uses port 3000: type `ss -ltn 'sport = :3000'`. It must show only
+one line, the titles. If a second line shows `:3000`, another program uses this port, maybe another
+Open WebUI: stop it first. Otherwise the next block could say "Open WebUI is ready" for this other
+program.
+
+Then start Open WebUI, and wait until it is ready:
 
 <!-- ci linux stage=install expect="Open WebUI is ready" check="ss -ltn" expect="127.0.0.1:3000" -->
 ```bash
@@ -412,16 +437,26 @@ until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; echo "
 `Open WebUI is ready`. Then go back to [the guide](README.md#before-the-first-session), at the end
 of step 1: open <http://localhost:3000>.
 
+From now on, Open WebUI starts with the computer, before anyone signs in, and answers on every
+network the computer joins, also at home or in a café. On a laptop, stop it after each session (see
+[Commands](#commands)), and start it again before the next one.
+
 ### Find the address of the computer
 
+Turn off any VPN first, then type:
+
+<!-- ci linux stage=network expect="src " -->
 ```bash
-hostname -I
+ip route get 1.1.1.1 | grep -o 'src [0-9.]*'
 ```
 
-**What you should see.** One or more numbers: the first one, for example `192.168.1.20`, is the
-address of the computer on the local network. The participants open `http://` followed by this
-number and `:3000`, for example `http://192.168.1.20:3000`. The address can change after a restart
-of the computer.
+**What you should see.** `src` and a number, for example `src 192.168.1.20`: this number is the
+address of the computer on the network it uses, here the Wi-Fi. This command sends nothing. The
+participants open `http://` followed by this number and `:3000`, for example
+`http://192.168.1.20:3000`. The address can change after a restart of the computer.
+
+If the phones cannot open it, type `sudo ufw status`. If it answers `Status: active`, the firewall
+of Ubuntu is on: let Open WebUI in with `sudo ufw allow 3000/tcp`.
 
 ---
 
@@ -452,7 +487,8 @@ These lines delete Open WebUI, and every account, conversation, memory, feedback
 document it holds. `uv cache clean` deletes the copies of the downloads that uv kept (about 2.7 GB
 with Open WebUI 0.11.4; TO BE COMPLETED for 0.12.4). It also deletes what other projects of the same
 account put in this cache: they download it again when they need it. Backups of this computer may
-still hold copies.
+still hold copies. The journal of the computer also keeps the warnings and errors of Open WebUI for
+a while (no e-mail, no address): Ubuntu deletes the oldest messages by itself.
 The models of Ollama hold no data of the participants. uv and its copy of Python stay: they hold
 no data either.
 
@@ -467,7 +503,7 @@ no data either.
 | `systemctl status owui-local` | shows whether Open WebUI is running (`active (running)`); `q` to quit |
 | `sudo journalctl -u owui-local -n 20 --no-pager` | shows the last messages of Open WebUI |
 | `cd ~/owui-local && source venv/bin/activate` | activates the virtual environment of Open WebUI, to use `python` or `uv pip` in it |
-| `hostname -I` | shows the address of the computer on the local network |
+| `ip route get 1.1.1.1 \| grep -o 'src [0-9.]*'` | shows the address of the computer on the local network |
 | `uv self update` | updates uv to its latest version |
 
 The commands of Ollama (`ollama pull`, `ollama list`, `ollama ps`) are the same on every system:

@@ -21,12 +21,17 @@ Another system: [Linux](linux.md), [Windows](windows.md).
 
 > [!NOTE]
 > **Not tested on a real Mac.** We measured the guide on Linux only. The commands of this page come
-> from the documentation of Apple, Homebrew, Ollama and uv, and from the code of Ollama. TO BE
-> COMPLETED: a first run on a Mac of GitHub ([`ci/README.md`](ci/README.md)), then on a real Mac.
+> from the documentation of Apple, Homebrew, Ollama and uv, and from the code of Ollama. A machine
+> of GitHub (macOS 26, Apple chip, nobody in front of the screen) followed parts 2, 3 and 6 and the
+> deletion from start to end on 29 October 2026 ([`ci/README.md`](ci/README.md)). TO BE
+> COMPLETED: a run on a real Mac, with its windows, and a group.
 
 **The terminal of a Mac** is the app **Terminal**: press `Cmd+Space`, type `Terminal`, and press
 `Enter`. When a command starts with `sudo`, the terminal asks for the password of your account on
 the Mac. Nothing appears while you type it: this is normal. Press `Enter` at the end.
+
+This page gives the names of macOS in English. On a Mac in another language they are translated:
+for example, **System Settings** reads **Réglages Système** in French.
 
 ---
 
@@ -61,9 +66,10 @@ first number must be **15 or more**.
 Click the Apple menu at the top left of the screen → **About This Mac**. The line **Memory** gives
 the memory of the Mac, for example `16 GB`. On an Apple chip, the processor and the graphics share
 this memory: the model and every open program use the same memory. A model of this guide is a
-download of 4.4 to 4.7 GB ([part 2](#step-3---choose-a-model-and-read-its-licence)). TO BE
-COMPLETED: how much memory a Mac needs for these models, and how fast it answers. We did not
-measure a Mac.
+download of 4.4 to 4.7 GB ([part 2](#step-3---choose-a-model-and-read-its-licence)). On our Linux
+laptop, `qwen2.5:7b` with the context of part 4 (8192) did not fit in 6 GB of graphics memory: 13%
+of it ran on the processor. TO BE COMPLETED: how much memory a Mac needs for these models, and how
+fast it answers. We did not measure a Mac.
 
 There is no graphics driver to install on a Mac: macOS has it already. You check where the model
 runs in [part 2, step 4](#step-4---download-the-model).
@@ -87,7 +93,7 @@ brew --version
 ```
 
 **What you should see.** A line that starts with `Homebrew` and a number: Homebrew is there. Go to
-[part 2](#part-2---install-ollama-and-a-model).
+the end of this step.
 
 If the answer is `command not found: brew`, install Homebrew with the command of its website
 ([brew.sh](https://brew.sh)):
@@ -113,6 +119,13 @@ eval "$(/opt/homebrew/bin/brew shellenv zsh)"
 ```
 
 Then type `brew --version` again: it answers `Homebrew` and a number.
+
+**In both cases**, turn off the anonymous statistics that Homebrew sends about what it installs:
+
+<!-- ci macos stage=install -->
+```bash
+brew analytics off
+```
 
 ---
 
@@ -261,7 +274,10 @@ brew install uv
 ```
 
 **What you should see.** Type `uv --version`: it answers a line that starts with `uv` and a
-number. We wrote this page with uv 0.13.6. Homebrew installs its latest version.
+number, **0.13.4 or newer**. Homebrew installs the latest version it has: 0.13.4 on the Mac of
+GitHub on 29 October 2026. Older versions have a security problem
+([GHSA-hq85-5cpj-mr62](https://github.com/astral-sh/uv/security/advisories/GHSA-hq85-5cpj-mr62)):
+if you see one, type `brew upgrade uv`.
 
 ### Step 2 - Create a virtual environment
 
@@ -278,10 +294,10 @@ source venv/bin/activate
 ```
 
 `chmod 700` lets only your account open this folder: it will hold the conversations of your group.
-The second command downloads Python 3.12 (about 40 MB) the first time; `--managed-python` makes uv
-use its own copy, even if the Mac already has a Python 3.12. The third one **activates** the
-virtual environment: in this terminal, `python` and the programs you install now are those of
-`venv`.
+The second command downloads Python 3.12 (about 25 MB on the Mac of GitHub) the first time;
+`--managed-python` makes uv use its own copy, even if the Mac already has a Python 3.12. The third
+one **activates** the virtual environment: in this terminal, `python` and the programs you install
+now are those of `venv`.
 
 **What you should see.** `(venv)` at the start of the line where you type. If you close the
 terminal before the end of this part, open a new one and type
@@ -297,10 +313,11 @@ uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.4
 This installs Open WebUI 0.12.4 in `venv`, with the programs it needs: the same command as on Linux.
 On our Linux laptop, it was about 830 MB to download, 2.4 GB once on the disk, and it took 40
 seconds. TO BE COMPLETED: these figures on a Mac. Open WebUI uses **torch** to search in your
-documents. `--torch-backend cpu` installs the version of torch for the processor, from PyTorch's own
-website: the graphics are for Ollama. `torch<=2.9.1` is the version in Open WebUI's own
-installation, the one we measured. We checked that every program of this command exists for a Mac
-with an Apple chip and macOS 15, without installing them on a Mac.
+documents. `--torch-backend cpu` takes torch from PyTorch's own website, as on Linux. On a Mac, this
+torch can also use the graphics of the chip, and Open WebUI uses them to search in your documents:
+Ollama and Open WebUI share the graphics. TO BE COMPLETED: whether this slows the answers.
+`torch<=2.9.1` is the version in Open WebUI's own installation, the one we measured. The Mac of
+GitHub installed every program of this command.
 
 Then download the small model that Open WebUI uses to search in your documents (about 90 MB). With
 the settings of this guide, Open WebUI never downloads anything by itself, so it needs it now:
@@ -500,19 +517,23 @@ screen of the Mac after this block. Until you answer, the connections are refuse
 **Allow** ([Apple](https://support.apple.com/guide/mac-help/block-connections-to-your-mac-with-a-firewall-mh34041/mac)).
 The program may be named `python3.12` in this window, not Open WebUI. (not tested)
 
+If you clicked **Deny**, or the phones still cannot open the address: **System Settings** →
+**Network** → **Firewall** → **Options**, find the program in the list, and choose to allow its
+incoming connections. (not tested)
+
 ### Find the address of the computer
 
 ```bash
-ipconfig getifaddr en0
+ipconfig getifaddr "$(networksetup -listallhardwareports | awk '/Hardware Port: Wi-Fi/{getline; print $2}')"
 ```
 
 **What you should see.** A number, for example `192.168.1.20`: the address of the computer on the
 local network. The participants open `http://` followed by this number and `:3000`, for example
 `http://192.168.1.20:3000`. The address can change after a restart of the computer.
 
-`en0` is the name of a network connection of the Mac: on most Macs, the Wi-Fi. If the command shows
-nothing, type `ipconfig getifaddr en1`: on a Mac with a network cable socket, the Wi-Fi may be
-`en1`. (not tested)
+This command finds the Wi-Fi of the Mac (`en0` on most Macs, `en1` on some Macs with a network
+cable socket), then shows its address. If it shows nothing, the Mac is not on a Wi-Fi: see
+**System Settings** → **Wi-Fi**. (not tested)
 
 ### Keep the Mac awake during a session
 
@@ -539,6 +560,7 @@ WebUI was installed ([part 3](#part-3---start-open-webui)):
 ```bash
 ls -d ~/owui-local/data
 launchctl bootout gui/$(id -u)/org.youthailab.owui-local
+launchctl enable gui/$(id -u)/org.youthailab.owui-local
 rm ~/Library/LaunchAgents/org.youthailab.owui-local.plist
 rm -rf ~/owui-local
 uv cache clean
@@ -546,14 +568,16 @@ uv cache clean
 
 The first line must show the folder, for example `/Users/anna/owui-local/data`. If it says "No
 such file or directory", you are in another account: stop, and change account. The second line
-stops Open WebUI: if it shows an error, Open WebUI was already stopped, and you can go on. The next
-lines delete Open WebUI, and every account, conversation, memory, feedback, chatbot and document
-it holds. `uv cache clean` deletes the copies of the downloads that uv kept (TO BE COMPLETED: how
-much space this frees on a Mac); it also deletes what other projects of your account put in this
-cache. Backups of this computer, for example Time Machine, may still hold copies. The models of
-Ollama hold no data of the participants. uv and its copy of Python stay: they hold no data either.
-To remove uv and its copy of Python too, type `rm -rf "$(uv python dir)"`, then
-`brew uninstall uv`.
+stops Open WebUI: if it shows an error, Open WebUI was already stopped, and you can go on. The third
+line removes the stop of [Commands](#commands): macOS keeps it even after the file is deleted, and a
+new installation would not start. The next lines delete Open WebUI, and every account,
+conversation, memory, feedback, chatbot and document it holds. `uv cache clean` deletes the copies
+of the downloads that uv kept (TO BE COMPLETED: how much space this frees on a Mac); it also deletes
+what other projects of your account put in this cache. Backups of this computer, for example Time
+Machine, may still hold copies. The models of Ollama hold no data of the participants. uv and its
+copy of Python stay: they hold no data either. To remove uv and its copy of Python 3.12 too, type
+`uv python uninstall 3.12`, then `brew uninstall uv`. If another project of your account uses uv's
+Python 3.12, it loses it too.
 
 ### Delete Ollama too
 
@@ -579,6 +603,9 @@ The first line removes the app; the others are the files of Ollama's own list
 `"~/Library/..."`: between quotes, the terminal does not replace `~` with your home folder, and
 the line deletes nothing. Here they start with `$HOME`, which works between quotes.
 
+If the first line says that `ollama-app` is not installed, Ollama was on this Mac before this
+guide: quit it, drag **Ollama** from **Applications** to the Trash, then type the other lines.
+
 ---
 
 ## Commands
@@ -590,7 +617,7 @@ the line deletes nothing. Here they start with `$HOME`, which works between quot
 | `launchctl print gui/$(id -u)/org.youthailab.owui-local \| grep "state ="` | shows whether Open WebUI is running (`state = running`) |
 | `tail -n 20 ~/owui-local/open-webui.log` | shows the last messages of Open WebUI |
 | `cd ~/owui-local && source venv/bin/activate` | activates the virtual environment of Open WebUI, to use `python` or `uv pip` in it |
-| `ipconfig getifaddr en0` | shows the address of the computer on the local network |
+| `ipconfig getifaddr "$(networksetup -listallhardwareports \| awk '/Hardware Port: Wi-Fi/{getline; print $2}')"` | shows the address of the computer on the Wi-Fi |
 | `caffeinate -i` | keeps the Mac awake until you press `Ctrl+C` |
 | `brew upgrade uv` | updates uv to its latest version |
 

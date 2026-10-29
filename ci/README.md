@@ -7,8 +7,8 @@ without us). The goal: each kind of computer the guide is written for can do it 
 | System | Page | Machine of GitHub | State |
 |---|---|---|---|
 | Linux | [`linux.md`](../linux.md) | Ubuntu 26.04 (the system of the guide) and 24.04 | tested by the workflow |
-| macOS | [`macos.md`](../macos.md) | macOS 26 on an Apple chip (`macos-26`) | TO BE COMPLETED: a first run |
-| Windows | [`windows.md`](../windows.md) | Windows Server 2025 (`windows-2025`) | the page is written; TO BE COMPLETED: a first run |
+| macOS | [`macos.md`](../macos.md) | macOS 26 on an Apple chip (`macos-26`) | tested by the workflow (first run: 29 October 2026) |
+| Windows | [`windows.md`](../windows.md) | Windows Server 2025 (`windows-2025`) | tested by the workflow (first run: 29 October 2026); Windows 11 itself is not tested |
 
 The machines of GitHub are not the reader's computer: no graphics card, no Windows 11 (Windows
 Server instead), and nobody in front of the screen to answer a window that asks something.

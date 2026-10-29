@@ -80,7 +80,8 @@ organisation, and the participants may already know it.
   disk.
 - **Linux, macOS or Windows**: each system has its own page for parts 1 to 3
   ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). We followed the guide on Ubuntu 26.04
-  only: the pages for macOS and Windows are not tested on a real computer.
+  only: the pages for macOS and Windows are not tested on a real computer, but a machine of GitHub
+  ran their commands from start to end ([how](ci/README.md)).
 - **The administrator rights** of this computer (on a Mac, an account of type **Admin**). You do not
   need Python or anything else beforehand: part 3 installs the version of Python that Open WebUI
   needs, in its own folder.
@@ -192,10 +193,11 @@ Choose the page of your system:
 - **[Linux](linux.md)**: we tested Ubuntu 26.04, with an NVIDIA graphics card.
 - **[macOS](macos.md)**: a Mac with an Apple chip (M1 or newer), macOS 15 Sequoia or newer, and
   **Homebrew**, a free tool that installs programs. Homebrew supports macOS 15 and newer, and the
-  version of torch that Open WebUI uses does not exist for a Mac with an Intel processor. (not
-  tested)
+  version of torch that Open WebUI uses does not exist for a Mac with an Intel processor. Not tested
+  on a real Mac; run from start to end on a Mac of GitHub (macOS 26).
 - **[Windows](windows.md)**: Windows 11, with **winget**, the tool of Windows that installs
-  programs. (not tested)
+  programs. Not tested on Windows 11; run from start to end on a machine of GitHub under Windows
+  Server 2025.
 
 Each page also has what part 6 and the deletion need on this system, its commands and its
 troubleshooting. When you have finished part 3 there, come back here for part 4.
@@ -211,7 +213,8 @@ says about the Codespace and VS Code. The templates are in the folder
 (`topic-assistant.md`, `activity-guide.md`, `project-coach.md`, with filled examples in
 `examples/`). Open one, download it with the button **Download raw file**, and fill it in any text
 editor on your computer. To paste it into **System Prompt**, select everything under the line
-`---`, and copy it.
+`---`, and copy it. For your documents, use PDF, Word (`.docx`), Markdown or text files: this
+installation of Open WebUI cannot read `.doc`, `.odt` or `.epub` files. Save them as PDF first.
 
 Everything else is the same, with **three differences** when you create the chatbot:
 
@@ -271,8 +274,9 @@ instead. With a local model, check also:
   We also asked one question in French, to a chatbot with English documents: the answer was right,
   in French, with its sources. One question is not a measure.
 - **The speed.** Time a few answers. Then, once [part 6](#part-6---open-it-to-your-group) is ready,
-  ask three or four colleagues to send a question at the same moment from their phones. The last one
-  served should see the first words within about twenty seconds.
+  ask three or four colleagues to send a question at the same moment from their phones. On our Linux
+  laptop with a 6 GB graphics card, the last one saw the first words within about twenty seconds.
+  We did not measure macOS or Windows: time yours before you open the chatbot to a group.
 
 **A good score is not a green light for young people.** It shows how the chatbot answered your
 questions, on that day. The decision to use it with a group belongs to your organisation
@@ -289,8 +293,9 @@ organisation: the same Wi-Fi as the computer.
 > Use the **Admin Panel** only on the computer that runs Open WebUI, at <http://localhost:3000>,
 > never from your phone or another computer on the Wi-Fi. The address of the participants starts
 > with `http://`, not `https://`: what is typed there, passwords included, crosses the Wi-Fi
-> without encryption, and anyone on the same Wi-Fi could read it. Your administrator account opens
-> every conversation of the group.
+> without encryption, and anyone on the same Wi-Fi could read it, and use a participant's sign-in
+> for up to 12 hours, even after **Sign Out**. Your administrator account opens every conversation
+> of the group.
 
 ### Before the first session
 
@@ -364,7 +369,10 @@ organisation: the same Wi-Fi as the computer.
    of them is already chosen when they open a new chat.
    But hiding is not a lock: a participant who knows its name can still reach it, for example by
    typing the address with `?model=qwen2.5:7b`. Then the safety net answers. It applies only when
-   someone uses the model directly: your chatbots keep their own instructions.
+   someone uses the model directly in the chat: your chatbots keep their own instructions. The
+   safety net catches mistakes, but it is not a lock either: a participant with technical skills can
+   still reach the model through Open WebUI's programming interface (API), without the safety net,
+   and with settings that slow the computer for everyone.
 
    The last check is done as a participant: in [before each session](#before-each-session), step
    5, a participant account must not see this model in its list. **Later**, reload the page before
@@ -381,7 +389,9 @@ organisation: the same Wi-Fi as the computer.
    [Windows](windows.md#commands)). **On a Mac or a Windows PC**, sign in to the account where Open
    WebUI is installed: it runs only while this account is signed in. Keep the computer awake during
    the session: see [macOS](macos.md#keep-the-mac-awake-during-a-session) or
-   [Windows](windows.md#keep-the-computer-awake-during-a-session).
+   [Windows](windows.md#keep-the-computer-awake-during-a-session). **On a Linux laptop**, keep it
+   plugged in and its lid open: on battery, Ubuntu suspends it after 15 minutes without anyone at
+   the keyboard.
 3. **Check the sign-ups and the accounts.** In **Admin Panel** → **Settings** → **Authentication**,
    **New Sign Ups** must be off (if you forgot last time, turn it off and click **Save**). In
    **Admin Panel** → **Users**, check that you know every account.
@@ -397,15 +407,17 @@ organisation: the same Wi-Fi as the computer.
      **Public**. Open WebUI saves it at once.
    - In both windows, leave **Allow public write access** off: the participants only need to read
      them.
-   - **Several groups**: every account sees every **Public** chatbot. In **Workspace** → **Models**,
-     switch on only the chatbots of this group, and switch the others off.
+   - **Several groups**: every account sees every **Public** chatbot that is switched on, and can
+     read the documents of every **Public** knowledge, even when its chatbot is off. In
+     **Workspace** → **Models**, switch on only the chatbots of this group, and switch the others
+     off. Put in a **Public** knowledge only documents that every group may read.
 5. **Test it as a participant**, from your own phone on the same Wi-Fi. No phone at hand: on the
    computer, open a private window of the browser (`Ctrl+Shift+P` in Firefox, `Ctrl+Shift+N` in
-   Chrome; on a Mac, `Cmd` instead of `Ctrl`, and `Cmd+Shift+N` in Safari), so that you are not
-   signed in as the administrator there, and type the address of step 1 followed by `:3000`, for
-   example `http://192.168.1.20:3000`, not `localhost`. Open the sign-ups as in [During the
-   session](#during-the-session), create a test account such as `test@group.local`, and check that
-   its list of models shows only your chatbots. Ask one question, and check that the answer shows
+   Chrome and Edge; on a Mac, `Cmd` instead of `Ctrl`, and `Cmd+Shift+N` in Safari), so that you
+   are not signed in as the administrator there, and type the address of step 1 followed by
+   `:3000`, for example `http://192.168.1.20:3000`, not `localhost`. Open the sign-ups as in
+   [During the session](#during-the-session), create a test account such as `test@group.local`, and
+   check that its list of models shows only your chatbots. Ask one question, and check that the answer shows
    the grey labels of your documents. Then open the address followed by `/?model=qwen2.5:7b`, and
    say "Hello" in this new chat: the model should answer only that you must choose the group's
    chatbot. Then close the sign-ups again.
@@ -417,7 +429,8 @@ organisation: the same Wi-Fi as the computer.
    `user` (never `admin`), or keep `pending` if you prefer to approve each account in the list of
    users. Click **Save**.
 2. Give the participants the address of the day: on the board, or as a QR code if `qrencode` is
-   installed (Linux, macOS): `qrencode -t ANSI http://YOUR-ADDRESS:3000`, where `YOUR-ADDRESS` is
+   installed (on Ubuntu: `sudo apt install qrencode`; on a Mac: `brew install qrencode`):
+   `qrencode -t ANSI http://YOUR-ADDRESS:3000`, where `YOUR-ADDRESS` is
    the address of the computer today ([before the first session](#before-the-first-session), step
    2).
 3. **On a shared tablet or computer**, each participant clicks their name at the bottom left →
@@ -442,7 +455,9 @@ organisation: the same Wi-Fi as the computer.
 2. Should the participants use the chatbot only during sessions? Then stop it: see **Commands** on
    the page of your system ([Linux](linux.md#commands), [macOS](macos.md#commands),
    [Windows](windows.md#commands)). If it stays on, the participants can use it at any time on the
-   Wi-Fi, without you: say so in the notice for the participants.
+   Wi-Fi, without you: say so in the notice for the participants. A laptop that you take to other
+   places: stop Open WebUI after each session. Otherwise it is open on every network the laptop
+   joins.
 
 The accounts stay: the participants can come back next time, at the address of the day.
 
@@ -467,12 +482,16 @@ deleted.
   Ollama's cloud features are off (part 2 on the page of [your
   system](#parts-1-to-3---install-on-your-computer)). We did not check the network traffic of either
   program. If your organisation needs a complete answer, have it checked by someone who can.
-- On a Mac: Homebrew sends anonymous statistics about what it installs (turn this off with
+- On a Mac: Homebrew sends anonymous statistics about what it installs (part 1 of the
+  [macOS page](macos.md#step-3---check-for-homebrew-or-install-it) turns this off with
   `brew analytics off`), and the Ollama app checks for updates by itself. Neither sends the
   questions of your group.
 - On the Wi-Fi, the questions and the passwords travel without encryption (`http://`).
+- Images in an answer: if an answer shows an image from the internet, the phone downloads it from
+  that website, and the address of the image can hold words of the conversation. A local model
+  rarely writes such images; keep links to images out of your documents (not tested).
 - Files: the upload buttons are hidden, but a participant with technical skills can still store a
-  file or a photo on this computer.
+  file or a photo on this computer (up to 20 MB each, with [`openwebui.env`](openwebui.env)).
 
 **Deleting the data.**
 - *A participant asks to delete their data*: follow
@@ -530,11 +549,12 @@ electricity.
   documents, as the Open WebUI guide advises, and test your chatbot ([part 5](#part-5---test-it)).
 - **The scores move**: one model gained 2 points between our two series, the other lost 2.
 - **Languages**: we measured English only.
-- **The computer must stay on, on the same network** as the participants (a Mac or a Windows PC
-  must also stay awake, and signed in to the account of Open WebUI).
+- **The computer must stay on, on the same network** as the participants (a Linux laptop must stay
+  plugged in with its lid open; a Mac or a Windows PC must also stay awake, and signed in to the
+  account of Open WebUI).
 - **No encryption on the Wi-Fi** (`http://`).
 - **The model under your chatbots is reachable** by a participant who knows its name: give it a
-  safety net ([part 6](#before-the-first-session)).
+  safety net ([part 6](#before-the-first-session)), which catches mistakes but is not a lock.
 
 ---
 
@@ -556,8 +576,8 @@ the system: see **Commands** on the page of your system ([Linux](linux.md#comman
 
 ### The answers take more than a minute
 
-Type `ollama ps` while an answer is being written. If **PROCESSOR** reads `100% CPU`, the model runs
-on the processor: see part 1 on the page of your system
+Type `ollama ps` during an answer, or in the 5 minutes after it. If **PROCESSOR** reads `100% CPU`,
+the model runs on the processor: see part 1 on the page of your system
 ([Linux](linux.md#part-1---check-the-computer), [macOS](macos.md#part-1---check-the-computer),
 [Windows](windows.md#part-1---check-the-computer)). The first question after a pause is always
 slower: the model loads again. By default, it stays loaded 5 minutes.
@@ -567,8 +587,8 @@ slower: the model loads again. By default, it stays loaded 5 minutes.
 Its answers show no grey labels of your documents and no **Sources** button. Check **Function
 Calling: Legacy** and **num_ctx (Ollama): 8192** in its **Advanced Params**
 ([part 4](#part-4---build-the-chatbot)), and that its knowledge is selected. A bare **[1]** in the
-text, with no label, means that the model wrote a citation but received no passages. If this
-happens to the participants only, check that its documents are **Public**
+text, with no label and no **Sources** button, means that the model wrote a citation but received
+no passages. If this happens to the participants only, check that its documents are **Public**
 ([part 6](#before-each-session)).
 
 ### The model list is empty
@@ -615,15 +635,20 @@ Each system has its own troubleshooting: [Linux](linux.md#troubleshooting),
 
 uv could not download Python 3.12. Check the internet connection, then type the command again.
 
+If the error mentions a certificate (`certificate`, `SSL`), the network of your organisation checks
+secure connections, and uv does not use the certificates of the computer by default. Type
+`export UV_SYSTEM_CERTS=true` (on Windows: `$env:UV_SYSTEM_CERTS = "true"`), then the command again
+(not tested). If it still fails, ask the person who manages the network.
+
 ### The address does not open after a restart of the computer
 
 Find the address again ([before the first session](#before-the-first-session), step 2): if the
 number changed, give the participants the new address. If you stopped Open WebUI after the last
 session, start it: see **Commands** on the page of your system ([Linux](linux.md#commands),
 [macOS](macos.md#commands), [Windows](windows.md#commands)), then wait a minute. On Linux, Open
-WebUI starts again by itself with the computer. On a Mac or on Windows, it starts only when the
-account where it is installed signs in: sign in to this account (you can lock the screen
-afterwards).
+WebUI starts again by itself with the computer, unless you stopped it. On a Mac or on Windows, it
+starts only when the account where it is installed signs in: sign in to this account (you can lock
+the screen afterwards).
 
 ### The participants cannot open the address
 
@@ -745,6 +770,10 @@ with the commands of part 3 for Linux in an empty folder, uv's cache empty:
 - once, a base model hidden with **Hide Model** became visible again after a **Save & Update** in
   its editor; **Hide Model** hid it again. This is why part 6, step 3, asks for a single window, a
   reload, and a check.
+
+Run on 29 October 2026 by the machines of GitHub, from start to end, with a tiny model and no
+screen: the pages for Linux (Ubuntu 26.04 and 24.04), macOS (macOS 26, Apple chip) and Windows
+(Windows Server 2025, not Windows 11) ([`ci/README.md`](ci/README.md)).
 
 TO BE COMPLETED: follow parts 3 to 6 on a fresh installation of 0.12.4 (new editor: row
 **Advanced Params**, switches of **Capabilities**, **Access** saved at once), with a real model,
