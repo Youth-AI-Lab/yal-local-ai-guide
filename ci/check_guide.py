@@ -6,13 +6,19 @@ Phases, run in this order between the stages of run_guide.py:
     chatbot       parts 4 and 5: knowledge, chatbot with Legacy and num_ctx 8192, an answer with sources
     participants  part 6, after the stage "network": safety net of the base model, Public access,
                   a participant account, what it sees and what the base model answers it
-    journal       part 3, step 4: no e-mail and no address in the journal of the service
+    journal       part 3, step 4: no e-mail and no address in the journal of the service (Linux),
+                  or in ~/owui-local/open-webui.log, the log of owui-start.py (macOS, Windows)
+
+Usage: python3 ci/check_guide.py <phase> [--os linux|macos|windows] (by default, the system it runs on)
 
 Needs KIT_DIR (a copy of the workshop kit: its summaries are the documents) and OWUI_GUIDE_DIR (a
 copy of the Open WebUI guide: its filled example of instructions). Only the standard library.
 """
+import argparse
 import json
 import os
+import shutil
+import socket
 import subprocess
 import sys
 import time
@@ -37,6 +43,8 @@ CHATBOT_ID = "camp-fire-rules-test"
 # Open WebUI's own tools add about 2,800 tokens to each question (measured on the guide's laptop with
 # Open WebUI 0.11.4; TO BE COMPLETED: with 0.12.4, which offers the model more tools).
 TOOLS_TOKENS = 1500
+# The system of the guide's page that was followed (--os): by default, the one this runs on.
+SYSTEM = {"darwin": "macos", "win32": "windows"}.get(sys.platform, "linux")
 
 failures = []
 
@@ -125,14 +133,50 @@ def save_state(state):
     STATE.write_text(json.dumps(state))
 
 
-def wait_ready():
+def wait_ready(url=URL):
     for _ in range(120):
         try:
-            urllib.request.urlopen(URL + "/health", timeout=5)
+            urllib.request.urlopen(url + "/health", timeout=5)
             return
         except OSError:
             time.sleep(5)
-    sys.exit(f"Open WebUI does not answer at {URL}")
+    sys.exit(f"Open WebUI does not answer at {url}")
+
+
+def network_address():
+    """The address of this computer on its network, or None (no packet is sent: UDP has no handshake)."""
+    try:
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+            s.connect(("192.0.2.1", 9))  # an address reserved for documentation
+            address = s.getsockname()[0]
+    except OSError:
+        return None
+    return None if address.startswith("127.") else address
+
+
+def wait_restarted():
+    """macOS and Windows: the stage "network" may return before Open WebUI has started again.
+
+    On Linux, systemctl restart waits for the old process to stop. launchctl and Task Scheduler may
+    not: the old Open WebUI, for this computer only, could still answer on localhost. Open WebUI
+    answers on the network address of the computer only once it listens on 0.0.0.0, that is once
+    the new one is ready.
+    """
+    address = network_address()
+    if address:
+        print(f"waiting for Open WebUI on the network address {address}", flush=True)
+        wait_ready(f"http://{address}:{urllib.parse.urlsplit(URL).port or 3000}")
+    wait_ready()
+
+
+def ollama_program():
+    """ollama, or on Windows where its installer puts it: a later step of CI does not get the PATH
+    that the installer changed."""
+    found = shutil.which("ollama")
+    if not found and os.name == "nt":
+        program = Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "Ollama" / "ollama.exe"
+        found = str(program) if program.exists() else None
+    return found or "ollama"
 
 
 def phase_admin(state):
@@ -205,12 +249,14 @@ def phase_chatbot(state):
     tokens = prompt_tokens(data)
     check(tokens is not None and tokens < 8192, f"the question fits in 8192 tokens ({tokens})")
     print(f"  info  answer in {seconds:.0f} s on the processor of CI: {answer_of(data)[:100]!r}")
-    ps = subprocess.run(["ollama", "ps"], capture_output=True, text=True).stdout
+    ps = subprocess.run([ollama_program(), "ps"], capture_output=True, text=True).stdout
     check("8192" in ps, "ollama ps: CONTEXT 8192")
     print("  " + ps.replace("\n", "\n  "))
 
 
 def phase_participants(state):
+    if SYSTEM != "linux":
+        wait_restarted()
     wait_ready()
     admin = Api(state["admin"])
     check(isinstance(admin.try_request("GET", "/auths/"), dict),
@@ -276,21 +322,33 @@ def phase_participants(state):
 
 
 def phase_journal(state):
-    print("Part 3, step 4: the journal of the service")
-    out = subprocess.run(["sudo", "journalctl", "-u", "owui-local", "--no-pager"],
-                         capture_output=True, text=True).stdout
+    if SYSTEM == "linux":
+        print("Part 3, step 4: the journal of the service")
+        out = subprocess.run(["sudo", "journalctl", "-u", "owui-local", "--no-pager"],
+                             capture_output=True, text=True).stdout
+        where = "the journal"
+    else:
+        log = Path.home() / "owui-local" / "open-webui.log"
+        print(f"Part 3, step 4: the log of Open WebUI, {log}")
+        if not check(log.exists(), f"{log} exists"):
+            return
+        out = log.read_text(encoding="utf-8", errors="replace")
+        where = "the log"
     leaks = [l for l in out.splitlines() if "@group.local" in l or "POST /" in l]
-    check(not leaks, f"no e-mail and no address in the journal ({len(out.splitlines())} lines read)")
+    check(not leaks, f"no e-mail and no address in {where} ({len(out.splitlines())} lines read)")
     for line in leaks[:5]:
         print("        " + line[:160])
 
 
 def main():
-    phase = sys.argv[1] if len(sys.argv) > 1 else ""
+    global SYSTEM
     phases = {"admin": phase_admin, "chatbot": phase_chatbot, "participants": phase_participants,
               "journal": phase_journal}
-    if phase not in phases:
-        sys.exit(f"usage: check_guide.py {'|'.join(phases)}")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("phase", choices=list(phases))
+    parser.add_argument("--os", choices=["linux", "macos", "windows"], default=SYSTEM)
+    args = parser.parse_args()
+    SYSTEM, phase = args.os, args.phase
     wait_ready()
     state = load_state()
     phases[phase](state)

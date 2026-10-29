@@ -1,6 +1,8 @@
-# Follows the guide from start to end on a fresh machine, with the commands of README.md itself
-# (ci/run_guide.py) and, for what is done in the browser, the same settings through the API of
-# Open WebUI (ci/check_guide.py). See ci/README.md.
+# Follows the guide from start to end on a fresh machine of each system, with the commands of the
+# pages themselves (README.md, then linux.md, macos.md or windows.md: ci/run_guide.py) and, for what
+# is done in the browser, the same settings through the API of Open WebUI (ci/check_guide.py).
+# See ci/README.md. The monorepo yal-workshop has a copy of these jobs, to test a change on a branch
+# before it is published: .github/workflows/local-ai-guide-test.yml. Keep both the same.
 name: Guide end to end
 
 on:
@@ -69,3 +71,122 @@ jobs:
         run: |
           sudo journalctl -u ollama -n 100 --no-pager || true
           sudo journalctl -u owui-local -n 200 --no-pager || true
+
+  macos:
+    # macOS 26 on an Apple chip (M1, 3 processors, 7 GB of memory). Its graphics are not expected
+    # to work for Ollama there (reports of other users, not checked): the tiny model is enough.
+    runs-on: macos-26
+    timeout-minutes: 120
+    env:
+      CI_MODEL: qwen2.5:0.5b
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Documents and instructions for part 4
+        run: |
+          echo "KIT_DIR=$RUNNER_TEMP/kit" >> "$GITHUB_ENV"
+          echo "OWUI_GUIDE_DIR=$RUNNER_TEMP/openwebui-guide" >> "$GITHUB_ENV"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-workshop-kit "$RUNNER_TEMP/kit"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-openwebui-guide "$RUNNER_TEMP/openwebui-guide"
+
+      # The blocks run in zsh, the shell of the Terminal app (ci/run_guide.py).
+      - name: Parts 2 and 3 - Ollama, uv, Open WebUI as a service
+        timeout-minutes: 45
+        run: python3 ci/run_guide.py --os macos --stage install
+
+      - name: Part 3, steps 6 and 7 - administrator account, settings, Ollama
+        timeout-minutes: 20
+        run: python3 ci/check_guide.py admin --os macos
+
+      - name: Parts 4 and 5 - the chatbot
+        timeout-minutes: 30
+        run: python3 ci/check_guide.py chatbot --os macos
+
+      - name: Part 6, before the first session, step 1 - open to the network
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os macos --stage network
+
+      - name: Part 6 - safety net, Public access, a participant
+        timeout-minutes: 20
+        run: python3 ci/check_guide.py participants --os macos
+
+      - name: Part 3, step 4 - nothing personal in the journal
+        timeout-minutes: 5
+        run: python3 ci/check_guide.py journal --os macos
+
+      - name: The participants' data - deletion at the end of the project
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os macos --stage delete
+
+      - name: Journals (when something failed)
+        if: failure() || cancelled()
+        run: |
+          tail -n 100 ~/.ollama/logs/server.log || true
+          tail -n 200 ~/owui-local/open-webui.log || true
+
+  windows:
+    # Windows Server 2025 (the runners of GitHub have no Windows 11): the closest to the reader's PC.
+    runs-on: windows-2025
+    timeout-minutes: 120
+    env:
+      CI_MODEL: qwen2.5:0.5b
+      PYTHONUNBUFFERED: "1"
+    defaults:
+      run:
+        # Windows PowerShell 5.1, the one that comes with Windows (the default of GitHub is
+        # PowerShell 7). ci/run_guide.py starts its own powershell.exe for the guide's blocks.
+        shell: powershell
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Documents and instructions for part 4
+        shell: bash
+        run: |
+          echo "KIT_DIR=$RUNNER_TEMP/kit" >> "$GITHUB_ENV"
+          echo "OWUI_GUIDE_DIR=$RUNNER_TEMP/openwebui-guide" >> "$GITHUB_ENV"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-workshop-kit "$RUNNER_TEMP/kit"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-openwebui-guide "$RUNNER_TEMP/openwebui-guide"
+
+      - name: Parts 2 and 3 - Ollama, uv, Open WebUI as a service
+        timeout-minutes: 45
+        run: python ci/run_guide.py --os windows --stage install
+
+      - name: Part 3, steps 6 and 7 - administrator account, settings, Ollama
+        timeout-minutes: 20
+        run: python ci/check_guide.py admin --os windows
+        env:
+          PYTHONUTF8: "1"  # the answers of the model may hold any character (not for the reader's commands)
+
+      - name: Parts 4 and 5 - the chatbot
+        timeout-minutes: 30
+        run: python ci/check_guide.py chatbot --os windows
+        env:
+          PYTHONUTF8: "1"  # the answers of the model may hold any character (not for the reader's commands)
+
+      - name: Part 6, before the first session, step 1 - open to the network
+        timeout-minutes: 10
+        run: python ci/run_guide.py --os windows --stage network
+
+      - name: Part 6 - safety net, Public access, a participant
+        timeout-minutes: 20
+        run: python ci/check_guide.py participants --os windows
+        env:
+          PYTHONUTF8: "1"  # the answers of the model may hold any character (not for the reader's commands)
+
+      - name: Part 3, step 4 - nothing personal in the journal
+        timeout-minutes: 5
+        run: python ci/check_guide.py journal --os windows
+        env:
+          PYTHONUTF8: "1"  # the answers of the model may hold any character (not for the reader's commands)
+
+      - name: The participants' data - deletion at the end of the project
+        timeout-minutes: 10
+        run: python ci/run_guide.py --os windows --stage delete
+
+      - name: Journals (when something failed)
+        if: failure() || cancelled()
+        run: |
+          Get-Content -Tail 100 "$env:LOCALAPPDATA\Ollama\server.log" -ErrorAction SilentlyContinue
+          Get-Content -Tail 200 "$HOME\owui-local\open-webui.log" -ErrorAction SilentlyContinue
+          exit 0

@@ -5,14 +5,14 @@ SPDX-PackageDownloadLocation = "https://github.com/Youth-AI-Lab/yal-local-ai-gui
 
 # Texts and templates: CC BY-SA 4.0.
 [[annotations]]
-path = ["README.md", "templates/**"]
+path = ["README.md", "linux.md", "macos.md", "windows.md", "templates/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Youth AI Lab partners"
 SPDX-License-Identifier = "CC-BY-SA-4.0"
 
-# Configuration files: EUPL-1.2.
+# Configuration files and the small programs: EUPL-1.2.
 [[annotations]]
-path = ["openwebui.env", "REUSE.toml", "ci/**", ".github/**"]
+path = ["openwebui.env", "owui-start.py", "REUSE.toml", "ci/**", ".github/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Youth AI Lab partners"
 SPDX-License-Identifier = "EUPL-1.2"
