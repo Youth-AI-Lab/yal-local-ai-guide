@@ -171,7 +171,6 @@ question at a time too; times TO BE COMPLETED.
 - a graphics card with less than 6 GB, Windows and macOS;
 - a Raspberry Pi 5, on its processor or with the AI HAT+ 2: nothing of this guide was measured on
   one ([its page](raspberry-pi.md));
-- the electricity used;
 - the Ollama setting that answers several questions in parallel (`OLLAMA_NUM_PARALLEL`);
 - the answers with Open WebUI 0.12.4, the version that part 3 installs: our measures used 0.11.4
   ([About](#about)).
