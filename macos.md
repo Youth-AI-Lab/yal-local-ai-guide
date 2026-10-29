@@ -12,7 +12,7 @@ Do parts 1 to 3 on this page. Then go back to the guide for
 to this page. The words *terminal*, `sudo`, *driver*, *service* and *port* are explained in the
 [prerequisites](README.md#prerequisites) of the guide.
 
-Another system: [Linux](linux.md), [Windows](windows.md).
+Another system: [Linux](linux.md), [Windows](windows.md), [Raspberry Pi](raspberry-pi.md).
 
 > [!WARNING]
 > **A technical part.** Parts 1 to 3 use commands typed in a terminal, some with the administrator

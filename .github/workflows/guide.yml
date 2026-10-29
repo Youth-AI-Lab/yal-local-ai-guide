@@ -1,6 +1,7 @@
 # Follows the guide from start to end on a fresh machine of each system, with the commands of the
-# pages themselves (README.md, then linux.md, macos.md or windows.md: ci/run_guide.py) and, for what
-# is done in the browser, the same settings through the API of Open WebUI (ci/check_guide.py).
+# pages themselves (README.md, then linux.md, macos.md, windows.md and raspberry-pi.md:
+# ci/run_guide.py) and, for what is done in the browser, the same settings through the API of Open
+# WebUI (ci/check_guide.py).
 # See ci/README.md. The monorepo yal-workshop has a copy of these jobs, to test a change on a branch
 # before it is published: .github/workflows/local-ai-guide-test.yml. Keep both the same.
 name: Guide end to end
@@ -190,3 +191,130 @@ jobs:
           Get-Content -Tail 100 "$env:LOCALAPPDATA\Ollama\server.log" -ErrorAction SilentlyContinue
           Get-Content -Tail 200 "$HOME\owui-local\open-webui.log" -ErrorAction SilentlyContinue
           exit 0
+
+  raspberry-pi:
+    # The page of the Raspberry Pi, processor route (Ollama), on an arm64 machine of GitHub. It runs
+    # Ubuntu 24.04, not Raspberry Pi OS: no 16 KB memory pages, Python 3.12 instead of 3.13. In the
+    # private monorepo, this machine has 2 processors and 8 GB (4 and 16 GB in the public guide):
+    # hence the 40 minutes of the install.
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 90
+    env:
+      CI_MODEL: qwen2.5:0.5b
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Documents and instructions for part 4
+        run: |
+          echo "KIT_DIR=$RUNNER_TEMP/kit" >> "$GITHUB_ENV"
+          echo "OWUI_GUIDE_DIR=$RUNNER_TEMP/openwebui-guide" >> "$GITHUB_ENV"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-workshop-kit "$RUNNER_TEMP/kit"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-openwebui-guide "$RUNNER_TEMP/openwebui-guide"
+
+      - name: Parts 2 and 3 - Ollama, uv, Open WebUI as a service
+        timeout-minutes: 40
+        run: python3 ci/run_guide.py --os raspberry-pi --stage install
+
+      - name: Part 3, steps 6 and 7 - administrator account, settings, Ollama
+        timeout-minutes: 20
+        run: python3 ci/check_guide.py admin --os raspberry-pi
+
+      - name: Parts 4 and 5 - the chatbot
+        timeout-minutes: 30
+        run: python3 ci/check_guide.py chatbot --os raspberry-pi
+
+      - name: Part 6, before the first session, step 1 - open to the network
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os raspberry-pi --stage network
+
+      - name: Part 6 - safety net, Public access, a participant
+        timeout-minutes: 20
+        run: python3 ci/check_guide.py participants --os raspberry-pi
+
+      - name: Part 3, step 4 - nothing personal in the journal
+        timeout-minutes: 5
+        run: python3 ci/check_guide.py journal --os raspberry-pi
+
+      - name: The participants' data - deletion at the end of the project
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os raspberry-pi --stage delete
+
+      - name: Journals (when something failed)
+        if: failure() || cancelled()
+        run: |
+          sudo journalctl -u ollama -n 100 --no-pager || true
+          sudo journalctl -u owui-local -n 200 --no-pager || true
+
+  raspberry-pi-hat:
+    # The section "With the AI HAT+ 2" of the Raspberry Pi page. GitHub has no AI HAT+ 2: the real
+    # hailo-ollama 5.1.1 package is downloaded, checked, installed and removed, but
+    # ci/fake_hailo_ollama.py answers in place of its program (run_guide.py replaces the ExecStart
+    # line of the service). It answers like hailo-ollama 5.1.1, refuses "tools" with HTTP 500, and
+    # counts tokens with the Qwen2 tokenizer.
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 60
+    env:
+      CI_MODEL: qwen2:1.5b
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Instructions for part 4
+        run: |
+          echo "OWUI_GUIDE_DIR=$RUNNER_TEMP/openwebui-guide" >> "$GITHUB_ENV"
+          git clone --depth 1 https://github.com/Youth-AI-Lab/yal-openwebui-guide "$RUNNER_TEMP/openwebui-guide"
+
+      # The tokenizer of Qwen2-1.5B-Instruct at a fixed revision, checked by its hash, read with the
+      # version of tokenizers that open-webui 0.12.4 installs on this processor.
+      - name: The stand-in for hailo-ollama - Qwen2 tokenizer
+        timeout-minutes: 5
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq python3-venv
+          python3 -m venv "$RUNNER_TEMP/hailo-fake"
+          "$RUNNER_TEMP/hailo-fake/bin/pip" install --quiet --only-binary :all: tokenizers==0.22.2
+          curl -fsSLo "$RUNNER_TEMP/qwen2-tokenizer.json" \
+            https://huggingface.co/Qwen/Qwen2-1.5B-Instruct/resolve/ba1cf1846d7df0a0591d6c00649f57e798519da8/tokenizer.json
+          echo "f7c9b2dba4a296b1aa76c16a34b8225c0c118978400d4bb66bff0902d702f5b8  $RUNNER_TEMP/qwen2-tokenizer.json" | sha256sum -c
+          echo "CI_HAILO_FAKE_PYTHON=$RUNNER_TEMP/hailo-fake/bin/python" >> "$GITHUB_ENV"
+          echo "CI_QWEN2_TOKENIZER=$RUNNER_TEMP/qwen2-tokenizer.json" >> "$GITHUB_ENV"
+          echo "CI_HAILO_LOG=$RUNNER_TEMP/hailo-requests.jsonl" >> "$GITHUB_ENV"
+
+      - name: The stand-in for hailo-ollama - self-test
+        timeout-minutes: 5
+        run: |
+          "$CI_HAILO_FAKE_PYTHON" -I ci/fake_hailo_ollama.py --selftest --tokenizer "$CI_QWEN2_TOKENIZER"
+
+      - name: Parts 1 to 3 and the AI HAT+ 2 - uv, Open WebUI, hailo-ollama (stand-in)
+        timeout-minutes: 30
+        run: python3 ci/run_guide.py --os raspberry-pi-hat --stage install
+
+      - name: Part 3, step 6, AI HAT+ 2 steps 8 and 9 - account, settings, connection
+        timeout-minutes: 10
+        run: python3 ci/check_guide.py admin --os raspberry-pi-hat
+
+      - name: AI HAT+ 2 step 10 - a chatbot without documents
+        timeout-minutes: 10
+        run: python3 ci/check_guide.py chatbot --os raspberry-pi-hat
+
+      - name: Part 6, before the first session, step 1 - open to the network
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os raspberry-pi-hat --stage network
+
+      - name: Part 6 - safety net, Public access, a participant
+        timeout-minutes: 10
+        run: python3 ci/check_guide.py participants --os raspberry-pi-hat
+
+      - name: Nothing personal in the journals of Open WebUI and hailo-ollama
+        timeout-minutes: 5
+        run: python3 ci/check_guide.py journal --os raspberry-pi-hat
+
+      - name: The participants' data - deletion, hailo-ollama included
+        timeout-minutes: 10
+        run: python3 ci/run_guide.py --os raspberry-pi-hat --stage delete
+
+      - name: Journals and requests (when something failed)
+        if: failure() || cancelled()
+        run: |
+          sudo journalctl -u hailo-ollama -n 100 --no-pager || true
+          sudo journalctl -u owui-local -n 200 --no-pager || true
+          tail -n 50 "$CI_HAILO_LOG" || true

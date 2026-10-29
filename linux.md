@@ -11,7 +11,7 @@ Do parts 1 to 3 on this page. Then go back to the guide for
 to this page. The words *terminal*, `sudo`, *driver*, *service* and *port* are explained in the
 [prerequisites](README.md#prerequisites) of the guide.
 
-Another system: [macOS](macos.md), [Windows](windows.md).
+Another system: [macOS](macos.md), [Windows](windows.md), [Raspberry Pi](raspberry-pi.md).
 
 > [!WARNING]
 > **A technical part.** Parts 1 to 3 use commands typed in a terminal, some with the administrator
@@ -463,7 +463,7 @@ of Ubuntu is on: let Open WebUI in with `sudo ufw allow 3000/tcp`.
 ## Delete Open WebUI and its data
 
 At the end of the project, first keep what you want, your instruction files and your documents
-([the participants' data](README.md#the-participants-data)). Then type, in the account where Open
+([the participants' data](README.md#the-participants-data)). Then work in the account where Open
 WebUI was installed ([part 3](#part-3---start-open-webui)). First check that you are in the right
 account:
 

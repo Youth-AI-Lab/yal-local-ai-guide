@@ -76,18 +76,21 @@ organisation, and the participants may already know it.
 
 - **A computer** that stays on during the session, ideally with a graphics card that the AI model
   can use: on Linux and Windows, an **NVIDIA graphics card with at least 6 GB of memory**; on a Mac,
-  its Apple chip ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). About 20 GB of free
-  disk.
-- **Linux, macOS or Windows**: each system has its own page for parts 1 to 3
+  its Apple chip; on a **Raspberry Pi 5 with 8 GB**, its processor, or its **AI HAT+ 2** board (not
+  tested) ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). About 20 GB of free disk.
+- **Linux, macOS, Windows or Raspberry Pi OS**: each system has its own page for parts 1 to 3
   ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). We followed the guide on Ubuntu 26.04
-  only: the pages for macOS and Windows are not tested on a real computer, but a machine of GitHub
-  ran their commands from start to end ([how](ci/README.md)).
+  only: the pages for macOS, Windows and the Raspberry Pi are not tested on a real computer, but a
+  machine of GitHub runs their commands from start to end (macOS and Windows: done; the Raspberry
+  Pi page, on an arm64 machine under Ubuntu, with a stand-in for hailo-ollama and the AI HAT+ 2:
+  first run TO BE COMPLETED) ([how](ci/README.md)).
 - **The administrator rights** of this computer (on a Mac, an account of type **Admin**). You do not
   need Python or anything else beforehand: part 3 installs the version of Python that Open WebUI
   needs, in its own folder.
 - **A good internet connection** the first time: Open WebUI and what it needs are a download of
   about 950 MB (Python, Open WebUI and its search model; 2.4 GB once on the disk for Open WebUI
-  alone, measured on Linux), a model 4.4 to 4.7 GB, plus Ollama and, if needed, a graphics driver.
+  alone, measured on Linux), a model (4.4 to 4.7 GB for the models of the Linux page; smaller on a
+  Raspberry Pi), plus Ollama and, if needed, a graphics driver.
 
 **Words used in this guide.** A **terminal** is the window where you type commands (on Ubuntu:
 `Ctrl+Alt+T`; the page of each system says how to open it). Commands that start with `sudo` run with
@@ -156,7 +159,8 @@ did about as well.
 served saw the first words of the answer after **3 s** (1 question), **8 s** (2), **20 s** (4) and
 **50 s** (8). With this card, count about **four questions at the same moment** before the wait gets
 too long for a group. Young people do not all ask at the same second, but an activity where
-everybody starts together reaches this limit.
+everybody starts together reaches this limit. On a Raspberry Pi, with or without the AI HAT+ 2: one
+question at a time too; times TO BE COMPLETED.
 
 **What we did not measure:**
 
@@ -165,6 +169,8 @@ everybody starts together reaches this limit.
   example Catalan, Dutch, French or Italian);
 - bigger models, and other families of models (Gemma, Llama);
 - a graphics card with less than 6 GB, Windows and macOS;
+- a Raspberry Pi 5, on its processor or with the AI HAT+ 2: nothing of this guide was measured on
+  one ([its page](raspberry-pi.md));
 - the electricity used;
 - the Ollama setting that answers several questions in parallel (`OLLAMA_NUM_PARALLEL`);
 - the answers with Open WebUI 0.12.4, the version that part 3 installs: our measures used 0.11.4
@@ -183,7 +189,9 @@ same things:
 1. **Check the computer**: find out whether the AI model can use a graphics card or chip, and make
    it work.
 2. **Install Ollama and a model**: install the program that runs the model, keep it on this
-   computer (no cloud models), and download a model whose licence you have read.
+   computer (no cloud models), and download a model whose licence you have read (on a Raspberry Pi
+   with the AI HAT+ 2, Hailo's **hailo-ollama** can replace Ollama: see
+   [its page](raspberry-pi.md#with-the-ai-hat-2)).
 3. **Start Open WebUI**: install it in a folder of its own, `owui-local`, with the settings of
    [`openwebui.env`](openwebui.env), and let the computer run it for this computer only. Then, in
    the browser, create your administrator account and check that Open WebUI reaches Ollama.
@@ -198,6 +206,10 @@ Choose the page of your system:
 - **[Windows](windows.md)**: Windows 11, with **winget**, the tool of Windows that installs
   programs. Not tested on Windows 11; run from start to end on a machine of GitHub under Windows
   Server 2025.
+- **[Raspberry Pi](raspberry-pi.md)**: a Raspberry Pi 5 with 8 GB, under Raspberry Pi OS Trixie
+  (64-bit), on its processor, and optionally with the **AI HAT+ 2**. Not tested on a real Raspberry
+  Pi; to be run from start to end on an arm64 machine of GitHub, with a stand-in for hailo-ollama
+  and the AI HAT+ 2 (first run: TO BE COMPLETED).
 
 Each page also has what part 6 and the deletion need on this system, its commands and its
 troubleshooting. When you have finished part 3 there, come back here for part 4.
@@ -218,7 +230,8 @@ installation of Open WebUI cannot read `.doc`, `.odt` or `.epub` files. Save the
 
 Everything else is the same, with **three differences** when you create the chatbot:
 
-1. **Base model.** In **Base Model (From)**, choose your Ollama model, for example `qwen2.5:7b`.
+1. **Base model.** In **Base Model (From)**, choose your Ollama model, for example `qwen2.5:7b`
+   (`qwen2.5:1.5b` on a Raspberry Pi; `qwen2:1.5b` on the AI HAT+ 2).
 2. **Function Calling: Legacy.** In the chatbot's form, click the row **Advanced Params** (it reads
    **Default**) to open it. Find **Function Calling**, and click its button until it reads
    **Legacy**. With this setting, Open WebUI searches your documents before each answer, and gives
@@ -232,13 +245,24 @@ Everything else is the same, with **three differences** when you create the chat
    documents and the answer must all fit in it. We did not test 4096 with documents: we measured
    with 8192, which leaves room.
 
-The row **Advanced Params** now reads **2 modified**. Then click **Save & Create**.
+**On the AI HAT+ 2** ([Raspberry Pi page](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested)):
+its models hold 2,048 tokens, and **num_ctx** has no effect on them: skip difference 3 and leave
+**num_ctx** on **Default**. Build a chatbot **without
+documents**, keep **Legacy**, and also switch off **Builtin Tools** in the row **Capabilities** of
+**every** chatbot. With the settings by default (**Native**, **Builtin Tools** on), Open WebUI sends
+its tools, and hailo-ollama refuses the question (error 500).
+
+The row **Advanced Params** now reads **2 modified** (**1 modified** on the AI HAT+ 2). Then click
+**Save & Create**.
 
 The Open WebUI guide says that, by default, the chatbot searches its knowledge by itself. That works
 with the large models of that guide, but the small local model we tested never searched. Set
 **Legacy** on every local chatbot, and check it again on a chatbot you clone or import.
 
-**What you should see.** Ask a question on your topic. In the text of the answer, small grey labels
+**What you should see.** (On the AI HAT+ 2: no labels, no **Sources** and no `ollama ps`; check
+only that it answers, see
+[step 10](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested).) Ask a question on
+your topic. In the text of the answer, small grey labels
 name the document each part comes from, and the button **Sources** under the answer lists them, as
 in step 4 of the Open WebUI guide. The line "Explored list_knowledge…" of that step does not
 appear with **Legacy**: Open WebUI searches your documents itself, before the answer. On our laptop,
@@ -253,10 +277,13 @@ Ollama's default of 4096, before any document (with 0.11.4, about 3,600 tokens t
 another model cuts words into tokens differently, so do not compare the two). A question to our
 chatbot in **Legacy**, its passages included, was about 2,030 tokens, as with 0.11.4: it leaves room
 in 8192. These figures are for Linux; we did not measure them on macOS or Windows.
+On the AI HAT+ 2, these figures do not apply (TO BE COMPLETED).
 
 > [!TIP]
 > If you already have chatbots from the Open WebUI guide, their instructions and documents work here
-> too: create each chatbot again with these three settings.
+> too: create each chatbot again with these three settings. On the AI HAT+ 2, reuse only the
+> instructions, without the rules about documents, and no documents: see
+> [step 10 of the Raspberry Pi page](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested).
 
 ---
 
@@ -277,6 +304,7 @@ instead. With a local model, check also:
   ask three or four colleagues to send a question at the same moment from their phones. On our Linux
   laptop with a 6 GB graphics card, the last one saw the first words within about twenty seconds.
   We did not measure macOS or Windows: time yours before you open the chatbot to a group.
+  Raspberry Pi: TO BE COMPLETED; time yours with two colleagues first.
 
 **A good score is not a green light for young people.** It shows how the chatbot answered your
 questions, on that day. The decision to use it with a group belongs to your organisation
@@ -304,15 +332,17 @@ organisation: the same Wi-Fi as the computer.
 1. **Open Open WebUI to the local network.** Your administrator account must exist (part 3). Follow
    **Open it to the local network** on the page of your system
    ([Linux](linux.md#open-it-to-the-local-network), [macOS](macos.md#open-it-to-the-local-network),
-   [Windows](windows.md#open-it-to-the-local-network)). Open WebUI starts again, open to the local
-   network, with its data and accounts. Then open <http://localhost:3000>. If the sign-in page
+   [Windows](windows.md#open-it-to-the-local-network),
+   [Raspberry Pi](raspberry-pi.md#open-it-to-the-local-network)). Open WebUI starts again, open
+   to the local network, with its data and accounts. Then open <http://localhost:3000>. If the sign-in page
    shows, it is only because a sign-in lasts 12 hours: sign in with your administrator account.
 2. **Check that the phones can reach the computer.** Find the address of the computer with **Find
    the address of the computer** on the page of your system
    ([Linux](linux.md#find-the-address-of-the-computer),
    [macOS](macos.md#find-the-address-of-the-computer),
-   [Windows](windows.md#find-the-address-of-the-computer)), for example `192.168.1.20`. On your
-   phone, on the same Wi-Fi as the computer (not the mobile network), open `http://` followed by
+   [Windows](windows.md#find-the-address-of-the-computer),
+   [Raspberry Pi](raspberry-pi.md#find-the-address-of-the-computer)), for example
+   `192.168.1.20`. On your phone, on the same Wi-Fi as the computer (not the mobile network), open `http://` followed by
    this number and `:3000`, for example `http://192.168.1.20:3000`.
 
    **What you should see.** The sign-in page of Group chatbots. If it does not open, check that the
@@ -333,8 +363,10 @@ organisation: the same Wi-Fi as the computer.
    window keeps its own copy of the list of models, from the moment it opens, and an old window can
    undo **Hide Model** without telling you. This happened once on our laptop.
 
-   1. **The safety net.** Click the pencil (**Edit**) on the line of `qwen2.5:7b`, and change three
-      things:
+   1. **The safety net.** Click the pencil (**Edit**) on the line of your base model (for example
+      `qwen2.5:7b`; `qwen2:1.5b` on the AI HAT+ 2, where **Legacy** and **Builtin Tools** are
+      already set: [step 9](raspberry-pi.md#step-9---set-the-model-of-the-ai-hat-2-not-tested)),
+      and change three things:
       - in **System Prompt**, paste the *Never* rules of your template, then add: "You are not the
         group's chatbot. To any question, answer only: please choose the group's chatbot in the
         list.";
@@ -344,8 +376,8 @@ organisation: the same Wi-Fi as the computer.
       - click the row **Capabilities** to open it, and switch off **Builtin Tools**.
 
       Click **Save & Update**. If "Failed to save model" appears, reload the page, open
-      **Admin Panel** → **Settings** → **Models** again, click the pencil on the line of
-      `qwen2.5:7b`, and do the three changes again. Do all three: we tested them together. On our
+      **Admin Panel** → **Settings** → **Models** again, click the pencil on the line of this
+      model, and do the three changes again. Do all three: we tested them together. On our
       laptop, with the System Prompt alone, the model still received Open WebUI's tools with each
       question, and ignored the instruction. With the three changes, it answered as asked.
    2. **Hide it, then let the participants read it.** On the same line, click **…** (**More**) →
@@ -357,7 +389,7 @@ organisation: the same Wi-Fi as the computer.
       **Make Public**. Open WebUI asks first: click **Cancel**. If you did reset the model, do the
       whole of step 3 again.
    3. **Check.** Reload the page (`F5`; on a Mac, `Cmd+R`), open **Admin Panel** → **Settings** →
-      **Models** again, and click **…** on the line of `qwen2.5:7b`: it should now offer **Show
+      **Models** again, and click **…** on the line of this model: it should now offer **Show
       Model** and **Make Private**. If not, do the missing one again, then reload and check again.
       Never click **Show Model**: it puts the model back in the participants' list. Then click the
       pencil: the three changes of the safety net should still be there (your System Prompt,
@@ -368,7 +400,8 @@ organisation: the same Wi-Fi as the computer.
    Hidden, the model is no longer in the participants' list: they see only your chatbots, and one
    of them is already chosen when they open a new chat.
    But hiding is not a lock: a participant who knows its name can still reach it, for example by
-   typing the address with `?model=qwen2.5:7b`. Then the safety net answers. It applies only when
+   typing the address with `?model=` followed by its name, for example `?model=qwen2.5:7b`. Then
+   the safety net answers. It applies only when
    someone uses the model directly in the chat: your chatbots keep their own instructions. The
    safety net catches mistakes, but it is not a lock either: a participant with technical skills can
    still reach the model through Open WebUI's programming interface (API), without the safety net,
@@ -386,12 +419,14 @@ organisation: the same Wi-Fi as the computer.
    can change.
 2. **Start Open WebUI** if you stopped it after the last session: see **Commands** on the page of
    your system ([Linux](linux.md#commands), [macOS](macos.md#commands),
-   [Windows](windows.md#commands)). **On a Mac or a Windows PC**, sign in to the account where Open
-   WebUI is installed: it runs only while this account is signed in. Keep the computer awake during
+   [Windows](windows.md#commands), [Raspberry Pi](raspberry-pi.md#commands)). **On a Mac or a
+   Windows PC**, sign in to the account where Open WebUI is installed: it runs only while this
+   account is signed in. Keep the computer awake during
    the session: see [macOS](macos.md#keep-the-mac-awake-during-a-session) or
    [Windows](windows.md#keep-the-computer-awake-during-a-session). **On a Linux laptop**, keep it
    plugged in and its lid open: on battery, Ubuntu suspends it after 15 minutes without anyone at
-   the keyboard.
+   the keyboard. **On a Raspberry Pi**, keep it powered and cooled: see
+   [Keep the Pi running](raspberry-pi.md#keep-the-pi-running-during-a-session-not-tested).
 3. **Check the sign-ups and the accounts.** In **Admin Panel** → **Settings** → **Authentication**,
    **New Sign Ups** must be off (if you forgot last time, turn it off and click **Save**). In
    **Admin Panel** → **Users**, check that you know every account.
@@ -400,6 +435,7 @@ organisation: the same Wi-Fi as the computer.
    it (set up in [before the first session](#before-the-first-session), step 3: safety net,
    hidden, public; do the whole of step 3 again for a model you download later). Otherwise the
    chatbot is missing from their list, answers "Model not found", or answers without its documents.
+   On the AI HAT+ 2, there are no documents: the chatbot and the model under it are enough.
    - **The chatbot**: **Workspace** → **Models** → **…** at the end of the line of your chatbot →
      **Access** → click **Private** and choose **Public** ("Accessible to all users"). Open WebUI
      saves it at once ("Saved"): close the window.
@@ -418,9 +454,10 @@ organisation: the same Wi-Fi as the computer.
    `:3000`, for example `http://192.168.1.20:3000`, not `localhost`. Open the sign-ups as in
    [During the session](#during-the-session), create a test account such as `test@group.local`, and
    check that its list of models shows only your chatbots. Ask one question, and check that the answer shows
-   the grey labels of your documents. Then open the address followed by `/?model=qwen2.5:7b`, and
-   say "Hello" in this new chat: the model should answer only that you must choose the group's
-   chatbot. Then close the sign-ups again.
+   the grey labels of your documents (on the AI HAT+ 2, without documents: that it answers). Then
+   open the address followed by `/?model=` and the name of your base model (for example
+   `/?model=qwen2.5:7b`), and say "Hello" in this new chat: the model should answer only that you
+   must choose the group's chatbot. Then close the sign-ups again.
 
 ### During the session
 
@@ -454,10 +491,10 @@ organisation: the same Wi-Fi as the computer.
 1. Turn **New Sign Ups** off again, and click **Save**.
 2. Should the participants use the chatbot only during sessions? Then stop it: see **Commands** on
    the page of your system ([Linux](linux.md#commands), [macOS](macos.md#commands),
-   [Windows](windows.md#commands)). If it stays on, the participants can use it at any time on the
-   Wi-Fi, without you: say so in the notice for the participants. A laptop that you take to other
-   places: stop Open WebUI after each session. Otherwise it is open on every network the laptop
-   joins.
+   [Windows](windows.md#commands), [Raspberry Pi](raspberry-pi.md#commands)). If it stays on, the
+   participants can use it at any time on the Wi-Fi, without you: say so in the notice for the
+   participants. A laptop that you take to other places: stop Open WebUI after each session.
+   Otherwise it is open on every network the laptop joins.
 
 The accounts stay: the participants can come back next time, at the address of the day.
 
@@ -486,6 +523,12 @@ deleted.
   [macOS page](macos.md#step-3---check-for-homebrew-or-install-it) turns this off with
   `brew analytics off`), and the Ollama app checks for updates by itself. Neither sends the
   questions of your group.
+- On a Raspberry Pi with the AI HAT+ 2: hailo-ollama downloads its models from Hailo's server
+  (dev-public.hailo.ai). It writes every question it receives, with the conversation, to its
+  output. The service of the
+  [Raspberry Pi page](raspberry-pi.md#step-5---start-hailo-ollama-as-a-service-not-tested) sends this
+  output nowhere, and turns off the log file of Hailo's software (not tested on a Pi). We did not
+  check its network traffic either.
 - On the Wi-Fi, the questions and the passwords travel without encryption (`http://`).
 - Images in an answer: if an answer shows an image from the internet, the phone downloads it from
   that website, and the address of the image can hold words of the conversation. A local model
@@ -502,10 +545,11 @@ deleted.
   Then follow **Delete Open WebUI and its data** on the page of your system
   ([Linux](linux.md#delete-open-webui-and-its-data),
   [macOS](macos.md#delete-open-webui-and-its-data),
-  [Windows](windows.md#delete-open-webui-and-its-data)), in the account where Open WebUI was
-  installed. It deletes Open WebUI, and every account, conversation, memory, feedback, chatbot and
-  document it holds. Backups of this computer may still hold copies. The models of Ollama hold no
-  data of the participants.
+  [Windows](windows.md#delete-open-webui-and-its-data),
+  [Raspberry Pi](raspberry-pi.md#delete-open-webui-and-its-data)), in the account where Open WebUI
+  was installed. It deletes Open WebUI, and every account, conversation, memory, feedback, chatbot
+  and document it holds. Backups of this computer may still hold copies. The models of Ollama and
+  of hailo-ollama hold no data of the participants.
 
 **Before any use with young people, your organisation decides**: whether a chatbot fits this group,
 who informs the participants and their parents, how long the data is kept. A local model changes
@@ -533,7 +577,8 @@ it say something its instructions forbid. Read the feedback after each session.
 
 **The computer.** A graphics card makes the difference: on our laptop, the NVIDIA RTX PRO 500
 (6 GB) made each answer about ten times faster than the processor alone. We did not measure the
-electricity.
+electricity. On a Raspberry Pi, the AI HAT+ 2 is an extra board at $200
+([product page](https://www.raspberrypi.com/products/ai-hat-plus-2/), 29 October 2026).
 
 ---
 
@@ -542,6 +587,8 @@ electricity.
 - **Slow without a graphics card**: one to two minutes per answer on the processor alone.
 - **One question at a time**: with our 6 GB card, about four questions at the same moment before
   the wait gets too long.
+- **On a Raspberry Pi**: slow on its processor (TO BE COMPLETED); with the AI HAT+ 2, 2,048 tokens
+  per conversation, so no documents, and one question at a time.
 - **A small model invents without documents**, and the one we tested did not search them by itself:
   keep **Function Calling: Legacy**.
 - **The search can miss, and the model can misread.** An answer that is only in a long text may not
@@ -551,7 +598,7 @@ electricity.
 - **Languages**: we measured English only.
 - **The computer must stay on, on the same network** as the participants (a Linux laptop must stay
   plugged in with its lid open; a Mac or a Windows PC must also stay awake, and signed in to the
-  account of Open WebUI).
+  account of Open WebUI; a Raspberry Pi stays powered and cooled).
 - **No encryption on the Wi-Fi** (`http://`).
 - **The model under your chatbots is reachable** by a participant who knows its name: give it a
   safety net ([part 6](#before-the-first-session)), which catches mistakes but is not a lock.
@@ -568,7 +615,9 @@ electricity.
 
 The commands to stop, start and check Open WebUI, and to find the address of the computer, depend on
 the system: see **Commands** on the page of your system ([Linux](linux.md#commands),
-[macOS](macos.md#commands), [Windows](windows.md#commands)).
+[macOS](macos.md#commands), [Windows](windows.md#commands),
+[Raspberry Pi](raspberry-pi.md#commands)). hailo-ollama (AI HAT+ 2) has no `ollama` command: see
+the Raspberry Pi page.
 
 ---
 
@@ -579,8 +628,11 @@ the system: see **Commands** on the page of your system ([Linux](linux.md#comman
 Type `ollama ps` during an answer, or in the 5 minutes after it. If **PROCESSOR** reads `100% CPU`,
 the model runs on the processor: see part 1 on the page of your system
 ([Linux](linux.md#part-1---check-the-computer), [macOS](macos.md#part-1---check-the-computer),
-[Windows](windows.md#part-1---check-the-computer)). The first question after a pause is always
-slower: the model loads again. By default, it stays loaded 5 minutes.
+[Windows](windows.md#part-1---check-the-computer),
+[Raspberry Pi](raspberry-pi.md#part-1---check-the-computer)). On a Raspberry Pi without the
+AI HAT+ 2, `100% CPU` is expected: it has no graphics card for Ollama (see its part 1). The first
+question after a pause is always slower: the model loads again. By default, it stays loaded 5
+minutes.
 
 ### The chatbot answers without its documents
 
@@ -589,7 +641,7 @@ Calling: Legacy** and **num_ctx (Ollama): 8192** in its **Advanced Params**
 ([part 4](#part-4---build-the-chatbot)), and that its knowledge is selected. A bare **[1]** in the
 text, with no label and no **Sources** button, means that the model wrote a citation but received
 no passages. If this happens to the participants only, check that its documents are **Public**
-([part 6](#before-each-session)).
+([part 6](#before-each-session)). (On the AI HAT+ 2, the chatbot has no documents by design.)
 
 ### The model list is empty
 
@@ -597,8 +649,10 @@ Open WebUI does not reach Ollama. Check that Ollama runs (`ollama list` answers)
 **Admin Panel** → **Settings** → **Connections**. Check that **Ollama API** is on. Under **Manage
 Ollama API Connections**, click the gear icon (**Configure**) at the end of the address line, not the
 arrow (**Manage**). Type `http://127.0.0.1:11434` in **URL**, click the two circling arrows
-(**Verify Connection**) to the right of it, then click **Save**. Open WebUI keeps the address it had at its very
-first start: starting it again with another `OLLAMA_BASE_URL` does not change it.
+(**Verify Connection**) to the right of it, then click **Save**. With the AI HAT+ 2, type
+`http://127.0.0.1:8000`, and check that `curl -s http://localhost:8000/api/tags` lists your model.
+Open WebUI keeps the address it had at its very first start: starting it again with another
+`OLLAMA_BASE_URL` does not change it.
 
 Do not open Ollama to the network to fix this: keep it for this computer only, as in part 2
 ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)).
@@ -607,9 +661,9 @@ Do not open Ollama to the network to fix this: keep it for this computer only, a
 
 This list opens on the view **Available**: your chatbots and the models that Ollama offers now. A
 model whose settings you changed (for example the safety net of
-[part 6](#before-the-first-session)) but which is no longer in `ollama list` appears only in the
-other views: click **Available**, to the right of the search box, and choose **Unavailable** or
-**All**.
+[part 6](#before-the-first-session)) but which is no longer in `ollama list` (with the AI HAT+ 2:
+`curl -s http://localhost:8000/api/tags`) appears only in the other views: click **Available**,
+to the right of the search box, and choose **Unavailable** or **All**.
 
 ### The answer is "does not support tools"
 
@@ -618,10 +672,14 @@ with `phi3.5`. In the list of models, at the bottom right of the message box, ch
 or one of your chatbots: they are set to **Legacy** ([part 4](#part-4---build-the-chatbot)), which
 sends no tools.
 
+With the AI HAT+ 2, the same cause gives an error 500 or "Node is NOT a STRING": see the
+[Raspberry Pi page](raspberry-pi.md#troubleshooting).
+
 ### "Model not found"
 
 For you: reload the page of Open WebUI, then ask again. If it persists, check that the base model of
-the chatbot is still in `ollama list`.
+the chatbot is still in `ollama list` (with the AI HAT+ 2: in
+`curl -s http://localhost:8000/api/tags`).
 
 For a participant: the chatbot, its documents or the model under it is not **Public**
 ([before each session](#before-each-session), step 4).
@@ -629,7 +687,8 @@ For a participant: the chatbot, its documents or the model under it is not **Pub
 ### A problem in parts 1 to 3, or Open WebUI is never ready
 
 Each system has its own troubleshooting: [Linux](linux.md#troubleshooting),
-[macOS](macos.md#troubleshooting), [Windows](windows.md#troubleshooting).
+[macOS](macos.md#troubleshooting), [Windows](windows.md#troubleshooting),
+[Raspberry Pi](raspberry-pi.md#troubleshooting).
 
 ### `uv venv` ends with an error about Python 3.12
 
@@ -645,10 +704,11 @@ secure connections, and uv does not use the certificates of the computer by defa
 Find the address again ([before the first session](#before-the-first-session), step 2): if the
 number changed, give the participants the new address. If you stopped Open WebUI after the last
 session, start it: see **Commands** on the page of your system ([Linux](linux.md#commands),
-[macOS](macos.md#commands), [Windows](windows.md#commands)), then wait a minute. On Linux, Open
-WebUI starts again by itself with the computer, unless you stopped it. On a Mac or on Windows, it
-starts only when the account where it is installed signs in: sign in to this account (you can lock
-the screen afterwards).
+[macOS](macos.md#commands), [Windows](windows.md#commands),
+[Raspberry Pi](raspberry-pi.md#commands)), then wait a minute. On Linux and on a Raspberry Pi,
+Open WebUI starts again by itself with the computer, unless you stopped it. On a Mac or on
+Windows, it starts only when the account where it is installed signs in: sign in to this account
+(you can lock the screen afterwards).
 
 ### The participants cannot open the address
 
@@ -674,6 +734,9 @@ These links were checked in October 2026.
   as `OLLAMA_CONTEXT_LENGTH` and `OLLAMA_NUM_PARALLEL`; its examples with `OLLAMA_HOST=0.0.0.0` open
   Ollama to the network: do not copy them).
 - [Open WebUI documentation](https://docs.openwebui.com/).
+- Raspberry Pi: [AI software](https://www.raspberrypi.com/documentation/computers/ai.html),
+  [AI HAT+ 2](https://www.raspberrypi.com/documentation/accessories/ai-hat-plus.html); Hailo:
+  [hailo-ollama 5.1.1](https://github.com/hailo-ai/hailo_model_zoo_genai/tree/v5.1.1).
 - [NVIDIA: open GPU kernel modules](https://download.nvidia.com/XFree86/Linux-x86_64/580.95.05/README/kernel_open.html).
 
 ---
@@ -682,7 +745,7 @@ These links were checked in October 2026.
 
 This guide was made in the Erasmus+ project **Youth AI Lab**. Texts and templates are under
 [CC BY-SA 4.0](LICENSES/CC-BY-SA-4.0.txt), configuration files under [EUPL-1.2](LICENSES/EUPL-1.2.txt);
-details in `REUSE.toml`. Ollama, Open WebUI and the models belong to their authors.
+details in `REUSE.toml`. Ollama, hailo-ollama, Open WebUI and the models belong to their authors.
 
 Measured on 28 October 2026 with Ollama 0.40.8 and Open WebUI v0.11.4, on Ubuntu 26.04, on a Lenovo
 ThinkPad P14s Gen 6 with an NVIDIA RTX PRO 500 (6 GB), with the 11 test questions of the workshop
@@ -774,6 +837,13 @@ with the commands of part 3 for Linux in an empty folder, uv's cache empty:
 Run on 29 October 2026 by the machines of GitHub, from start to end, with a tiny model and no
 screen: the pages for Linux (Ubuntu 26.04 and 24.04), macOS (macOS 26, Apple chip) and Windows
 (Windows Server 2025, not Windows 11) ([`ci/README.md`](ci/README.md)).
+
+Raspberry Pi page: not followed on a Raspberry Pi. Written from the documentation of Raspberry Pi
+and Hailo and from the code of hailo-ollama 5.1.1. Run on TO BE COMPLETED by an arm64 machine of
+GitHub (Ubuntu 24.04): the processor route with a tiny model, and the AI HAT+ 2 route with the real
+hailo-ollama 5.1.1 package and a stand-in program in place of hailo-ollama and the HAT
+([`ci/README.md`](ci/README.md)). TO BE COMPLETED: a real Raspberry Pi 5 with 8 GB, with and
+without the AI HAT+ 2.
 
 TO BE COMPLETED: follow parts 3 to 6 on a fresh installation of 0.12.4 (new editor: row
 **Advanced Params**, switches of **Capabilities**, **Access** saved at once), with a real model,
