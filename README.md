@@ -13,15 +13,14 @@
 > group goes to an AI company, paid with an API key. Here, the AI model runs on a computer of your
 > organisation: **the questions of your group stay on this computer**, and there is no key to buy
 > and no cost per question. You install two free programs on this computer: **Ollama**, which runs
-> the AI model, and **Open WebUI**, the chatbot tool of the Open WebUI guide. Some steps change the
-> settings of the computer: do them with the person who looks after the computers of your
-> organisation.
+> the AI model, and **Open WebUI**, the chatbot tool of the Open WebUI guide. Parts 1 to 3 are
+> technical: do them only if you feel confident with a terminal and the administrator rights of a
+> computer.
 
-This guide is for youth workers, facilitators and educators who work with young people (12 to 25),
-and for the person who looks after the computers of their organisation. It goes with the
-[Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide). That guide shows how to
-build, test and share a chatbot. This one shows what changes when the model runs on your own
-computer, with the numbers we measured.
+This guide is for youth workers, facilitators and educators who work with young people (12 to 25).
+It goes with the [Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide). That
+guide shows how to build, test and share a chatbot. This one shows what changes when the model runs
+on your own computer, with the numbers we measured.
 
 ---
 
@@ -29,14 +28,14 @@ computer, with the numbers we measured.
 
 ### What you will be able to do
 
-| Part | Who | You will be able to... |
+| Part | Kind | You will be able to... |
 |---|---|---|
-| **1. Check the computer** | with your IT person | Say whether a computer is fast enough, and make its graphics card work for the AI. |
-| **2. Install Ollama** | with your IT person | Install the program that runs the model, and download a model whose licence you have read. |
-| **3. Start Open WebUI** | with your IT person | Start the chatbot tool on the same computer, with your administrator account. |
-| **4. Build the chatbot** | you | Make a chatbot from your documents, with the settings a small model needs. |
-| **5. Test it** | you | Check its answers and its speed before a session. |
-| **6. Open it to your group** | you, and your IT person the first time | Let the participants use it from their phones, on your local network, during a session. |
+| **1. Check the computer** | technical | Say whether a computer is fast enough, and make its graphics card work for the AI. |
+| **2. Install Ollama** | technical | Install the program that runs the model, and download a model whose licence you have read. |
+| **3. Start Open WebUI** | technical | Start the chatbot tool on the same computer, with your administrator account. |
+| **4. Build the chatbot** | in the browser | Make a chatbot from your documents, with the settings a small model needs. |
+| **5. Test it** | in the browser | Check its answers and its speed before a session. |
+| **6. Open it to your group** | technical the first time | Let the participants use it from their phones, on your local network, during a session. |
 
 At the end, you will also know what we measured, where the participants' data stays, how to
 delete it, and what a local model cannot do.
@@ -66,8 +65,9 @@ the [Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide) is s
 in a browser, with nothing to install.
 
 **Your organisation wants the conversations of the young people to stay in the organisation**, or
-cannot pay for a key: this guide is for you. Parts 1 to 3 install programs and change the
-computer: do them with the person who looks after your computers (your "IT person" below).
+cannot pay for a key: this guide is for you. Parts 1 to 3 install programs and change the settings
+of the computer, with commands typed in a terminal. If you do not feel confident with this, ask
+someone who is to do them with you.
 
 **Your organisation already gives you a chatbot tool**: use it first. It has been checked by your
 organisation, and the participants may already know it.
@@ -155,8 +155,9 @@ everybody starts together reaches this limit.
 
 **What we did not measure:**
 
-- other languages than English: our questions were in English, so test yours in the language of
-  your group (for example Catalan, Dutch, French or Italian);
+- other languages than English: our questions were in English (we tried a single question in
+  French, see [part 5](#part-5---test-it)), so test yours in the language of your group (for
+  example Catalan, Dutch, French or Italian);
 - bigger models, and other families of models (Gemma, Llama);
 - a graphics card with less than 6 GB, Windows and macOS;
 - the electricity used;
@@ -166,8 +167,13 @@ everybody starts together reaches this limit.
 
 ## Part 1 - Check the computer
 
-*With your IT person.* The speed of a local chatbot depends first on one thing: whether the model
-runs on a **graphics card**. On the processor alone, our laptop took one to two minutes per answer.
+> [!WARNING]
+> **A technical part.** Parts 1 to 3 use commands typed in a terminal, some with the administrator
+> rights of the computer (`sudo`), and they change its settings. Do them only if you feel confident
+> with this.
+
+The speed of a local chatbot depends first on one thing: whether the model runs on a **graphics
+card**. On the processor alone, our laptop took one to two minutes per answer.
 Do this part before part 2.
 
 ### Step 1 - Look for a graphics card
@@ -216,7 +222,7 @@ The messages of the computer said so too:
 sudo dmesg | grep -i "open kernel modules"
 ```
 
-In both cases, your IT person can:
+In both cases:
 
 1. List the drivers Ubuntu offers: `sudo ubuntu-drivers list`
 2. Install the driver it lists. For a recent card, choose the version whose name ends with
@@ -226,14 +232,14 @@ In both cases, your IT person can:
 4. Type `nvidia-smi` again: the card and its memory appear.
 
 > [!WARNING]
-> Changing the graphics driver can stop the display of a computer. Leave it to your IT person, at
-> a time when the computer is not needed.
+> Changing the graphics driver can stop the display of a computer. It is the most delicate step of
+> this guide: do it only if you feel confident, at a time when the computer is not needed.
 
 ---
 
 ## Part 2 - Install Ollama and a model
 
-*With your IT person, after part 1.* Finish part 1 first. If `nvidia-smi` is missing, Ollama's
+*A technical part, after part 1.* Finish part 1 first. If `nvidia-smi` is missing, Ollama's
 installer installs NVIDIA drivers of its own, which may not be the ones your card needs. If
 `nvidia-smi` is there, the installer says "NVIDIA GPU installed." even when the card does not work:
 only `nvidia-smi` (part 1) and `ollama ps` ([step 4](#step-4---download-the-model)) tell you.
@@ -266,10 +272,16 @@ sudo systemctl daemon-reload && sudo systemctl restart ollama
 The second command writes a small settings file for the Ollama service, and shows its two lines.
 The third one starts Ollama again with this setting.
 
-**What you should see.** `systemctl show ollama -p Environment` shows `OLLAMA_NO_CLOUD=1`. If it
-does not, type the three commands again. According to Ollama's documentation,
-`journalctl -u ollama --since today | grep -i "cloud disabled"` then shows
-`Ollama cloud disabled: true`. TO BE COMPLETED: both checked on a real installation.
+**What you should see.** Check the setting, then what Ollama says about it:
+
+```bash
+systemctl show ollama -p Environment --no-pager | tr ' ' '\n' | grep -i ollama
+sudo journalctl -u ollama --since today --no-pager | grep -i "cloud disabled"
+```
+
+The first command shows `OLLAMA_NO_CLOUD=1`. The second one shows a line with
+`Ollama cloud disabled: true`. If not, type the three commands of the first box of this step again,
+then these two.
 
 Also keep Ollama **for this computer only**, as it is installed: Ollama has no accounts. If it were
 opened to the network (for example with `OLLAMA_HOST=0.0.0.0`, an example of its documentation),
@@ -318,7 +330,7 @@ ollama run qwen2.5:7b "Hello" && ollama ps
 
 ## Part 3 - Start Open WebUI
 
-*With your IT person.* Open WebUI is a Python program. You install it in a folder of its own,
+*A technical part.* Open WebUI is a Python program. You install it in a folder of its own,
 `~/owui-local`, and the computer runs it as a service, on the same computer as Ollama. In this
 part, only this computer can open it. You open it to your local network in
 [part 6](#part-6---open-it-to-your-group), when your administrator account exists.
@@ -340,7 +352,37 @@ export PATH="$HOME/.local/bin:$PATH"
 The first command installs uv for your user, in `~/.local/bin`. The second one lets this terminal
 find it; the next terminals find it by themselves.
 
-**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.1`.
+**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.1`. If uv
+was already installed in `~/.local/bin`, the installer has replaced it with this version.
+
+<details>
+<summary><b>On macOS or Windows</b> (not tested)</summary>
+
+<br>
+
+This is for your own computer, with your administrator rights.
+
+**macOS.** Open the app **Terminal** (in **Applications** → **Utilities**), and type the same two
+commands as above. The installer puts uv in the folder `.local/bin` of your user folder, as on
+Linux.
+
+**Windows.** Open **PowerShell**: in the Start menu, type `PowerShell` and click it. Then type:
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/0.13.1/install.ps1 | iex"
+```
+
+Windows does not run a script downloaded from the internet by default: `-ExecutionPolicy ByPass`
+allows it for this command only. The installer puts uv in the folder `.local\bin` of your user
+folder, and adds this folder to the list where Windows looks for programs (the *PATH*). Close
+PowerShell, and open a new one: only the new one finds uv.
+
+**What you should see**, on both: `uv --version` answers a line that starts with `uv 0.13.1`.
+
+The rest of this part is written for Linux. On macOS and Windows, the commands of the next steps
+and the service of step 5 are different, and we did not test them.
+
+</details>
 
 ### Step 2 - Create a virtual environment
 
@@ -372,7 +414,7 @@ uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.11.4
 ```
 
 This installs Open WebUI 0.11.4, the version we measured, in `venv`, with the programs it needs:
-about 1 GB to download, 2.5 GB once on the disk. Open WebUI uses **torch** to search in your
+about 1 GB to download, 2.5 GB once on the disk. On our laptop, it took a little more than a minute. Open WebUI uses **torch** to search in your
 documents. `--torch-backend cpu` installs the version of torch for the processor: the graphics card
 is for Ollama, and the version for the card is a much bigger download. `torch<=2.9.1` is the
 version in Open WebUI's own installation, the one we measured.
@@ -457,15 +499,23 @@ sudo systemctl daemon-reload && sudo systemctl enable --now owui-local
 until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; echo "Open WebUI is ready"
 ```
 
-**What you should see.** `Open WebUI is ready`, usually within a minute. If nothing appears after
-5 minutes, press `Ctrl+C` and type `sudo journalctl -u owui-local -n 20 --no-pager`. A line with
-"address already in use" means another program uses port 3000: see your IT person.
+**What you should see.** `Open WebUI is ready`, usually within a minute (20 seconds on our laptop).
+If nothing appears after 5 minutes, press `Ctrl+C` and type
+`sudo journalctl -u owui-local -n 20 --no-pager`. A line with "address already in use" means that
+another program of the computer uses port 3000: stop this program first.
 
 > [!TIP]
 > The file `.webui_secret_key` in `~/owui-local` keeps the sign-ins valid when Open WebUI starts
 > again. Keep it with the folder.
 
 ### Step 6 - Create your administrator account
+
+> [!NOTE]
+> Open WebUI speaks the language of your browser: in a French browser, **Get started** reads
+> **Démarrer**. This guide gives the English names. To see them, once your account exists: your
+> name at the bottom left → **Settings** → **General** → **Language** → **English (US)**. This
+> changes the language in this browser only: each participant sees the language of their own
+> browser.
 
 Open <http://localhost:3000> on this computer. On the welcome page, click **Get started**. In the
 form **Get started with Group chatbots (Open WebUI)**, type:
@@ -478,16 +528,20 @@ form **Get started with Group chatbots (Open WebUI)**, type:
 
 Click **Create Admin Account**.
 
-**What you should see.** The chat page of Open WebUI. Your name at the bottom left opens a menu with
-**Admin Panel**: you are the administrator. **The first account becomes the administrator**, and
+**What you should see.** First a window **What's New in Group chatbots (Open WebUI)**: click
+**Okay, Let's Go!** at the bottom (the participants never see it). Then the chat page of Open WebUI. Your name at the bottom left opens a menu with **Admin Panel**: you are the
+administrator. **The first account becomes the administrator**, and
 Open WebUI then **closes the sign-ups** by itself. Nobody else can create an account until you open
 them in [part 6](#part-6---open-it-to-your-group).
 
 ### Step 7 - Check the connection to Ollama
 
-Click **New Chat**. In the list of models, at the bottom right of the message box, you should see
-`qwen2.5:7b`. Ask "Hello, who are you?": the first answer is slower, while the model loads. If the
-list is empty, see [Troubleshooting](#the-model-list-is-empty).
+Click **New Chat**. In the list of models, at the bottom right of the message box, choose
+`qwen2.5:7b` (Open WebUI may have chosen another model of Ollama for you). Ask "Hello, who are
+you?": the first answer is slower, while the model loads. On our laptop, it came after 10 seconds,
+5 of them to load the model. If the list is empty, see
+[Troubleshooting](#the-model-list-is-empty). If the answer is "does not support tools", see
+[this entry](#the-answer-is-does-not-support-tools).
 
 ---
 
@@ -512,7 +566,7 @@ Everything else is the same, with **three differences** when you create the chat
    must decide to search by itself: `qwen2.5:7b` never did, and invented
    ([what we measured](#what-we-measured)). We did not test the other models this way.
 3. **num_ctx (Ollama): 8192.** In the same list, find **num_ctx (Ollama)**. Click **Default** so that
-   it reads **Custom**, and type **8192**. This is the size of the model's memory for one answer
+   it reads **Custom**: a slider and a number appear. Type **8192** in place of the number. This is the size of the model's memory for one answer
    (its *context window*), in *tokens*, small pieces of words. Ollama's default is 4096 on a
    computer with less than 24 GB of graphics memory. Your instructions, the passages of your
    documents and the answer must all fit in it. We did not test 4096 with documents: we measured
@@ -527,7 +581,16 @@ with the large models of that guide, but the small local model we tested never s
 **What you should see.** Ask a question on your topic. In the text of the answer, small grey labels
 name the document each part comes from, and the button **Sources** under the answer lists them, as
 in step 4 of the Open WebUI guide. The line "Explored list_knowledge…" of that step does not
-appear with **Legacy**: Open WebUI searches your documents itself, before the answer.
+appear with **Legacy**: Open WebUI searches your documents itself, before the answer. On our laptop,
+a question to a chatbot made with the filled example of the template `topic-assistant` and the
+summaries of the workshop got its answer in 5 to 6 seconds. Then, in a terminal, type `ollama ps`:
+its column **CONTEXT** reads `8192`, the third difference above (**num_ctx**).
+
+**Legacy also keeps each question small.** With the other settings, Open WebUI also describes its
+own tools to the model (search, memory, notes…) with each question. On our laptop, a short "Hello,
+who are you?" sent that way was about 3,600 tokens: almost all of Ollama's default of 4096, before
+any document. A question to our chatbot in **Legacy**, its passages included, was about 2,000
+tokens: it leaves room in 8192.
 
 > [!TIP]
 > If you already have chatbots from the Open WebUI guide, their instructions and documents work here
@@ -546,6 +609,8 @@ instead. With a local model, check also:
 - **The questions with no answer.** A small model invents more easily than a large one. It must say
   "I don't know".
 - **The language of your group.** Ask your questions in that language: we only measured English.
+  We also asked one question in French, to a chatbot with English documents: the answer was right,
+  in French, with its sources. One question is not a measure.
 - **The speed.** Time a few answers. Then, once [part 6](#part-6---open-it-to-your-group) is ready,
   ask three or four colleagues to send a question at the same moment from their phones. The last one
   served should see the first words within about twenty seconds.
@@ -570,7 +635,7 @@ organisation: the same Wi-Fi as the computer.
 
 ### Before the first session
 
-*With your IT person.*
+*A technical part, as parts 1 to 3: commands in a terminal, with the administrator rights.*
 
 1. **Open Open WebUI to the local network.** Your administrator account must exist
    ([part 3](#step-6---create-your-administrator-account)). In the file of the service, replace
@@ -593,24 +658,42 @@ organisation: the same Wi-Fi as the computer.
    example `http://192.168.1.20:3000`.
 
    **What you should see.** The sign-in page of Group chatbots. If it does not open, check that the
-   phone uses the same Wi-Fi. Some Wi-Fi networks for guests keep the devices apart, and the
-   computer's firewall may need to let port 3000 in: this is your IT person's decision. The address
-   can change after a restart: if you print a QR code or post the link, ask your IT person to give
-   this computer a fixed address.
-3. **Make the model under your chatbots safe and reachable.** Your name at the bottom left →
-   **Admin Panel** → **Settings** → **Models**. On the line of `qwen2.5:7b`:
-   - click **…** (**More**) → **Hide Model**, then **…** again → **Make Public**, in this order.
-     Close the settings window, open **Settings** → **Models** again, and click **…** on the line
-     of `qwen2.5:7b`: it should now offer **Show Model** and **Make Private**. If not, do the
-     missing one again. The participants need to read this model
-     for your chatbots to work. Hidden, it is no longer in their list;
-   - but hiding is not a lock: a participant who knows its name can still reach it, for example by
-     typing the address with `?model=qwen2.5:7b`. Used directly, the model has no instructions and
-     no documents: it invents, and it refuses nothing ([what we measured](#what-we-measured)). Give
-     it a safety net: click the pencil (**Edit**) on its line. In **System Prompt**, paste the
-     *Never* rules of your template, then add: "You are not the group's chatbot. To any question,
-     answer only: please choose the group's chatbot in the list." Click **Save & Update**. This
-     applies only when someone uses the model directly: your chatbots keep their own instructions.
+   address starts with `http://` (some browsers try `https://` first), and that the phone uses the
+   same Wi-Fi. Some Wi-Fi networks for guests keep the devices apart: ask the person who manages
+   the Wi-Fi of your organisation. If the computer has a firewall turned on, it must let port 3000
+   in. The address can change after a restart: if you print a QR code or post the link, ask the
+   person who manages the Wi-Fi to give this computer a fixed address.
+3. **Make the model under your chatbots safe and reachable.** The participants need to read this
+   model for your chatbots to work. But used directly, it has no instructions and no documents: it
+   invents, and it refuses nothing ([what we measured](#what-we-measured)). So you give it a safety
+   net, then you hide it from their list, and you let them read it. Your name at the bottom left →
+   **Admin Panel** → **Settings** → **Models**.
+   1. **The safety net.** Click the pencil (**Edit**) on the line of `qwen2.5:7b`, and change three
+      things:
+      - in **System Prompt**, paste the *Never* rules of your template, then add: "You are not the
+        group's chatbot. To any question, answer only: please choose the group's chatbot in the
+        list.";
+      - click **Show** next to **Advanced Params**, find **Function Calling**, and click its button
+        until it reads **Legacy**, as in [part 4](#part-4---build-the-chatbot);
+      - under **Capabilities**, uncheck **Builtin Tools**.
+
+      Click **Save & Update**. If "Failed to save model" appears, close the settings window, open
+      it again, click the pencil again, and do the three changes again. Do all three: we tested
+      them together. On our laptop, with the System Prompt alone, the model still received Open
+      WebUI's tools with each question, and ignored the instruction. With the three changes, it
+      answered as asked.
+   2. **Hide it, then let the participants read it.** On the same line, click **…** (**More**) →
+      **Hide Model**, then **…** again → **Make Public**, in this order.
+   3. **Check.** Close the settings window, open **Settings** → **Models** again, and click **…** on
+      the line of `qwen2.5:7b`: it should now offer **Show Model** and **Make Private**. If not, do
+      the missing one again. Then click the pencil: the three changes of the safety net should still
+      be there.
+
+   Hidden, the model is no longer in the participants' list: they see only your chatbots, and one
+   of them is already chosen when they open a new chat.
+   But hiding is not a lock: a participant who knows its name can still reach it, for example by
+   typing the address with `?model=qwen2.5:7b`. Then the safety net answers. It applies only when
+   someone uses the model directly: your chatbots keep their own instructions.
 
 ### Before each session
 
@@ -622,21 +705,25 @@ organisation: the same Wi-Fi as the computer.
    **Admin Panel** → **Users**, check that you know every account.
 4. **Give the participants access to your chatbot.** In Open WebUI, a new chatbot is **Private**:
    only you can use it. A participant needs to read the chatbot, its documents and the model under
-   it (made Public in [before the first session](#before-the-first-session), step 3; do it again
-   for a model you download later). Otherwise the chatbot is missing from their list, answers "Model not found",
-   or answers without its documents.
-   - **The chatbot**: **Workspace** → **Models** → open your chatbot → **Access** (next to its
-     name) → choose **Public** ("Accessible to all users"). Close the window, then click
-     **Save & Update**.
+   it (set up in [before the first session](#before-the-first-session), step 3: safety net,
+   hidden, public; do the whole of step 3 again for a model you download later). Otherwise the
+   chatbot is missing from their list, answers "Model not found", or answers without its documents.
+   - **The chatbot**: **Workspace** → **Models** → **…** at the end of the line of your chatbot →
+     **Edit** → **Access** (next to its name) → choose **Public** ("Accessible to all users").
+     Close the window, then click **Save & Update**.
    - **Its documents**: **Workspace** → **Knowledge** → open your knowledge → **Access** → choose
      **Public**. Open WebUI saves it at once.
    - **Several groups**: every account sees every **Public** chatbot. In **Workspace** → **Models**,
      switch on only the chatbots of this group, and switch the others off.
-5. **Test it as a participant**, from your own phone on the same Wi-Fi: open the sign-ups as in
-   [During the session](#during-the-session), create a test account such as `test@group.local`, ask
-   one question, and check that the answer shows the grey labels of your documents. Open the
-   address with `?model=qwen2.5:7b` too: the model should send you back to the chatbot. Then close
-   the sign-ups again.
+5. **Test it as a participant**, from your own phone on the same Wi-Fi. No phone at hand: on the
+   computer, open a private window of the browser (`Ctrl+Shift+P` in Firefox, `Ctrl+Shift+N` in
+   Chrome), so that you are not signed in as the administrator there, and type the address of
+   step 1 followed by `:3000`, for example `http://192.168.1.20:3000`, not `localhost`. Open
+   the sign-ups as in [During the session](#during-the-session), create a test account such as
+   `test@group.local`, and check that its list of models shows only your chatbots. Ask one
+   question, and check that the answer shows the grey labels of your documents. Then open the
+   address followed by `/?model=qwen2.5:7b`, and say "Hello" in this new chat: the model should
+   answer only that you must choose the group's chatbot. Then close the sign-ups again.
 
 ### During the session
 
@@ -678,19 +765,19 @@ The accounts stay: the participants can come back next time, at the address of t
 **Where it stays.** The accounts, the conversations, what the chatbot remembers about each
 participant (if its **Memory** is on), your documents and the feedback are stored on this
 computer, in the folder `~/owui-local/data`. The questions are answered by the model on this
-computer: they are not sent to an AI company. Your administrator account, the person who looks
-after the computer, and anyone who uses the computer's account where Open WebUI is installed can
-read this data. Use this account only for Open WebUI and for you, lock the screen when you leave
-the computer, and choose a strong administrator password. Decide with them who may read the data,
-and when it is deleted.
+computer: they are not sent to an AI company. Your administrator account in Open WebUI, anyone
+with the administrator rights of the computer, and anyone who uses the computer's account where
+Open WebUI is installed can read this data. Use this account only for Open WebUI and for you, lock
+the screen when you leave the computer, and choose a strong administrator password. Decide with
+your organisation who may read the data, and when it is deleted.
 
 **What still goes out, or can be seen.**
 - The downloads: Ollama, the models, uv, Python, Open WebUI and its search model come from the
   internet, the first time.
 - With [`openwebui.env`](openwebui.env), Open WebUI is set not to send anything by itself, and
   Ollama's cloud features are off ([part 2](#step-2---keep-ollama-on-this-computer)). We did not
-  check the network traffic of either program. Ask your IT person if your organisation needs a
-  complete answer.
+  check the network traffic of either program. If your organisation needs a complete answer, have
+  it checked by someone who can.
 - On the Wi-Fi, the questions and the passwords travel without encryption (`http://`).
 - Files: the upload buttons are hidden, but a participant with technical skills can still store a
   file or a photo on this computer.
@@ -701,7 +788,7 @@ and when it is deleted.
   in the same order. Where it says `openwebui reset`, the last resort here is the full deletion
   below.
 - *At the end of the project*: first keep what you want, your instruction files and your
-  documents. Then your IT person types, in the account where Open WebUI was installed
+  documents. Then type, in the account where Open WebUI was installed
   ([part 3](#part-3---start-open-webui)):
 
   ```bash
@@ -813,6 +900,13 @@ first start: starting it again with another `OLLAMA_BASE_URL` does not change it
 
 Do not open Ollama to the network to fix this ([part 2](#step-2---keep-ollama-on-this-computer)).
 
+### The answer is "does not support tools"
+
+The model you chose cannot use Open WebUI's tools, which Open WebUI offers by default. This happened
+with `phi3.5`. In the list of models, at the bottom right of the message box, choose `qwen2.5:7b`,
+or one of your chatbots: they are set to **Legacy** ([part 4](#part-4---build-the-chatbot)), which
+sends no tools.
+
 ### "Model not found"
 
 For you: reload the page of Open WebUI, then ask again. If it persists, check that the base model of
@@ -833,8 +927,8 @@ uv could not download Python 3.12. Check the internet connection, then type the 
 
 ### Open WebUI is never ready
 
-Press `Ctrl+C`, then type `sudo journalctl -u owui-local -n 20 --no-pager` and show the result to
-your IT person. Check also that every step of [part 3](#part-3---start-open-webui) was done by the
+Press `Ctrl+C`, then type `sudo journalctl -u owui-local -n 20 --no-pager`: its last lines say what
+went wrong. Show them to someone who can read them if you need help. Check also that every step of [part 3](#part-3---start-open-webui) was done by the
 same user, in the folder `~/owui-local`: the service uses the paths of this user.
 
 ### The address does not open after a restart of the computer
@@ -847,7 +941,7 @@ start by itself, unless you stopped it after the last session: type
 
 Try from your own phone, on the same Wi-Fi. If it does not open, check the address (`hostname -I`)
 and step 1 of [before the first session](#before-the-first-session). If it still does not open,
-the network or the firewall keeps it out: see your IT person.
+the Wi-Fi or a firewall keeps it out: see step 2 of [before the first session](#before-the-first-session).
 
 ---
 
@@ -905,5 +999,30 @@ WebUI's programming interface:
   Model** then **Make Public** on the base model, and a participant account that reaches a
   **Public** chatbot, and also the hidden base model.
 
-TO BE COMPLETED: these steps on screen, the service of the computer (`sudo systemctl`), an answer
-with documents for a participant, the commands of part 2 step 2, and part 6 with a real group.
+Followed on screen on 29 October 2026, on the laptop of the measures (Ubuntu 26.04, Python 3.14, an
+older uv already installed, other models of Ollama already there), parts 1 to 6 of the previous
+version of this guide. This version corrects what failed there: the model to choose in part 3,
+step 7, and the safety net of the base model in part 6. What we saw:
+
+- part 2: `OLLAMA_NO_CLOUD=1` in the service, `Ollama cloud disabled: true` in its journal, Ollama
+  for this computer only (`127.0.0.1:11434`), `qwen2.5:7b` on the card (`100% GPU`, then
+  `13%/87% CPU/GPU` with a context of 8192 once the chatbot was set up);
+- part 3: Python 3.12 from uv (CPython 3.12.14), the installation in a little more than a minute,
+  the service of the computer started with `sudo systemctl`, ready in 20 seconds, for this
+  computer only; `.webui_secret_key` in `~/owui-local`; no e-mail and no address in the journal
+  after the administrator's account was created;
+- parts 4 and 5: a chatbot made from the filled example of `topic-assistant` and the summaries of
+  the workshop, with **Legacy** and 8192: right answers with their sources in 5 to 6 seconds,
+  "I don't know" for a city outside its documents;
+- part 6, with a private window of the same computer at its network address instead of a phone:
+  a participant account that sees only the chatbot, a right answer with its sources to a question
+  in French, and the base model, reached with `?model=`, that answered "Please choose the group's
+  chatbot in the list." to "Hello" once the three changes of its safety net were saved. With the
+  System Prompt alone, it did not.
+
+The new order of part 6, step 3 (safety net first, then **Hide Model** and **Make Public**) and
+the line `ENABLE_EVALUATION_ARENA_MODELS=false` of [`openwebui.env`](openwebui.env) were not
+followed on screen.
+
+TO BE COMPLETED: follow them on a fresh installation, and part 6 with a real group, from phones on
+the Wi-Fi.
