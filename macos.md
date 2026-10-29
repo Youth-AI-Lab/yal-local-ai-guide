@@ -494,7 +494,7 @@ nobody out:
 ```bash
 sed -i '' 's|<string>127.0.0.1</string>|<string>0.0.0.0</string>|' ~/Library/LaunchAgents/org.youthailab.owui-local.plist
 launchctl bootout gui/$(id -u)/org.youthailab.owui-local
-while lsof -nP -iTCP:3000 -sTCP:LISTEN >/dev/null; do sleep 1; done
+while launchctl print gui/$(id -u)/org.youthailab.owui-local >/dev/null 2>&1; do sleep 1; done
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/org.youthailab.owui-local.plist
 grep -o '<string>[0-9.]*</string>' ~/Library/LaunchAgents/org.youthailab.owui-local.plist
 until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; echo "Open WebUI is ready"
