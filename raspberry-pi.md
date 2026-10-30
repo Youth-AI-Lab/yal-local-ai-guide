@@ -1061,13 +1061,17 @@ Not the kind OpenAI: hailo-ollama has no list of models in that form.
 > tested (TO BE COMPLETED).
 
 In Open WebUI, open **Admin Panel** → **Settings** → **Connections**. Check that **Ollama API** is
-on. Under **Manage Ollama API Connections**, click the gear icon (**Configure**) at the end of the
-address line, not the arrow (**Manage**). In **URL**, delete the address that is there
-(`http://127.0.0.1:11434`, the address of Ollama), and type `http://127.0.0.1:8000`. Click the two
-circling arrows (**Verify Connection**) to the right of it, then click **Save**.
+on. Under **Manage Ollama API Connections**, click the gear icon (**Configure**) on the address
+line, just before its on/off switch, not the downward arrow (**Manage**) to its left. In **URL**,
+delete the address that is there (`http://127.0.0.1:11434`, the address of Ollama), and type
+`http://127.0.0.1:8000`. Click the two circling arrows (**Verify Connection**) to the right of it,
+then click **Save**.
 
-**What you should see.** **Verify Connection** shows a message of success (its exact text: TO BE
-COMPLETED). On a machine of GitHub, the test of this guide checks, with the small program that
+![Admin Panel, Settings, Connections. 1: the switch Ollama API, on. 2: the gear on the address line; the red cross marks the downward arrow next to it. Below, the window Edit Connection. 3: the URL http://127.0.0.1:8000. 4: the two circling arrows. 5: Save. On the right, the green message Server connection verified.](images/connections-hailo-ollama.png)
+
+**What you should see.** **Verify Connection** shows a message of success ("Server connection
+verified", seen with the small program that stands in for hailo-ollama; with the real hailo-ollama:
+TO BE COMPLETED). On a machine of GitHub, the test of this guide checks, with the small program that
 stands in for hailo-ollama, that Open WebUI receives the version written in the code of
 hailo-ollama 5.1.1, `0.5.1`.
 

@@ -3,9 +3,9 @@ SPDX-PackageName = "yal-local-ai-guide"
 SPDX-PackageSupplier = "Youth AI Lab (Erasmus+)"
 SPDX-PackageDownloadLocation = "https://github.com/Youth-AI-Lab/yal-local-ai-guide"
 
-# Texts and templates: CC BY-SA 4.0.
+# Texts, templates and screenshots: CC BY-SA 4.0.
 [[annotations]]
-path = ["README.md", "linux.md", "macos.md", "windows.md", "raspberry-pi.md", "templates/**"]
+path = ["README.md", "linux.md", "macos.md", "windows.md", "raspberry-pi.md", "templates/**", "images/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Youth AI Lab partners"
 SPDX-License-Identifier = "CC-BY-SA-4.0"

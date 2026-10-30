@@ -244,6 +244,8 @@ Everything else is the same, with **three differences** when you create the chat
    documents and the answer must all fit in it. We did not test 4096 with documents: we measured
    with 8192, which leaves room.
 
+   ![The row Advanced Params, open: it reads 2 modified. 2: Function Calling reads Legacy. 3: num_ctx (Ollama) reads Custom, with a slider and the number 8192. All the other settings read Default.](images/chatbot-advanced-params.png)
+
 **On the AI HAT+ 2** ([Raspberry Pi page](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested)):
 its models hold 2,048 tokens, and **num_ctx** has no effect on them: skip difference 3 and leave
 **num_ctx** on **Default**. Build a chatbot **without
@@ -391,6 +393,8 @@ organisation: the same Wi-Fi as the computer.
       **Never click Reset** in this menu: it erases the safety net, and undoes **Hide Model** and
       **Make Public**. Open WebUI asks first: click **Cancel**. If you did reset the model, do the
       whole of step 3 again.
+
+      ![Admin Panel, Settings, Models. 1: the pencil on the line of qwen2.5:7b. 2: the … button, and in its menu, Hide Model and Make Public. The red cross marks Reset: never click it.](images/base-model-menu.png)
    3. **Check.** Reload the page (`F5`; on a Mac, `Cmd+R`), open **Admin Panel** → **Settings** →
       **Models** again, and click **…** on the line of this model: it should now offer **Show
       Model** and **Make Private**. If not, do the missing one again, then reload and check again.
@@ -399,6 +403,10 @@ organisation: the same Wi-Fi as the computer.
       **Advanced Params** reads **1 modified**, and in the row **Capabilities**, the switch
       **Builtin Tools** is off). The separate row **Builtin Tools**, below **Capabilities**, is
       gone: it appears only while this switch is on.
+
+      ![The same list after a reload. The line of qwen2.5:7b is grey and reads Public. Its menu now offers Show Model, with a red cross: never click it. The grey frame on Make Private means: only look.](images/base-model-menu-after.png)
+
+      ![The pencil of qwen2.5:7b after the reload. In the red frames: the System Prompt with the Never rules, Advanced Params reads 1 modified, and in Capabilities, the switch Builtin Tools is off. The next row is Voice: the separate row Builtin Tools is gone.](images/base-model-safety-net.png)
 
    Hidden, the model is no longer in the participants' list: they see only your chatbots, and one
    of them is already chosen when they open a new chat.
@@ -442,10 +450,15 @@ organisation: the same Wi-Fi as the computer.
    - **The chatbot**: **Workspace** → **Models** → **…** at the end of the line of your chatbot →
      **Access** → click **Private** and choose **Public** ("Accessible to all users"). Open WebUI
      saves it at once ("Saved"): close the window.
+
+     ![The window Access Control of the chatbot. The button Private is open, with two choices, Private and Public. Public is in the red frame.](images/access-choose-public.png)
+
+     ![The same window after choosing Public (red frame): Accessible to all users. The switch Allow public write access is off, with a red cross: leave it off. On the right, the green message Saved.](images/access-public-saved.png)
+
    - **Its documents**: **Workspace** → **Knowledge** → open your knowledge → **Access** → choose
-     **Public**. Open WebUI saves it at once.
-   - In both windows, leave **Allow public write access** off: the participants only need to read
-     them.
+     **Public**. Open WebUI saves it at once. The window is the same as for the chatbot.
+   - In both windows, once you choose **Public**, a switch **Allow public write access** appears:
+     leave it off. The participants only need to read them.
    - **Several groups**: every account sees every **Public** chatbot that is switched on, and can
      read the documents of every **Public** knowledge, even when its chatbot is off. In
      **Workspace** → **Models**, switch on only the chatbots of this group, and switch the others
@@ -655,12 +668,15 @@ no passages. If this happens to the participants only, check that its documents 
 
 Open WebUI does not reach Ollama. Check that Ollama runs (`ollama list` answers). Then open
 **Admin Panel** → **Settings** → **Connections**. Check that **Ollama API** is on. Under **Manage
-Ollama API Connections**, click the gear icon (**Configure**) at the end of the address line, not the
-arrow (**Manage**). Type `http://127.0.0.1:11434` in **URL**, click the two circling arrows
-(**Verify Connection**) to the right of it, then click **Save**. With the AI HAT+ 2, type
+Ollama API Connections**, click the gear icon (**Configure**) on the address line, just before its
+on/off switch, not the downward arrow (**Manage**) to its left. Type `http://127.0.0.1:11434` in
+**URL**, click the two circling arrows (**Verify Connection**) to the right of it: a green message
+"Server connection verified" appears. Then click **Save**. With the AI HAT+ 2, type
 `http://127.0.0.1:8000`, and check that `curl -s http://localhost:8000/api/tags` lists your model.
 Open WebUI keeps the address it had at its very first start: starting it again with another
 `OLLAMA_BASE_URL` does not change it.
+
+![Admin Panel, Settings, Connections. 1: the switch Ollama API, on. 2: the gear on the line http://127.0.0.1:11434. The red cross marks the downward arrow next to it. Below, the window Edit Connection. 3: the URL. 4: the two circling arrows. 5: Save. On the right, the green message Server connection verified.](images/connections-ollama.png)
 
 Do not open Ollama to the network to fix this: keep it for this computer only, as in part 2
 ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)).
