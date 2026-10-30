@@ -76,14 +76,14 @@ organisation, and the participants may already know it.
 
 - **A computer** that stays on during the session, ideally with a graphics card that the AI model
   can use: on Linux and Windows, an **NVIDIA graphics card with at least 6 GB of memory**; on a Mac,
-  its Apple chip; on a **Raspberry Pi 5 with 8 GB**, its processor, or its **AI HAT+ 2** board (not
-  tested) ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). About 20 GB of free disk.
+  its Apple chip; on a **Raspberry Pi 5 with 8 GB**, its processor (tested on one Pi), or its
+  **AI HAT+ 2** board (not tested) ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). About 20 GB of free disk.
 - **Linux, macOS, Windows or Raspberry Pi OS**: each system has its own page for parts 1 to 3
-  ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). We followed the guide on Ubuntu 26.04
-  only: the pages for macOS, Windows and the Raspberry Pi are not tested on a real computer, but a
-  machine of GitHub runs their commands from start to end (for the Raspberry Pi, an arm64 machine
-  under Ubuntu, with a stand-in for hailo-ollama and the AI HAT+ 2; first run of the Raspberry Pi
-  page: 29 October 2026) ([how](ci/README.md)).
+  ([parts 1 to 3](#parts-1-to-3---install-on-your-computer)). We followed the guide on Ubuntu 26.04,
+  and the Raspberry Pi page on one real Pi 5, on its processor. The pages for macOS and Windows, and
+  the AI HAT+ 2, are not tested on a real computer, but a machine of GitHub runs their commands from
+  start to end (for the AI HAT+ 2, an arm64 machine under Ubuntu, with a stand-in for hailo-ollama and
+  the HAT; first run of the Raspberry Pi page: 29 October 2026) ([how](ci/README.md)).
 - **The administrator rights** of this computer (on a Mac, an account of type **Admin**). You do not
   need Python or anything else beforehand: part 3 installs the version of Python that Open WebUI
   needs, in its own folder.
@@ -159,8 +159,9 @@ did about as well.
 served saw the first words of the answer after **3 s** (1 question), **8 s** (2), **20 s** (4) and
 **50 s** (8). With this card, count about **four questions at the same moment** before the wait gets
 too long for a group. Young people do not all ask at the same second, but an activity where
-everybody starts together reaches this limit. On a Raspberry Pi, with or without the AI HAT+ 2: one
-question at a time too; times TO BE COMPLETED.
+everybody starts together reaches this limit. On a Raspberry Pi: one question at a time too. On its
+processor, with `qwen2.5:1.5b`, the last one saw the first words after 35 seconds (2 questions) and 84
+seconds (4). With the AI HAT+ 2: times TO BE COMPLETED.
 
 **What we did not measure:**
 
@@ -169,11 +170,12 @@ question at a time too; times TO BE COMPLETED.
   example Catalan, Dutch, French or Italian);
 - bigger models, and other families of models (Gemma, Llama);
 - a graphics card with less than 6 GB, Windows and macOS;
-- a Raspberry Pi 5, on its processor or with the AI HAT+ 2: nothing of this guide was measured on
-  one ([its page](raspberry-pi.md));
+- the AI HAT+ 2 (see [the Raspberry Pi page](raspberry-pi.md)); on a Raspberry Pi 5, on its processor,
+  we measured `qwen2.5:1.5b` only: 9 / 22 with the documents, and it presented a figure about
+  something else as the answer;
 - the Ollama setting that answers several questions in parallel (`OLLAMA_NUM_PARALLEL`);
-- the answers with Open WebUI 0.12.4, the version that part 3 installs: our measures used 0.11.4
-  ([About](#about)).
+- the answers of the larger models with Open WebUI 0.12.4, the version that part 3 installs: our
+  measures of these models used 0.11.4 ([About](#about)).
 
 ---
 
@@ -206,9 +208,9 @@ Choose the page of your system:
   programs. Not tested on Windows 11; run from start to end on a machine of GitHub under Windows
   Server 2025.
 - **[Raspberry Pi](raspberry-pi.md)**: a Raspberry Pi 5 with 8 GB, under Raspberry Pi OS Trixie
-  (64-bit), on its processor, and optionally with the **AI HAT+ 2**. Not tested on a real Raspberry
-  Pi; run from start to end on an arm64 machine of GitHub, with a stand-in for hailo-ollama and the
-  AI HAT+ 2 (first run: 29 October 2026).
+  (64-bit), on its processor, and optionally with the **AI HAT+ 2**. Processor route tested on one
+  real Pi 5 on 30 October 2026. The AI HAT+ 2 is not tested on a real board: an arm64 machine of GitHub
+  runs its commands, with a stand-in for hailo-ollama and the HAT.
 
 Each page also has what part 6 and the deletion need on this system, its commands and its
 troubleshooting. When you have finished part 3 there, come back here for part 4.
@@ -305,7 +307,9 @@ instead. With a local model, check also:
   ask three or four colleagues to send a question at the same moment from their phones. On our Linux
   laptop with a 6 GB graphics card, the last one saw the first words within about twenty seconds.
   We did not measure macOS or Windows: time yours before you open the chatbot to a group.
-  Raspberry Pi: TO BE COMPLETED; time yours with two colleagues first.
+  On a Raspberry Pi 5, on its processor, with `qwen2.5:1.5b`: with two questions at once, the last one
+  saw the first words after 35 seconds; with four, after 84 seconds. Time yours with two colleagues
+  first.
 
 **A good score is not a green light for young people.** It shows how the chatbot answered your
 questions, on that day. The decision to use it with a group belongs to your organisation
@@ -605,10 +609,12 @@ electricity. On a Raspberry Pi, the AI HAT+ 2 is an extra board at $200
 
 ## Limits to know
 
-- **Slow without a graphics card**: one to two minutes per answer on the processor alone.
+- **Slow without a graphics card**: one to two minutes per answer on the processor alone, with the
+  7B models.
 - **One question at a time**: with our 6 GB card, about four questions at the same moment before
   the wait gets too long.
-- **On a Raspberry Pi**: slow on its processor (TO BE COMPLETED); with the AI HAT+ 2, 2,048 tokens
+- **On a Raspberry Pi**: on its processor, 23 seconds for the middle answer, with `qwen2.5:1.5b`, a
+  much weaker model (9 / 22); with the AI HAT+ 2, 2,048 tokens
   per conversation, so no documents, and one question at a time.
 - **A small model invents without documents**, and the one we tested did not search them by itself:
   keep **Function Calling: Legacy**.
@@ -777,7 +783,7 @@ kit.
 
 For the measures, Open WebUI v0.11.4 ran from its official Docker image. Part 3 installs v0.12.4,
 with the same search model (`all-MiniLM-L6-v2`) and the same version of torch (2.9.1, for the
-processor). We did not measure the answers again with 0.12.4.
+processor). We did not measure the answers of these models again with 0.12.4.
 
 Checked on 28 October 2026 (with Open WebUI v0.11.4) on another computer, under Ubuntu 26.04
 (Python 3.14), through Open WebUI's programming interface:
@@ -862,12 +868,12 @@ Run on 29 October 2026 by the machines of GitHub, from start to end, with a tiny
 screen: the pages for Linux (Ubuntu 26.04 and 24.04), macOS (macOS 26, Apple chip) and Windows
 (Windows Server 2025, not Windows 11) ([`ci/README.md`](ci/README.md)).
 
-Raspberry Pi page: not followed on a Raspberry Pi. Written from the documentation of Raspberry Pi
-and Hailo and from the code of hailo-ollama 5.1.1. Run on TO BE COMPLETED by an arm64 machine of
-GitHub (Ubuntu 24.04): the processor route with a tiny model, and the AI HAT+ 2 route with the real
+Raspberry Pi page: followed on 30 October 2026 on a real Pi 5 with 8 GB, on its processor, with
+Open WebUI 0.12.4 and Ollama 0.40.13 (parts 1 to 6, except step 4 of part 1, then the deletion). The
+AI HAT+ 2 part is written from the documentation of Raspberry Pi and Hailo and from the code of
+hailo-ollama 5.1.1. Run on 29 October 2026 by an arm64 machine of GitHub (Ubuntu 24.04): the processor route with a tiny model, and the AI HAT+ 2 route with the real
 hailo-ollama 5.1.1 package and a stand-in program in place of hailo-ollama and the HAT
-([`ci/README.md`](ci/README.md)). TO BE COMPLETED: a real Raspberry Pi 5 with 8 GB, with and
-without the AI HAT+ 2.
+([`ci/README.md`](ci/README.md)). TO BE COMPLETED: a real AI HAT+ 2, and a group.
 
 TO BE COMPLETED: follow parts 3 to 6 on a fresh installation of 0.12.4 (new editor: row
 **Advanced Params**, switches of **Capabilities**, **Access** saved at once), with a real model,

@@ -30,15 +30,18 @@ Open WebUI answers only on the Pi. Take *Raspberry Pi OS* or *Raspberry Pi OS Fu
 > with this.
 
 > [!NOTE]
-> **Not tested on a real Raspberry Pi.** We measured the guide on Linux only. The commands of this
-> page come from the documentation of Raspberry Pi, Hailo, Ollama and uv, and from the code of
-> hailo-ollama 5.1.1. A machine of GitHub with an arm64 processor, under Ubuntu 24.04 (not
+> **Tested on one real Raspberry Pi 5, on its processor only.** On 30 October 2026 we followed parts
+> 1 to 6 (except step 4 of part 1) and the deletion on a Pi 5 with 8 GB, under Raspberry Pi OS (image
+> of 6 October 2026), with `qwen2.5:1.5b`, the official 27 W supply and a fan, on Wi-Fi. We worked from
+> another computer: nobody watched the screen of the Pi, and the steps in the browser went through
+> Open WebUI's programming interface. **The AI HAT+ 2 is not tested on a real board**: its commands
+> come from the documentation of Raspberry Pi and Hailo, and from the code of hailo-ollama 5.1.1. A machine of GitHub with an arm64 processor, under Ubuntu 24.04 (not
 > Raspberry Pi OS), follows step 1 of part 1, parts 2 and 3, parts 4 to 6 (the steps in
 > the browser through Open WebUI's programming interface) and the deletion. For the AI HAT+ 2, it
 > follows steps 3 to 10 of [With the AI HAT+ 2](#with-the-ai-hat-2) instead of part 2, with a small
 > program that answers like hailo-ollama 5.1.1 in place of hailo-ollama and the HAT
 > ([`ci/README.md`](ci/README.md)). First successful run: 29 October 2026. TO BE
-> COMPLETED: a run on a real Raspberry Pi 5, with and without the AI HAT+ 2, and a group.
+> COMPLETED: a run on a real AI HAT+ 2, and a group.
 
 **Two ways to run the model.** By default, the model runs on the **processor** of the Pi, with
 Ollama, as on the other pages: parts 1 to 6 of the guide stay the same. The **AI HAT+ 2** is an
@@ -54,7 +57,8 @@ with documents of part 4. See [With the AI HAT+ 2](#with-the-ai-hat-2).
 
 **The terminal** is the app where you type commands. Raspberry Pi's documentation says "open the
 Raspberry Pi Terminal" ([Raspberry Pi](https://www.raspberrypi.com/documentation/computers/ai.html)).
-Its place in the menu of the Pi: TO BE COMPLETED. When a command starts with `sudo`, the terminal
+On our image, the terminal should be in the **System** section of the menu (we read this in the
+files of the menu, we did not see it on a screen). When a command starts with `sudo`, the terminal
 asks for the password of your account on the Pi. On a Pi installed before April 2026, it may not
 ask: [step 4 of part 1](#step-4---ask-for-your-password-at-start-up-not-tested) changes this.
 
@@ -87,8 +91,8 @@ name of its version. The third one shows the memory of the computer.
 
 - `arm64`: a 64-bit system;
 - `VERSION_CODENAME=trixie`: the version Trixie of Raspberry Pi OS;
-- in the line `Mem:`, under `total`, a figure close to 8 GB. The exact figure on a Pi 5 with 8 GB:
-  TO BE COMPLETED.
+- in the line `Mem:`, under `total`, a figure close to 8 GB: `7.9Gi` on our Pi 5 with 8 GB
+  (`7,9Gi` on a system in French).
 
 Raspberry Pi's AI software needs a Raspberry Pi 5 "with a 64-bit Raspberry Pi OS installation
 (Trixie)" ([Raspberry Pi](https://www.raspberrypi.com/documentation/computers/ai.html)). If you see
@@ -98,7 +102,7 @@ answer the same on Raspberry Pi OS Lite, which has no desktop. If your Pi starts
 with no desktop, you have Lite: install *Raspberry Pi OS* (with the desktop) instead. We wrote this
 page for Trixie: we did not check the earlier version, Bookworm.
 
-### Step 2 - Update the system and the firmware (not tested)
+### Step 2 - Update the system and the firmware
 
 Raspberry Pi asks for the latest software and the latest firmware before its AI software
 ([Raspberry Pi](https://www.raspberrypi.com/documentation/computers/ai.html)):
@@ -113,9 +117,12 @@ sudo reboot
 The first two commands update the programs of the system. The third one updates the **firmware**,
 the program kept in a memory chip of the board, which starts the Pi. The last one restarts the Pi.
 
-**What you should see.** TO BE COMPLETED. After the restart, open a terminal again.
+**What you should see.** On our Pi, `apt` had nothing to update, and the third command showed
+`EEPROM updates pending. Please reboot to apply the update.` (EEPROM is the memory chip of the
+firmware): the restart applies it. If your firmware is already up to date, you may not see this line.
+Our Pi answered again after 39 seconds. After the restart, open a terminal again.
 
-### Step 3 - Power, cooling and storage (not tested)
+### Step 3 - Power, cooling and storage
 
 **Power.** For a Raspberry Pi 5, Raspberry Pi recommends its **27 W USB-C** power supply
 ([Raspberry Pi](https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/raspberry-pi/power-supplies.adoc)).
@@ -127,7 +134,7 @@ may get too little power. To check "the current status of power output to the US
 vcgencmd get_config usb_max_current_enable
 ```
 
-What it shows with the 27 W supply: TO BE COMPLETED.
+With the official 27 W supply, it shows `usb_max_current_enable=1`.
 
 **Cooling.** For the best speed, Raspberry Pi recommends "an active cooling solution such as a fan".
 For a Pi 5, that is its **Active Cooler**, a heatsink with a fan
@@ -151,14 +158,13 @@ vcgencmd get_throttled
 The first one shows the temperature of the chip. The Pi starts to slow down between 80°C and 85°C.
 The second one shows whether the Pi has slowed down since it started
 ([Raspberry Pi](https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/os/graphics-utilities.adoc)).
-What they show on a Pi 5 with its Active Cooler, during a session: TO BE COMPLETED.
+On our Pi 5 with a fan, the hottest reading was 76.8°C, during our test with up to four questions at
+the same time, and `throttled=0x0`: it never slowed down. We did not measure a whole session with a group.
 
-**Storage.** Open WebUI takes about 2.0 GB once installed, and Python and its search model about
-0.2 GB more. Ollama takes about 2.3 GB, a download of 1.6 GB, mostly for graphics cards that a Pi
-does not have. We worked these figures out from the packages for this processor (Ollama 0.40.13);
-we did not measure them on a Pi. Add the model of part 2 (1 GB for `qwen2.5:1.5b`, 4.7 GB for
-`qwen2.5:7b`) and, with the AI HAT+ 2, about 1.8 GB for its programs and its model. In all, 5.5 to
-11 GB. To see the free space, type:
+**Storage.** Measured on our Pi: 2.2 GB for Open WebUI and its search model, 0.2 GB for uv and
+Python, 2.1 GB for Ollama, mostly for graphics cards that a Pi does not have, and 0.9 GB for
+`qwen2.5:1.5b`. That is 5.4 GB in all. With `qwen2.5:7b` (4.7 GB) instead, count about 9 GB. With the
+AI HAT+ 2, add about 1.8 GB for its programs and its model (worked out, not measured). To see the free space, type:
 
 ```bash
 df -h --output=avail /
@@ -176,7 +182,8 @@ the system with the desktop takes at most 6.7 GB
 ([CNX Software](https://www.cnx-software.com/2026/01/20/raspberry-pi-ai-hat-2-review-a-40-tops-ai-accelerator-tested-with-computer-vision-llm-and-vlm-workloads/),
 blog).
 
-The memory used by Open WebUI and the model together, on a Pi with 8 GB: TO BE COMPLETED.
+On our Pi with 8 GB, with Open WebUI and `qwen2.5:1.5b` running, about 2.7 GB of memory were in use
+and 5 GB were left.
 To see it on yours, ask your chatbot a question, then type `free -h` in a terminal: the figure under
 `available`, in the line `Mem:`, is what is left.
 
@@ -206,7 +213,9 @@ sudo -k; sudo -n true
 ```
 
 The first command shows nothing. The second one shows `sudo: a password is required`. At the next
-start, the Pi shows a login screen (TO BE COMPLETED on a Pi).
+start, the Pi shows a login screen (TO BE COMPLETED on a Pi). We did not run this step on our Pi.
+Before it, on our image of 6 October 2026, `sudo` already asked for the password after a restart, and
+auto-login was on.
 
 ---
 
@@ -220,12 +229,17 @@ NVIDIA cards only, none for the graphics chip of the Pi (we read the list of its
 0.40.13).
 So the model runs on the **processor**. Before it writes the first word of an answer, the model
 reads the whole question, with the passages of your documents: about 2,000 tokens
-([part 4 of the guide](README.md#part-4---build-the-chatbot)). The only figure we found for this
+([part 4 of the guide](README.md#part-4---build-the-chatbot)). The only published figure we found for this
 reading on a Pi 5 is in an article by Hailo: a question of 96 tokens took 2,039 milliseconds (about
 2 seconds) before the first word, on the processor of a Pi 5, with the model Qwen2.5-1.5B in 4 bits
 and llama.cpp, another program than Ollama
 ([Raspberry Pi](https://www.raspberrypi.com/news/when-and-why-you-might-need-the-raspberry-pi-ai-hat-plus-2/)).
-The time of an answer with Ollama on a Pi: TO BE COMPLETED.
+On our Pi 5, with `qwen2.5:1.5b` and the documents of the workshop, our 11 questions took 11 to 37
+seconds each, first word to last (23 seconds for the middle one). In one measure, just after a warm-up
+question, the first words came after 17 seconds. The first question to the small test chatbot of
+[part 4](README.md#part-4---build-the-chatbot), with 4 documents, took 67 seconds. Directly with
+Ollama, reading 1,640 tokens took 25 seconds. The model then wrote about 10 tokens per second, and
+fewer after a longer text: about 6 after 3,205 tokens, about 4 after 4,717.
 
 **Only the AI HAT+ 2?** If you have the AI HAT+ 2 and want to use only it, you may skip this part,
 except the first command of step 1, which installs `curl`. Skip also step 7 of part 3:
@@ -237,8 +251,8 @@ connection instead.
 Raspberry Pi OS may not come with `curl`, the tool that the commands of this page use to download.
 The installer of Ollama also needs `zstd`, a tool that unpacks its files: without it, it stops with
 "This version requires zstd for extraction"
-([Ollama](https://raw.githubusercontent.com/ollama/ollama/main/scripts/install.sh)). Whether
-Raspberry Pi OS has them already: TO BE COMPLETED. This command installs them if they are missing:
+([Ollama](https://raw.githubusercontent.com/ollama/ollama/main/scripts/install.sh)). Raspberry
+Pi OS with the desktop had them already on our Pi. This command installs them if they are missing:
 
 <!-- ci raspberry-pi,raspberry-pi-hat stage=install check="curl --version" expect="libcurl/" check="zstd --version" expect="Zstandard" -->
 ```bash
@@ -259,9 +273,9 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 It installs Ollama as a service that starts with the computer.
 
-**What you should see.** Type `ollama --version`: it answers with a version number. On a machine of
-GitHub (arm64, Ubuntu), this line installed TO BE COMPLETED. If `ollama --version` answers "command
-not found", the download failed: check `curl --version` and `zstd --version`, then type the line
+**What you should see.** Type `ollama --version`: it answers with a version number (0.40.13 on our
+Pi, installed in 2 min 48). If it also says "could not connect to a running Ollama instance", wait a
+few seconds and type it again. If it answers "command not found", the download failed: check `curl --version` and `zstd --version`, then type the line
 again.
 
 ### Step 2 - Keep Ollama on this computer
@@ -325,13 +339,22 @@ it before you use a model with a group. Use only models without `cloud` in their
 
 | Model | Download | Licence | What we know |
 |---|---|---|---|
-| `qwen2.5:1.5b` | 986 MB ([Ollama](https://ollama.com/library/qwen2.5:1.5b), read on 29 October 2026) | Apache 2.0 (all sizes of Qwen2.5 except 3B and 72B, [Ollama](https://ollama.com/library/qwen2.5)) | 9.97 tokens per second on the processor of a Pi 5, with Ollama and "a simple prompt" (a short question), on an undated page that does not say how much memory the Pi had ([Stratosphere](https://stratospherelinuxips.readthedocs.io/en/develop/_sources/immune/research_rpi_llm_performance.md.txt)); its answers to our 11 questions: TO BE COMPLETED |
-| `qwen2.5:7b` | 4.7 GB | Apache 2.0 (as above) | the model of the [Linux page](linux.md#step-3---choose-a-model-and-read-its-licence). With **num_ctx** 8192 ([part 4](README.md#part-4---build-the-chatbot)), `ollama ps` showed 5.4 GB for it on our laptop, and Open WebUI 0.12.4 used about 0.9 GB there: 6.3 GB of the 8 GB, before Raspberry Pi OS and a browser. It may not fit on a Pi 5 with 8 GB (not tested). Its speed on a Pi: TO BE COMPLETED |
+| `qwen2.5:1.5b` | 986 MB ([Ollama](https://ollama.com/library/qwen2.5:1.5b), read on 29 October 2026) | Apache 2.0 (all sizes of Qwen2.5 except 3B and 72B, [Ollama](https://ollama.com/library/qwen2.5)) | 9.97 tokens per second on the processor of a Pi 5, with Ollama and "a simple prompt" (a short question), on an undated page that does not say how much memory the Pi had ([Stratosphere](https://stratospherelinuxips.readthedocs.io/en/develop/_sources/immune/research_rpi_llm_performance.md.txt)); 11.5 tokens per second on our Pi 5 with 8 GB, on a short question. Our 11 questions, scores of our automatic judge: **8 / 22** without documents, **9 / 22** with the documents |
+| `qwen2.5:7b` | 4.7 GB | Apache 2.0 (as above) | the model of the [Linux page](linux.md#step-3---choose-a-model-and-read-its-licence). With **num_ctx** 8192 ([part 4](README.md#part-4---build-the-chatbot)), `ollama ps` showed 5.4 GB for it on our laptop, and Open WebUI 0.12.4 used about 0.9 GB there: 6.3 GB of the 8 GB, before Raspberry Pi OS and a browser. It may not fit on a Pi 5 with 8 GB. We could not test it: on our Pi, the download slowed down to 0.7 MB/s and did not finish, for a reason we did not find. Its speed on a Pi: TO BE COMPLETED |
 
 We suggest `qwen2.5:1.5b` on a Pi: it is about five times smaller than `qwen2.5:7b`, so it leaves
-room in memory for Open WebUI, and its licence is Apache 2.0. But we did not measure its answers:
-check them on your topic first ([part 5](README.md#part-5---test-it)). `qwen2.5:3b` is not in this
-table: its licence is not Apache 2.0.
+room in memory for Open WebUI, and its licence is Apache 2.0.
+
+> [!WARNING]
+> **This small model is not reliable.** With the documents, it scored 9 / 22 (Open WebUI 0.12.4),
+> against 13 to 15 / 22 for the larger models of [What we measured](README.md#what-we-measured) (Open
+> WebUI 0.11.4). On the question with no answer in the documents, it gave a real figure about something
+> else as the answer: 424,023 hectares, the Natura 2000 sites of the EU, shown as Campania. These are
+> the scores of an automatic judge, not checked by a person. Use it to show a local chatbot, and test
+> it on your topic first ([part 5](README.md#part-5---test-it)). Never let a group rely on it for
+> safety rules.
+
+`qwen2.5:3b` is not in this table: its licence is not Apache 2.0.
 
 The Apache 2.0 and MIT licences allow the use by an association, and they have no rule on minors.
 Other families of models have their own licences and use policies: read them first. For example,
@@ -355,7 +378,8 @@ ollama run qwen2.5:1.5b "Hello" && ollama ps
 
 **What you should see.** An answer, then a line for the model with `100% CPU` in the column
 **PROCESSOR**: the model is on the processor. On a Pi, this is expected: it has no graphics card for
-Ollama. The first answer takes longer, while the model loads: TO BE COMPLETED on a Pi.
+Ollama. The first answer takes longer, while the model loads. Reloading it took 3.4 seconds on our Pi; the
+very first load, after a start, was not measured.
 
 ---
 
@@ -433,15 +457,15 @@ terminal before the end of this part, open a new one and type
 uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.4
 ```
 
-This installs Open WebUI 0.12.4 in `venv`, with the programs it needs. Worked out from its packages
-for this processor, without a Pi: about 620 MB to download for Open WebUI and its programs, and
-2.0 GB once on the disk. Time on a Pi: TO BE COMPLETED. We measured the answers with an earlier
-version, 0.11.4 ([About](README.md#about)). Open WebUI uses **torch** to search in your documents.
+This installs Open WebUI 0.12.4 in `venv`, with the programs it needs: 2.1 GB on the disk, in 75
+seconds on our Pi. Our 11 questions on the Pi used this version. The larger models of
+[What we measured](README.md#what-we-measured) used an earlier one, 0.11.4
+([About](README.md#about)). Open WebUI uses **torch** to search in your documents.
 `--torch-backend cpu` installs the version of torch for the processor. `torch<=2.9.1` is the
 version in Open WebUI's own installation, the one we measured.
 
-Then download the small model that Open WebUI uses to search in your documents (about 90 MB; time
-on a Pi: TO BE COMPLETED). With the settings of this guide, Open WebUI never downloads anything by
+Then download the small model that Open WebUI uses to search in your documents (about 90 MB; 39
+seconds on our Pi). With the settings of this guide, Open WebUI never downloads anything by
 itself, so it needs it now:
 
 <!-- ci raspberry-pi,raspberry-pi-hat stage=install -->
@@ -536,8 +560,8 @@ sudo systemctl daemon-reload && sudo systemctl enable --now owui-local
 until curl -sf http://localhost:3000/health >/dev/null; do sleep 5; done; echo "Open WebUI is ready"
 ```
 
-**What you should see.** `Open WebUI is ready`. The first start prepares its database: on a Pi, it
-takes TO BE COMPLETED.
+**What you should see.** `Open WebUI is ready`. The first start prepares its database: 35 seconds
+on our Pi.
 If nothing appears after 5 minutes, press `Ctrl+C` and type
 `sudo journalctl -u owui-local -n 20 --no-pager`. A line with "address already in use" means that
 another program of the computer uses port 3000: stop this program first.
@@ -574,11 +598,9 @@ them in [part 6](README.md#part-6---open-it-to-your-group).
 
 ### Step 7 - Check the connection to Ollama
 
-By default, Open WebUI 0.12.4 sends a list of its own tools with each question. With the settings
-by default, a first "Hello, who are you?" to the model carried 18 tools: about 3,300 tokens, against
-25 without them (our test on 30 October 2026: Open WebUI 0.12.4 on a Linux PC, with a small program
-that stands in for Ollama; tokens counted with the tokenizer of Qwen2, the tool that cuts text into
-tokens for this model). The processor of the Pi must read all of them before it answers. So set the
+By default, Open WebUI 0.12.4 sends a list of its own tools with each question. On our Pi, a first
+"Hello, who are you?" to the model counted about 2,700 tokens with the settings by default, against
+35 with the two settings below (30 October 2026, counted by Ollama). The processor of the Pi must read all of them before it answers. So set the
 model first. Part 6 asks for the same two settings anyway.
 
 Your name at the bottom left → **Admin Panel** → **Settings** → **Models**. If the list is empty,
@@ -591,8 +613,8 @@ see [Troubleshooting](README.md#the-model-list-is-empty). Click the pencil (**Ed
 
 Click **Save & Update**. Then click **New Chat**. In the list of models, at the bottom right of the
 message box, choose `qwen2.5:1.5b` (Open WebUI may have chosen another model of Ollama for you). Ask
-"Hello, who are you?": the first answer is slower, while the model loads. Time on a Pi: TO BE
-COMPLETED.
+"Hello, who are you?": the first answer is slower, while the model loads: 7 seconds when Ollama
+reloaded it on our Pi, not measured through Open WebUI.
 
 Only the AI HAT+ 2, no part 2? Skip this step:
 [step 8 of the AI HAT+ 2](#step-8---connect-open-webui-to-hailo-ollama-not-tested) checks the
@@ -675,7 +697,7 @@ it. In short:
    ([Raspberry Pi](https://github.com/raspberrypi/documentation/blob/master/documentation/asciidoc/computers/configuration/led_blink_warnings.adoc)).
    Then unplug the Pi from its power supply.
 2. Fit the **Active Cooler** on the Pi, if you did not do it in
-   [part 1, step 3](#step-3---power-cooling-and-storage-not-tested).
+   [part 1, step 3](#step-3---power-cooling-and-storage).
 3. Fit the heatsink of the HAT on the HAT, before you mount the HAT on the Pi. Do not remove the
    Active Cooler or the heatsink once fitted: Raspberry Pi writes that it can damage them.
 4. Fit the four spacers on the Pi (small posts that hold the HAT above the Pi). Then fit the GPIO
@@ -1302,7 +1324,7 @@ session if you take the Pi elsewhere (above).
 ### Keep the Pi running during a session (not tested)
 
 **Power, cooling and supervision.** Keep the Pi on its 27 W supply
-([part 1, step 3](#step-3---power-cooling-and-storage-not-tested)), with its Active Cooler, and with
+([part 1, step 3](#step-3---power-cooling-and-storage)), with its Active Cooler, and with
 the facilitator: with the AI HAT+ 2, Raspberry Pi asks for adult supervision
 ([With the AI HAT+ 2](#with-the-ai-hat-2)).
 
@@ -1314,7 +1336,8 @@ of a test version, before the launch, saw "a 25-40 second delay"
 ([Hackster](https://www.hackster.io/news/gen-ai-on-your-raspberry-pi-a-hands-on-review-of-the-raspberry-pi-ai-hat-2-3c829a8894dd),
 blog). Ask one question yourself just before the group arrives.
 
-Whether Raspberry Pi OS puts the Pi to sleep when nobody uses it: TO BE COMPLETED.
+On our Pi, the system offers no sleep state (the file `/sys/power/state` is empty), so it cannot be
+put to sleep. We did not check whether the screen turns off.
 
 ---
 
@@ -1342,8 +1365,8 @@ uv cache clean
 ```
 
 These lines delete Open WebUI, and every account, conversation, memory, feedback, chatbot and
-document it holds. `uv cache clean` deletes the copies of the downloads that uv kept (size on a Pi:
-TO BE COMPLETED). It also deletes what other projects of the same account put in this cache: they
+document it holds. `uv cache clean` deletes the copies of the downloads that uv kept (2.0 GB on our Pi: the same files
+as `venv`, so the disk gets them back only with this command). It also deletes what other projects of the same account put in this cache: they
 download it again when they need it. Backups of this computer may still hold copies. The journal of
 the computer also keeps the warnings and errors of Open WebUI for a while. They hold no e-mail and no
 address, but an error may quote part of a request (see [step 4](#step-4---get-the-settings-for-a-group)).
