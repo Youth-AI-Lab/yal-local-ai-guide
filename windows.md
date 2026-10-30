@@ -179,8 +179,13 @@ Get-NetTCPConnection -LocalPort 11434 -State Listen
 ```
 
 **What you should see.** The column **LocalAddress** shows `127.0.0.1`. If it shows `0.0.0.0` or
-`::`, turn off the setting of the Ollama app that exposes it to the network, remove `OLLAMA_HOST`
-from the settings of your account, and start Ollama again (not tested).
+`::`, turn off the setting of the Ollama app that exposes it to the network, and remove `OLLAMA_HOST`
+from the settings of your account with this command. Then quit Ollama and start it again (not
+tested).
+
+```powershell
+[Environment]::SetEnvironmentVariable("OLLAMA_HOST", $null, "User")
+```
 
 ### Step 3 - Choose a model and read its licence
 
