@@ -320,9 +320,11 @@ organisation: the same Wi-Fi as the computer.
 > Use the **Admin Panel** only on the computer that runs Open WebUI, at <http://localhost:3000>,
 > never from your phone or another computer on the Wi-Fi. The address of the participants starts
 > with `http://`, not `https://`: what is typed there, passwords included, crosses the Wi-Fi
-> without encryption, and anyone on the same Wi-Fi could read it, and use a participant's sign-in
-> for up to 12 hours, even after **Sign Out**. Your administrator account opens every conversation
-> of the group.
+> without encryption, and anyone on the same Wi-Fi could read it. With a participant's password,
+> they can sign in as this participant until the password is changed. Without it, they can still use
+> a sign-in they saw for up to 12 hours, even after **Sign Out**. So the participants choose a new
+> password, used nowhere else, as [the notice](templates/participant-notice.md) asks. Your
+> administrator account opens every conversation of the group.
 
 ### Before the first session
 
@@ -363,8 +365,10 @@ organisation: the same Wi-Fi as the computer.
    undo **Hide Model** without telling you. This happened once on our laptop.
 
    1. **The safety net.** Click the pencil (**Edit**) on the line of your base model (for example
-      `qwen2.5:7b`; `qwen2:1.5b` on the AI HAT+ 2, where **Legacy** and **Builtin Tools** are
-      already set: [step 9](raspberry-pi.md#step-9---set-the-model-of-the-ai-hat-2-not-tested)),
+      `qwen2.5:7b`; on a Raspberry Pi, `qwen2.5:1.5b`, or `qwen2:1.5b` on the AI HAT+ 2, where
+      **Legacy** and **Builtin Tools** are already set:
+      [step 7](raspberry-pi.md#step-7---check-the-connection-to-ollama) and
+      [step 9](raspberry-pi.md#step-9---set-the-model-of-the-ai-hat-2-not-tested)),
       and change three things:
       - in **System Prompt**, paste the *Never* rules of your template, then add: "You are not the
         group's chatbot. To any question, answer only: please choose the group's chatbot in the
@@ -450,13 +454,15 @@ organisation: the same Wi-Fi as the computer.
    computer, open a private window of the browser (`Ctrl+Shift+P` in Firefox, `Ctrl+Shift+N` in
    Chrome and Edge; on a Mac, `Cmd` instead of `Ctrl`, and `Cmd+Shift+N` in Safari), so that you
    are not signed in as the administrator there, and type the address of step 1 followed by
-   `:3000`, for example `http://192.168.1.20:3000`, not `localhost`. Open the sign-ups as in
-   [During the session](#during-the-session), create a test account such as `test@group.local`, and
-   check that its list of models shows only your chatbots. Ask one question, and check that the answer shows
+   `:3000`, for example `http://192.168.1.20:3000`, not `localhost`. The first time, open the
+   sign-ups as in [During the session](#during-the-session) and create a test account such as
+   `test@group.local`; keep its password. The next times, sign in to this account instead: the
+   accounts stay, and Open WebUI refuses an e-mail that is already registered. Check that its list
+   of models shows only your chatbots. Ask one question, and check that the answer shows
    the grey labels of your documents (on the AI HAT+ 2, without documents: that it answers). Then
    open the address followed by `/?model=` and the name of your base model (for example
    `/?model=qwen2.5:7b`), and say "Hello" in this new chat: the model should answer only that you
-   must choose the group's chatbot. Then close the sign-ups again.
+   must choose the group's chatbot. If you opened the sign-ups, close them again.
 
 ### During the session
 
@@ -465,7 +471,7 @@ organisation: the same Wi-Fi as the computer.
    `user` (never `admin`), or keep `pending` if you prefer to approve each account in the list of
    users. Click **Save**.
 2. Give the participants the address of the day: on the board, or as a QR code if `qrencode` is
-   installed (on Ubuntu: `sudo apt install qrencode`; on a Mac: `brew install qrencode`):
+   installed (on Ubuntu or Raspberry Pi OS: `sudo apt install qrencode`; on a Mac: `brew install qrencode`):
    `qrencode -t ANSI http://YOUR-ADDRESS:3000`, where `YOUR-ADDRESS` is
    the address of the computer today ([before the first session](#before-the-first-session), step
    2).
@@ -508,8 +514,10 @@ questions are answered by the model on this computer: they are not sent to an AI
 administrator account in Open WebUI, anyone with the administrator rights of the computer, and
 anyone who uses the computer's account where Open WebUI is installed can read this data. Use this
 account only for Open WebUI and for you, lock the screen when you leave the computer, and choose a
-strong administrator password. Decide with your organisation who may read the data, and when it is
-deleted.
+strong administrator password. If the computer opens your session by itself when it starts, a lock
+does not help after a restart: turn this off (on a Raspberry Pi:
+[part 1, step 4](raspberry-pi.md#step-4---ask-for-your-password-at-start-up-not-tested)). Decide
+with your organisation who may read the data, and when it is deleted.
 
 **What still goes out, or can be seen.**
 - The downloads: Ollama, the models, uv, Python, Open WebUI and its search model come from the
@@ -547,8 +555,9 @@ deleted.
   [Windows](windows.md#delete-open-webui-and-its-data),
   [Raspberry Pi](raspberry-pi.md#delete-open-webui-and-its-data)), in the account where Open WebUI
   was installed. It deletes Open WebUI, and every account, conversation, memory, feedback, chatbot
-  and document it holds. Backups of this computer may still hold copies. The models of Ollama and
-  of hailo-ollama hold no data of the participants.
+  and document it holds. It does not overwrite them: until other data takes their place, someone
+  with recovery tools may read pieces of them on the disk or the card. Backups of this computer may
+  still hold copies. The models of Ollama and of hailo-ollama hold no data of the participants.
 
 **Before any use with young people, your organisation decides**: whether a chatbot fits this group,
 who informs the participants and their parents, how long the data is kept. A local model changes
@@ -667,9 +676,9 @@ to the right of the search box, and choose **Unavailable** or **All**.
 ### The answer is "does not support tools"
 
 The model you chose cannot use Open WebUI's tools, which Open WebUI offers by default. This happened
-with `phi3.5`. In the list of models, at the bottom right of the message box, choose `qwen2.5:7b`,
-or one of your chatbots: they are set to **Legacy** ([part 4](#part-4---build-the-chatbot)), which
-sends no tools.
+with `phi3.5`. In the list of models, at the bottom right of the message box, choose the model you
+downloaded in part 2 (`qwen2.5:7b`; on a Raspberry Pi, `qwen2.5:1.5b`), or one of your chatbots: they
+are set to **Legacy** ([part 4](#part-4---build-the-chatbot)), which sends no tools.
 
 With the AI HAT+ 2, the same cause gives an error 500 or "Node is NOT a STRING": see the
 [Raspberry Pi page](raspberry-pi.md#troubleshooting).

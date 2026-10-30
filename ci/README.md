@@ -73,7 +73,9 @@ settings as the guide: the administrator account, the settings of `openwebui.env
 **Legacy** and **num_ctx 8192** on four summaries of the workshop kit, its sources, the safety net
 of the base model, **Public** access, a participant account and what it sees, and no e-mail or
 address in the journal (on Linux) or in `~/owui-local/open-webui.log`, the log that
-[`owui-start.py`](../owui-start.py) writes (on macOS and Windows). With the AI HAT+ 2
+[`owui-start.py`](../owui-start.py) writes (on macOS and Windows). On the Raspberry Pi
+(`--os raspberry-pi`), it also sets **Legacy** and **Builtin Tools** off on the model at part 3,
+step 7, as the page asks, and checks that no tools are sent any more. With the AI HAT+ 2
 (`--os raspberry-pi-hat`), it does steps 8 to 10 of the section of the HAT instead of part 4: the
 connection to hailo-ollama, the model and a chatbot with **Legacy** and **Builtin Tools** off,
 without documents. It first checks that with the settings by default Open WebUI sends its tools and

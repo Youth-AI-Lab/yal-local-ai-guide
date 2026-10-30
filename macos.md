@@ -205,7 +205,28 @@ web search.") must be off.
 
 In the same **Settings**, leave **Expose Ollama to the network** off. Ollama has no accounts. If it
 were opened to the network, anyone on your Wi-Fi could use the model directly, without the rules of
-your chatbot. Only Open WebUI is for the participants.
+your chatbot. Only Open WebUI is for the participants. A new installation is for this computer only.
+But if this Mac had Ollama before, an old setting may open it to the network, and installing again
+keeps that setting. Check the address of Ollama:
+
+<!-- ci macos stage=install expect="127.0.0.1:11434" -->
+```bash
+lsof -nP -iTCP:11434 -sTCP:LISTEN
+```
+
+**What you should see.** A line that ends with `127.0.0.1:11434 (LISTEN)`, this computer only. If it
+ends with `*:11434 (LISTEN)`, Ollama is open to every network of the computer. Then turn off
+**Expose Ollama to the network**, quit Ollama (icon → **Quit Ollama**), and type this command:
+
+```bash
+launchctl unsetenv OLLAMA_HOST
+```
+
+It removes `OLLAMA_HOST`, the other way to open Ollama on a Mac
+([Ollama](https://docs.ollama.com/faq#setting-environment-variables-on-mac)). Then type the two
+commands of the second box of this step, then `lsof -nP -iTCP:11434 -sTCP:LISTEN` again. If `lsof`
+still does not show `127.0.0.1:11434`, stop here: another setting of this computer opens Ollama.
+(not tested)
 
 > [!NOTE]
 > The Ollama app updates itself: when its menu offers to restart to update, do it after a session,
@@ -344,7 +365,9 @@ people:
 - a banner asks them not to write personal information;
 - a sign-in lasts 12 hours, and the participants do not see your name and e-mail;
 - Open WebUI writes only warnings and errors in its log, not the e-mail used at each sign-in or the
-  address of each phone.
+  address of each phone. An error can still quote what was sent: a request typed by hand, which Open
+  WebUI refuses, puts part of its text in the log (we saw it with Open WebUI 0.12.4 on a Linux PC).
+  The chat page does not send such requests.
 
 Each line of the file is explained. On Linux, the service of the computer reads this file itself.
 The services of macOS cannot, so a small program of this guide, [`owui-start.py`](owui-start.py),
@@ -508,13 +531,26 @@ again. The fifth one must show `<string>0.0.0.0</string>`. The last one waits un
 
 **What you should see.** `<string>0.0.0.0</string>`, then `Open WebUI is ready`. Then type
 `lsof -nP -iTCP:3000 -sTCP:LISTEN`: its line now ends with `*:3000 (LISTEN)`, every network of the
-computer. Then go back to [the guide](README.md#before-the-first-session), at the end of step 1:
-open <http://localhost:3000>.
+computer.
+
+Check that Ollama is still for this computer only:
+
+<!-- ci macos stage=network expect="127.0.0.1:11434" -->
+```bash
+lsof -nP -iTCP:11434 -sTCP:LISTEN
+```
+
+**What you should see.** A line that ends with `127.0.0.1:11434 (LISTEN)`. If it shows another
+address, do [the end of step 2](#step-2---keep-ollama-on-this-computer) again. If it shows nothing,
+Ollama is not running: start it, with the second box of the same step.
+
+Then go back to [the guide](README.md#before-the-first-session), at the end of step 1: open
+<http://localhost:3000>.
 
 **The firewall of the Mac.** If it is on (**System Settings** → **Network** → **Firewall**), macOS
 asks, in a window, whether to allow the program to accept incoming network connections: when Open
 WebUI starts again open to the network, or the first time a phone tries to open it. Look at the
-screen of the Mac after this block. Until you answer, the connections are refused. Click
+screen of the Mac after the block that starts it again. Until you answer, the connections are refused. Click
 **Allow** ([Apple](https://support.apple.com/guide/mac-help/block-connections-to-your-mac-with-a-firewall-mh34041/mac)).
 The program may be named `python3.12` in this window, not Open WebUI. (not tested)
 

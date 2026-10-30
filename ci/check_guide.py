@@ -2,7 +2,8 @@
 Open WebUI, with the same settings, and checks what the guide says should happen.
 
 Phases, run in this order between the stages of run_guide.py:
-    admin         part 3, steps 6-7: the administrator account, the settings of openwebui.env
+    admin         part 3, steps 6-7: the administrator account, the settings of openwebui.env (on
+                  the Raspberry Pi page, step 7 also sets Legacy and Builtin Tools off on the model)
     chatbot       parts 4 and 5: knowledge, chatbot with Legacy and num_ctx 8192, an answer with sources
     participants  part 6, after the stage "network": safety net of the base model, Public access,
                   a participant account, what it sees and what the base model answers it
@@ -345,6 +346,24 @@ def phase_admin(state):
     tokens = prompt_tokens(data)
     print(f"  info  the base model with the settings by default received {tokens} tokens")
     state["tokens_default"] = tokens
+    if SYSTEM == "raspberry-pi":
+        pi_step7(admin, tokens)
+
+
+def pi_step7(admin, default_tokens):
+    """Raspberry Pi page, part 3, step 7: the two settings come before the first question, because
+    its processor must read every token. The question above, with the settings by default, is only
+    there to compare; the reader does not ask it."""
+    print("Part 3, step 7, Raspberry Pi: Function Calling Legacy, Builtin Tools off")
+    edit_base_model(admin, function_calling="legacy")
+    row = admin.request("GET", "/models/model", query={"id": MODEL})
+    check(row["params"].get("function_calling") == "legacy" and row["meta"]["capabilities"].get("builtin_tools") is False,
+          "the model of the Raspberry Pi: Legacy, Builtin Tools off")
+    data = admin.chat(MODEL, "Hello, who are you?")
+    check(bool(answer_of(data).strip()), f"it answers: {answer_of(data)[:80]!r}")
+    tokens = prompt_tokens(data)
+    check(tokens is not None and tokens < TOOLS_TOKENS,
+          f"no tools are sent to the model ({tokens} tokens, {default_tokens} with the settings by default)")
 
 
 def hat_connection(admin, state):

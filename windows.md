@@ -315,11 +315,11 @@ $env:SENTENCE_TRANSFORMERS_HOME = "$HOME\owui-local\data\cache\embedding\models"
 The first line says where to keep this model: in the folder of Open WebUI's data. The second one
 downloads it.
 
-**What you should see.** `uv pip show --python venv open-webui` shows `Version: 0.12.4`. The second
-command may show warnings, for example about "unauthenticated requests", and a
-"LOAD REPORT" with the word `UNEXPECTED`: they are normal. It must not end with `Error`. Then
-`Test-Path "$HOME\owui-local\data\cache\embedding\models\models--sentence-transformers--all-MiniLM-L6-v2"`
-answers `True`. If it answers `False`, type the two lines again, together, in this window.
+**What you should see.** Type `uv pip show --python venv open-webui`: it shows `Version: 0.12.4`. The
+command that downloads the model may show warnings, for example about "unauthenticated requests",
+and a "LOAD REPORT" with the word `UNEXPECTED`: they are normal. It must not end with `Error`. Then type
+`Test-Path "$HOME\owui-local\data\cache\embedding\models\models--sentence-transformers--all-MiniLM-L6-v2"`:
+it answers `True`. If it answers `False`, type the two lines again, together, in this window.
 
 ### Step 4 - Get the settings for a group
 
@@ -333,7 +333,9 @@ people:
 - a banner asks them not to write personal information;
 - a sign-in lasts 12 hours, and the participants do not see your name and e-mail;
 - Open WebUI writes only warnings and errors in its log, not the e-mail used at each sign-in or the
-  address of each phone.
+  address of each phone. An error can still quote what was sent: a request typed by hand, which Open
+  WebUI refuses, puts part of its text in the log (we saw it with Open WebUI 0.12.4 on a Linux PC).
+  The chat page does not send such requests.
 
 Each line of the file is explained. On Windows, a second file of this guide starts Open WebUI with
 these settings: [`owui-start.py`](owui-start.py), a small Python program. It reads `openwebui.env`,
@@ -526,8 +528,21 @@ do { Start-Sleep -Seconds 5 } until ($(try { Invoke-WebRequest -UseBasicParsing 
 
 **What you should see.** `Open WebUI is ready`, usually within a minute. Then type
 `Get-NetTCPConnection -LocalPort 3000 -State Listen`: the column **LocalAddress** shows `0.0.0.0`,
-every network of the computer. Then go back to [the guide](README.md#before-the-first-session), at
-the end of step 1: open <http://localhost:3000>.
+every network of the computer.
+
+Check that Ollama is still for this computer only:
+
+<!-- ci windows stage=network expect="127.0.0.1" -->
+```powershell
+Get-NetTCPConnection -LocalPort 11434 -State Listen
+```
+
+**What you should see.** The column **LocalAddress** shows `127.0.0.1`. If it shows `0.0.0.0` or
+`::`, do [the end of step 2](#step-2---keep-ollama-on-this-computer) again. If it answers in red
+that it found nothing, Ollama is not running: start **Ollama** from the **Start** menu (not tested).
+
+Then go back to [the guide](README.md#before-the-first-session), at the end of step 1: open
+<http://localhost:3000>.
 
 ### Find the address of the computer
 

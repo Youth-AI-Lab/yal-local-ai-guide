@@ -110,7 +110,7 @@ Install it first:
 sudo apt update && sudo apt install -y curl
 ```
 
-**What you should see.** `curl --version` answers with a version number.
+**What you should see.** Type `curl --version`: it answers with a version number.
 
 On Linux, the official installation of Ollama is one line ([Ollama](https://docs.ollama.com/linux)):
 
@@ -121,9 +121,9 @@ curl -fsSL https://ollama.com/install.sh | sh
 
 It installs Ollama as a service that starts with the computer.
 
-**What you should see.** `ollama --version` answers with a version number. We tested 0.40.8; on
-29 October 2026, this line installed 0.40.13 on the machines of GitHub, and the next steps showed
-the same. If
+**What you should see.** Type `ollama --version`: it answers with a version number. We tested
+0.40.8; on 29 October 2026, this line installed 0.40.13 on the machines of GitHub, and the next
+steps showed the same. If
 `ollama --version` answers "command not found", the download failed: check `curl --version`, then
 type the line again.
 
@@ -158,7 +158,28 @@ then these two.
 Also keep Ollama **for this computer only**, as it is installed: Ollama has no accounts. If it were
 opened to the network (for example with `OLLAMA_HOST=0.0.0.0`, an example of its documentation),
 anyone on your Wi-Fi could use the model directly, without the rules of your chatbot. Only Open
-WebUI is for the participants.
+WebUI is for the participants. A new installation is for this computer only. But if this computer
+had Ollama before, an old settings file may open it to the network, and installing again keeps that
+file. Check the address of Ollama:
+
+<!-- ci linux stage=install expect="127.0.0.1:11434" -->
+```bash
+ss -ltn 'sport = :11434'
+```
+
+**What you should see.** A line with `127.0.0.1:11434` (this computer only). If it shows
+`0.0.0.0:11434`, `*:11434` or `[::]:11434`, Ollama is open to the network. Then type these two
+commands, then `ss -ltn 'sport = :11434'` again:
+
+```bash
+printf '[Service]\nEnvironment="OLLAMA_HOST=127.0.0.1:11434"\n' | sudo tee /etc/systemd/system/ollama.service.d/zz-this-computer-only.conf
+sudo systemctl daemon-reload && sudo systemctl restart ollama
+```
+
+The first command writes one more settings file for the service. The service reads the files of
+this folder in alphabetical order, and for the same setting the last file wins: this file starts
+with `zz`. If `ss` still does not show `127.0.0.1:11434`, stop here: another setting of this
+computer opens Ollama.
 
 ### Step 3 - Choose a model and read its licence
 
@@ -285,9 +306,9 @@ itself, so it needs it now:
 SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 ```
 
-**What you should see.** `uv pip show open-webui` shows `Version: 0.12.4`. The second command may
-show a warning about "unauthenticated requests" and a "LOAD REPORT" with the word `UNEXPECTED`:
-they are normal. It must not end with `Error`.
+**What you should see.** Type `uv pip show open-webui`: it shows `Version: 0.12.4`. The command that
+downloads the model may show a warning about "unauthenticated requests" and a "LOAD REPORT" with the
+word `UNEXPECTED`: they are normal. It must not end with `Error`.
 
 ### Step 4 - Get the settings for a group
 
@@ -301,7 +322,9 @@ people:
 - a banner asks them not to write personal information;
 - a sign-in lasts 12 hours, and the participants do not see your name and e-mail;
 - Open WebUI writes only warnings and errors in the computer's log (the *journal*), not the e-mail
-  used at each sign-in or the address of each phone.
+  used at each sign-in or the address of each phone. An error can still quote what was sent: a
+  request typed by hand, which Open WebUI refuses, puts part of its text in the journal (we saw it
+  with Open WebUI 0.12.4 on a Linux PC). The chat page does not send such requests.
 
 Each line of the file is explained. Download it into the folder of Open WebUI:
 
@@ -441,19 +464,35 @@ From now on, Open WebUI starts with the computer, before anyone signs in, and an
 network the computer joins, also at home or in a café. On a laptop, stop it after each session (see
 [Commands](#commands)), and start it again before the next one.
 
+Check that Ollama is still for this computer only:
+
+<!-- ci linux stage=network expect="127.0.0.1:11434" -->
+```bash
+ss -ltn 'sport = :11434'
+```
+
+**What you should see.** A line with `127.0.0.1:11434`. If it shows another address, do
+[the end of step 2](#step-2---keep-ollama-on-this-computer) again.
+
 ### Find the address of the computer
 
 Turn off any VPN first, then type:
 
-<!-- ci linux stage=network expect="src " -->
+<!-- ci linux stage=network expect="/" -->
 ```bash
-ip route get 1.1.1.1 | grep -o 'src [0-9.]*'
+ip -4 -brief address show scope global
 ```
 
-**What you should see.** `src` and a number, for example `src 192.168.1.20`: this number is the
-address of the computer on the network it uses, here the Wi-Fi. This command sends nothing. The
-participants open `http://` followed by this number and `:3000`, for example
-`http://192.168.1.20:3000`. The address can change after a restart of the computer.
+**What you should see.** One line for each network of the computer, with its name, its state and
+its address, for example `wlp0s20f3   UP   192.168.1.20/24`. A name that starts with `wl` is the
+Wi-Fi. A name that starts with `en` or `eth` is the network cable. Names such as `docker0`, `virbr0`
+or `br-…` are networks inside the computer, made by Docker or by virtual machines: the phones cannot
+reach them (we saw these three on our laptop). Take the line of the network the phones use, here the
+Wi-Fi, and keep the number before the `/`: `192.168.1.20` is the address of the computer. If the
+computer is also plugged into a cable, you see both: take the Wi-Fi one, not the first one. No line
+that starts with `wl`: the computer is not on the Wi-Fi. This command sends nothing, and it works
+without the Internet. The participants open `http://` followed by this number and `:3000`, for
+example `http://192.168.1.20:3000`. The address can change after a restart of the computer.
 
 If the phones cannot open it, type `sudo ufw status`. If it answers `Status: active`, the firewall
 of Ubuntu is on: let Open WebUI in with `sudo ufw allow 3000/tcp`.
@@ -488,9 +527,37 @@ document it holds. `uv cache clean` deletes the copies of the downloads that uv 
 with Open WebUI 0.11.4; TO BE COMPLETED for 0.12.4). It also deletes what other projects of the same
 account put in this cache: they download it again when they need it. Backups of this computer may
 still hold copies. The journal of the computer also keeps the warnings and errors of Open WebUI for
-a while (no e-mail, no address): Ubuntu deletes the oldest messages by itself.
+a while. They hold no e-mail and no address, but an error may quote part of a request (see
+[step 4](#step-4---get-the-settings-for-a-group)). Ubuntu deletes the oldest messages by itself. To
+delete them now, type `sudo journalctl --rotate` and then `sudo journalctl --vacuum-time=1s`. This
+deletes the messages of every program of the computer, not only those of Open WebUI (we saw this in
+a container of Ubuntu 26.04 and 24.04, not on a laptop).
 The models of Ollama hold no data of the participants. uv and its copy of Python stay: they hold
-no data either.
+no data either. To remove Ollama too, see [Delete Ollama too](#delete-ollama-too).
+
+### Delete Ollama too
+
+This is not needed to delete the data of the participants. To remove Ollama, its settings and the
+models it downloaded ([part 2](#part-2---install-ollama-and-a-model)), type:
+
+<!-- ci linux stage=delete check="test ! -e /usr/local/bin/ollama && test ! -e /usr/share/ollama && ! getent passwd ollama >/dev/null && ! getent group ollama >/dev/null && ! systemctl cat ollama >/dev/null 2>&1 && echo ollama removed" expect="ollama removed" -->
+```bash
+sudo systemctl disable --now ollama
+sudo rm -r /etc/systemd/system/ollama.service /etc/systemd/system/ollama.service.d
+sudo systemctl daemon-reload
+sudo rm -r /usr/local/bin/ollama /usr/local/lib/ollama
+sudo userdel ollama
+if getent group ollama >/dev/null; then sudo groupdel ollama; fi
+sudo rm -r /usr/share/ollama
+```
+
+These are the steps of Ollama's own instructions ([Ollama](https://docs.ollama.com/linux#uninstall)),
+with the folders where its installer puts its files on Ubuntu. The first three lines stop Ollama and
+delete its service, with its settings ([step 2](#step-2---keep-ollama-on-this-computer)). The fourth
+one deletes the program. The fifth one deletes the account `ollama` that the installer made. It may
+say "group ollama not removed because it has other members": the installer put your account in this
+group. The sixth one then deletes the group, if it is still there. The last line deletes the models.
+The driver of the graphics card stays: these lines do not touch it.
 
 ---
 
@@ -503,8 +570,9 @@ no data either.
 | `systemctl status owui-local` | shows whether Open WebUI is running (`active (running)`); `q` to quit |
 | `sudo journalctl -u owui-local -n 20 --no-pager` | shows the last messages of Open WebUI |
 | `cd ~/owui-local && source venv/bin/activate` | activates the virtual environment of Open WebUI, to use `python` or `uv pip` in it |
-| `ip route get 1.1.1.1 \| grep -o 'src [0-9.]*'` | shows the address of the computer on the local network |
+| `ip -4 -brief address show scope global` | shows the address of the computer on each network (the Wi-Fi is the name that starts with `wl`) |
 | `uv self update` | updates uv to its latest version |
+| `sudo systemctl disable --now ollama` / `sudo systemctl enable --now ollama` | stops or starts Ollama, also after a restart of the computer (its models are kept) |
 
 The commands of Ollama (`ollama pull`, `ollama list`, `ollama ps`) are the same on every system:
 see [Commands](README.md#commands) in the guide.

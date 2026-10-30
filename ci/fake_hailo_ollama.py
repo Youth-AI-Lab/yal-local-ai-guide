@@ -210,8 +210,8 @@ class Out:
 
 
 def warn(message):
-    """Errors of the stand-in go to the standard error, so they reach the journal. They never
-    contain the text of a message or of a prompt."""
+    """Errors of the stand-in go to the standard error, which follows StandardOutput=null in the
+    service (nowhere). They never contain the text of a message or of a prompt."""
     sys.stderr.write(f"fake-hailo-ollama: {message}\n")
     sys.stderr.flush()
 
