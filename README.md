@@ -758,7 +758,7 @@ These links were checked in October 2026.
 - [The OpenCode guide](https://github.com/Youth-AI-Lab/yal-opencode-guide): a chatbot in a terminal,
   and the rules to check before any use with young people. If a model in the cloud is enough but the
   questions must stay in the EU, read [where the data goes](https://github.com/Youth-AI-Lab/yal-opencode-guide#where-the-data-goes).
-- [The series of five workshops](https://github.com/Youth-AI-Lab/yal-workshop-kit#the-series): what
+- [The series of workshops](https://github.com/Youth-AI-Lab/yal-workshop-kit#the-series): what
   is behind each part of a chatbot, step by step, in pairs.
 - Ollama: [documentation](https://docs.ollama.com/), [context length](https://docs.ollama.com/context-length),
   [graphics cards](https://docs.ollama.com/gpu), [FAQ](https://docs.ollama.com/faq) (settings such
