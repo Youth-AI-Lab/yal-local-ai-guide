@@ -1,6 +1,6 @@
 # A chatbot that runs on your own computer
 
-## Youth AI Lab — Erasmus+ project
+## Youth AI Lab - Erasmus+ project
 
 - **Partners:** L.A.B. (Aix-en-Provence), UAB (Barcelona), Perlatecnica (Naples), Digitale Wolven
   (Antwerp), CSC Vent des Îles (La Rochelle)
@@ -125,7 +125,7 @@ search (the one [`openwebui.env`](openwebui.env) keeps), and the documents of th
 |---|---|---|---|---|
 | `qwen2.5:7b` | 5 / 22 | 13 / 22 (processor), 15 / 22 (card) | 73 s (47 to 130 s) | **6 s** (3 to 12 s) |
 | `mistral:7b` | 4 / 22 | 15 / 22 (processor), 13 / 22 (card) | 95 s (62 to 159 s) | **9 s** (4 to 34 s) |
-| `phi3.5` | 5 / 22 | not measured | — | — |
+| `phi3.5` | 5 / 22 | not measured | not measured | not measured |
 
 The times are the middle answer (the median), then the fastest and the slowest. They include the
 search in the documents. With the card, the slowest answer of `mistral:7b` (34 s) was the first
@@ -422,7 +422,7 @@ organisation: the same Wi-Fi as the computer.
    still reach the model through Open WebUI's programming interface (API), without the safety net,
    and with settings that slow the computer for everyone.
 
-   The last check is done as a participant: in [before each session](#before-each-session), step
+   You do the last check as a participant: in [before each session](#before-each-session), step
    5, a participant account must not see this model in its list. **Later**, reload the page before
    you change this model again (pencil → **Save & Update**): a change saved from an old window can
    make it visible again. After any change, check it as in step 3, and do **Hide Model** again if
@@ -578,7 +578,7 @@ with your organisation who may read the data, and when it is deleted.
 
 **Before any use with young people, your organisation decides**: whether a chatbot fits this group,
 who informs the participants and their parents, how long the data is kept. A local model changes
-who receives the questions. It does not change these questions. The
+who receives the questions of your group. It does not change these decisions. The
 [OpenCode guide](https://github.com/Youth-AI-Lab/yal-opencode-guide#before-any-use-with-a-group-your-organisation-decides)
 lists the rules to check: a data protection impact assessment, the rule on consent, and telling
 people they talk with an AI (GDPR, the European AI Act). Its first points, an account with a key and

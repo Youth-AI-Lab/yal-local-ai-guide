@@ -22,8 +22,7 @@ Another system: [macOS](macos.md), [Windows](windows.md), [Raspberry Pi](raspber
 
 ## Part 1 - Check the computer
 
-The speed of a local chatbot depends first on one thing: whether the model runs on a **graphics
-card**. On the processor alone, our laptop took one to two minutes per answer.
+The speed of a local chatbot depends first on whether the model runs on a **graphics card**. On the processor alone, our laptop took one to two minutes per answer.
 Do this part before part 2.
 
 ### Step 1 - Look for a graphics card
@@ -190,7 +189,7 @@ it before you use a model with a group. Use only models without `cloud` in their
 |---|---|---|---|
 | `qwen2.5:7b` | 4.7 GB | Apache 2.0 (all sizes of Qwen2.5 except 3B and 72B, [Ollama](https://ollama.com/library/qwen2.5)) | 13 to 15 / 22 with documents |
 | `mistral:7b` | 4.4 GB | Apache 2.0 ([Ollama](https://ollama.com/library/mistral)) | 13 to 15 / 22 with documents |
-| `phi3.5` | — | MIT ([model card](https://huggingface.co/microsoft/Phi-3.5-mini-instruct)) | broken words: not for young people |
+| `phi3.5` | - | MIT ([model card](https://huggingface.co/microsoft/Phi-3.5-mini-instruct)) | broken words: not for young people |
 
 The Apache 2.0 and MIT licences allow the use by an association, and they have no rule on minors.
 Other families of models have their own licences and use policies: read them first. For example,
@@ -557,7 +556,7 @@ delete its service, with its settings ([step 2](#step-2---keep-ollama-on-this-co
 one deletes the program. The fifth one deletes the account `ollama` that the installer made. It may
 say "group ollama not removed because it has other members": the installer put your account in this
 group. The sixth one then deletes the group, if it is still there. The last line deletes the models.
-The driver of the graphics card stays: these lines do not touch it.
+These lines do not touch the driver of the graphics card.
 
 ---
 

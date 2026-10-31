@@ -733,7 +733,7 @@ are. Without the lock, an update could change them under hailo-ollama: hailo-oll
 the library of HailoRT 5.1.1 by its exact name (read in the package), and HailoRT refuses a driver
 of any other version (read in
 [its code](https://github.com/hailo-ai/hailort/blob/v5.1.1/hailort/libhailort/src/vdma/driver/hailort_driver.cpp)).
-The price: these three packages get no more fixes while they are locked. We tried the version and
+While they are locked, these three packages get no more fixes. We tried the version and
 the lock with stand-in packages in a Debian Trixie container on a Linux PC, not on a Pi.
 
 `-y` answers "yes" when `apt` asks whether to continue. `&&` runs each command only if the one
@@ -1218,7 +1218,7 @@ four things:
 1. Replace its section **Sources** with the one of the box. Do not just delete it: in these two
    templates, this section holds the only rule against inventing.
 2. In **Context**, delete the sentence that names the knowledge base.
-3. Delete **Level 2 — Point to the documents**, and call level 3 "Level 2". In the title of the
+3. Delete **Level 2: Point to the documents**, and call level 3 "Level 2". In the title of the
    section, write `two levels`. In **Never**, write `Never skip a level: always 1, then 2.`
 4. Delete the section **Example**: it cites documents. The templates allow this.
 
@@ -1336,7 +1336,7 @@ of a test version, before the launch, saw "a 25-40 second delay"
 ([Hackster](https://www.hackster.io/news/gen-ai-on-your-raspberry-pi-a-hands-on-review-of-the-raspberry-pi-ai-hat-2-3c829a8894dd),
 blog). Ask one question yourself just before the group arrives.
 
-On our Pi, the system offers no sleep state (the file `/sys/power/state` is empty), so it cannot be
+On our Pi, the system has no sleep state (the file `/sys/power/state` is empty), so it cannot be
 put to sleep. We did not check whether the screen turns off.
 
 ---
