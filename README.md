@@ -756,9 +756,10 @@ These links were checked in October 2026.
 - [The Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide): build, test and
   share chatbots, with templates for a topic, an activity or a project.
 - [The OpenCode guide](https://github.com/Youth-AI-Lab/yal-opencode-guide): a chatbot in a terminal,
-  and the rules to check before any use with young people.
-- [The workshop kit](https://github.com/Youth-AI-Lab/yal-workshop-kit): what is behind each part of a
-  chatbot, step by step.
+  and the rules to check before any use with young people. If a model in the cloud is enough but the
+  questions must stay in the EU, read [where the data goes](https://github.com/Youth-AI-Lab/yal-opencode-guide#where-the-data-goes).
+- [The series of five workshops](https://github.com/Youth-AI-Lab/yal-workshop-kit#the-series): what
+  is behind each part of a chatbot, step by step, in pairs.
 - Ollama: [documentation](https://docs.ollama.com/), [context length](https://docs.ollama.com/context-length),
   [graphics cards](https://docs.ollama.com/gpu), [FAQ](https://docs.ollama.com/faq) (settings such
   as `OLLAMA_CONTEXT_LENGTH` and `OLLAMA_NUM_PARALLEL`; its examples with `OLLAMA_HOST=0.0.0.0` open
