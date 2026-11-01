@@ -334,7 +334,7 @@ computer opens Ollama.
 
 ### Step 3 - Choose a model and read its licence
 
-A model is a large file that you download once. Its **licence** says what you may do with it: read
+A model is a large file that you download once ([what is inside it](how-an-llm-works.md#the-parts-of-the-model)). Its **licence** says what you may do with it: read
 it before you use a model with a group. Use only models without `cloud` in their name.
 
 | Model | Download | Licence | What we know |

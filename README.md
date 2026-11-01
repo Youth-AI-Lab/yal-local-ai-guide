@@ -22,6 +22,9 @@ It goes with the [Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebu
 guide shows how to build, test and share a chatbot. This one shows what changes when the model runs
 on your own computer, with the numbers we measured.
 
+New to these models? [How a language model works](how-an-llm-works.md) shows, with pictures, what a model is, what a
+token is, and why it does not write the same answer twice. You can build your chatbot without it.
+
 ---
 
 ## Goals

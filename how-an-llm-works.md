@@ -128,9 +128,10 @@ The text goes through three stages.
    a token does not stay in its place: the layers move it.
 2. **The layers change these numbers.** This model has 28 layers. In each one, every token looks at
    the tokens before it, some more than others, and changes its own numbers, then goes through a
-   second calculation of its own. Looking back is [*attention*](https://arxiv.org/abs/1706.03762): a
+   second calculation of its own. Looking back is *attention*: a
    word takes its meaning from the words before it. Each layer looks back in 28 ways at once
    (28 *attention heads*, a separate figure from the 28 layers).
+   [The principle of a Transformer](#the-principle-of-a-transformer) works out one look back by hand.
 
    Take the token " out". After "put", it means "stop the fire", not "outside": that meaning comes
    from the tokens before it. A token cannot use the tokens after it: the model was trained to
@@ -186,6 +187,82 @@ question, the earlier messages go to the model one more time. If the switch **Me
 is on, Open WebUI also keeps notes about each participant and sends them again in later
 conversations. These notes are text too: the parameters do not change. Open WebUI stores the
 conversations on your computer ([the participants' data](README.md#the-participants-data)).
+
+### The principle of a Transformer
+
+The three stages at the start of this section have a name: a **Transformer**. The design comes from a 2017 article,
+[Attention Is All You Need](https://arxiv.org/abs/1706.03762): a model built around attention, first
+made to translate text. Language models keep the part that writes, which only looks back. Qwen2.5
+is a Transformer, like the other models of this guide, and the T of GPT, in ChatGPT, means the same.
+
+The principle fits in one sentence: to find its meaning, each token asks the tokens before it, and
+takes the most from those that answer best. Older designs read a text one word at a time and carried
+a summary along, so the start of a long text could fade. A Transformer lets a token look straight at
+any earlier token, near or far. All the tokens of a text can also be calculated at once, which suits
+a graphics card.
+
+In each layer, every token makes three lists of numbers from its own numbers, with the parameters of
+that layer:
+
+- its **question**: what it is looking for;
+- its **label**: what it shows, to be compared with the questions of other tokens;
+- its **contents**: what it gives to the tokens that pick it.
+
+These names are only a picture: nobody chose what the lists hold, training found it. The usual terms
+are *query*, *key* and *value*.
+
+Here is the sum by hand, with invented numbers: two numbers per list, and three tokens only. The token
+" out" looks at " I", at " put", and at itself: a token counts among the tokens it looks at. Its
+question is (2, 1).
+
+![Attention by hand, with invented numbers. The token " out" has the question (2, 1). Compared with the labels (0, 1) of " I", (1, 2) of " put" and (0.5, 1) of " out", it gives the scores 1, 4 and 2. These become the shares 4.2%, 84.4% and 11.4%. The contents (0, 10), (10, 0) and (5, 5), mixed by these shares, give (9, 1), which is added to the numbers of the token: (1, 3) becomes (10, 4).](images/llm-attention-steps.svg)
+
+1. **Compare.** Multiply the question by each label, number by number, then add. For " put":
+   2 × 1 + 1 × 2 = 4. A high score means that the label fits the question.
+   [Workshop 2](https://github.com/Youth-AI-Lab/yal-workshop-rag#how-a-text-becomes-numbers) compares
+   its lists with the same kind of sum.
+2. **Turn the scores into shares.** This is the calculation that gives the probabilities of the next
+   token. On a calculator, 2.718 to the power of each score gives 2.7, 54.6 and 7.4, which add up to
+   64.7. Divide each one by 64.7: 4.2%, 84.4% and 11.4%.
+3. **Mix the contents by these shares.** First number: 0.042 × 0 + 0.844 × 10 + 0.114 × 5, about 9.
+   Second number: 0.042 × 10 + 0.844 × 0 + 0.114 × 5, about 1.
+
+The mix (9, 1) is added to the numbers of " out": (1, 3) becomes (10, 4). Most of what it received
+comes from " put". With real numbers, this is how " out" ends up meaning "stop the fire".
+
+The rest of the design goes around this sum:
+
+- **Heads.** The three steps run 28 times side by side in each layer, each with its own question, and
+  the 28 results are put together. In this model, the 28 heads share 4 sets of labels and contents,
+  which saves memory. Nobody chose what each head looks for.
+- **Layers.** After the second calculation, the numbers go to the next layer. There, a token looks back
+  at numbers that already hold what the layer before gathered, so what " put" gave to " out" can reach
+  a later token.
+- **Order.** The sum above does not depend on where a token sits in the text: shuffle the tokens and
+  the scores stay the same. So the model also uses the position of each token in the text.
+- **No looking ahead.** Later tokens get no share at all.
+- **What Ollama keeps.** For the earlier tokens, it keeps the labels and contents of each layer. A new
+  token only has to ask its question.
+
+<details>
+<summary>The formula, if you want it</summary>
+
+The [article](https://arxiv.org/abs/1706.03762) divides each score by the square root of $d$, the
+number of numbers in a label, so that long lists do not give huge scores. Our sum by hand leaves this
+out, to stay short. With $q$ the question of a token, $k_j$ the label of token $j$, $v_j$ its content,
+$s_j$ its score and $a_j$ its share:
+
+$$
+s_j = \frac{q \cdot k_j}{\sqrt{d}}
+\qquad
+a_j = \frac{e^{s_j}}{\sum_i e^{s_i}}
+\qquad
+\text{mix} = \sum_j a_j v_j
+$$
+
+The share $a_j$ is the formula of the [temperature](#temperature), with $T = 1$.
+
+</details>
 
 ## One question, from start to end
 
@@ -402,7 +479,9 @@ the top token is wrong, it comes back every time.
 ## Check yourself
 
 Cover the first picture and name its six boxes in order. Then say where the parameters are, and what
-changes and what does not when the model answers.
+changes and what does not when the model answers. Last, redo the three steps of attention with the
+question (1, 2) in place of (2, 1), keeping one decimal. You should find the scores 2, 5 and 2.5, the
+shares 4.4%, 88.3% and 7.3%, and the mix (9.2, 0.8).
 
 ## What you can say to a group
 

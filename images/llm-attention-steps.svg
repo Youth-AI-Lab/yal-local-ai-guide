@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 446" width="900" height="446" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">Attention by hand, with invented numbers</title>
+<desc id="d">The token out asks its question (2, 1). It compares it with the labels of I, put and out, (0, 1), (1, 2) and (0.5, 1): the scores are 1, 4 and 2. The scores become shares: 4.2%, 84.4% and 11.4%. The contents (0, 10), (10, 0) and (5, 5) are mixed by these shares, which gives (9, 1). This is added to the token's numbers: (1, 3) becomes (10, 4). Most of the mix comes from put. Invented numbers, not a measure.</desc>
+<defs>
+<marker id="arrow-c8602a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c8602a"/></marker>
+</defs>
+<rect x="0" y="0" width="900" height="446" fill="#ffffff"/>
+<text x="232" y="30" font-size="16" fill="#1f2a37" font-weight="bold">1. Compare question and label</text>
+<text x="530" y="30" font-size="16" fill="#1f2a37" font-weight="bold">2. Turn into shares</text>
+<text x="776" y="30" font-size="16" fill="#1f2a37" font-weight="bold">3. Contents</text>
+<rect x="16" y="60" width="170" height="198" fill="#f8e3d6" rx="10" stroke="#c8602a" stroke-width="1.5"/>
+<rect x="69.57" y="104" width="62.86" height="42" fill="#ffffff" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<path d="M78.57 127.65v4h11.78v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="107.89" y="131.65" font-size="19" fill="#1f2a37" font-weight="bold" text-anchor="middle">out</text>
+<text x="101" y="182" font-size="16" fill="#1f2a37" text-anchor="middle">question</text>
+<text x="101" y="208" font-size="19" fill="#1f2a37" font-weight="bold" text-anchor="middle">(2, 1)</text>
+<path d="M190 159L226 81" fill="none" stroke="#c8602a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<rect x="232" y="60" width="31.74" height="42" fill="#dbe9f4" rx="5"/>
+<path d="M239 82.95v4h10.54v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="254.14" y="86.95" font-size="17" fill="#1f2a37" text-anchor="middle">I</text>
+<text x="310" y="87" font-size="15" fill="#1f2a37">label (0, 1)</text>
+<text x="448" y="87" font-size="15" fill="#1f2a37" font-weight="bold">score 1</text>
+<rect x="530" y="68" width="140" height="26" fill="#e8eaee"/>
+<rect x="530" y="68" width="5.88" height="26" fill="#2a6fa8"/>
+<text x="678" y="87" font-size="16" fill="#1f2a37" font-weight="bold">4.2%</text>
+<text x="776" y="87" font-size="16" fill="#1f2a37">(0, 10)</text>
+<path d="M190 159L226 159" fill="none" stroke="#c8602a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<rect x="232" y="138" width="52.53" height="42" fill="#dbe9f4" rx="5"/>
+<path d="M239 160.95v4h10.54v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="264.54" y="164.95" font-size="17" fill="#1f2a37" text-anchor="middle">put</text>
+<text x="310" y="165" font-size="15" fill="#1f2a37">label (1, 2)</text>
+<text x="448" y="165" font-size="15" fill="#1f2a37" font-weight="bold">score 4</text>
+<rect x="530" y="146" width="140" height="26" fill="#e8eaee"/>
+<rect x="530" y="146" width="118.13" height="26" fill="#2a6fa8"/>
+<text x="678" y="165" font-size="16" fill="#1f2a37" font-weight="bold">84.4%</text>
+<text x="776" y="165" font-size="16" fill="#1f2a37">(10, 0)</text>
+<path d="M190 159L226 237" fill="none" stroke="#c8602a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<rect x="232" y="216" width="52.53" height="42" fill="#dbe9f4" rx="5"/>
+<path d="M239 238.95v4h10.54v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="264.54" y="242.95" font-size="17" fill="#1f2a37" text-anchor="middle">out</text>
+<text x="310" y="243" font-size="15" fill="#1f2a37">label (0.5, 1)</text>
+<text x="448" y="243" font-size="15" fill="#1f2a37" font-weight="bold">score 2</text>
+<rect x="530" y="224" width="140" height="26" fill="#e8eaee"/>
+<rect x="530" y="224" width="15.99" height="26" fill="#2a6fa8"/>
+<text x="678" y="243" font-size="16" fill="#1f2a37" font-weight="bold">11.4%</text>
+<text x="776" y="243" font-size="16" fill="#1f2a37">(5, 5)</text>
+<rect x="16" y="318" width="868" height="76" fill="#d3ede6" rx="10"/>
+<text x="450" y="348" font-size="17" fill="#1f2a37" text-anchor="middle">Mix the contents by their shares: <tspan font-weight="bold">(9, 1)</tspan></text>
+<text x="450" y="376" font-size="17" fill="#1f2a37" text-anchor="middle">Add it to the numbers of the token: <tspan font-weight="bold">(1, 3) + (9, 1) = (10, 4)</tspan></text>
+<text x="450" y="424" font-size="15" fill="#4b5563" text-anchor="middle">Invented numbers, not a measure: 2 numbers per list, and only 3 tokens.</text>
+</svg>
