@@ -29,7 +29,7 @@ jobs:
     env:
       CI_MODEL: qwen2.5:0.5b
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Documents and instructions for part 4
         run: |
@@ -82,7 +82,7 @@ jobs:
       CI_MODEL: qwen2.5:0.5b
       PYTHONUNBUFFERED: "1"
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Documents and instructions for part 4
         run: |
@@ -139,7 +139,7 @@ jobs:
         # PowerShell 7). ci/run_guide.py starts its own powershell.exe for the guide's blocks.
         shell: powershell
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Documents and instructions for part 4
         shell: bash
@@ -202,7 +202,7 @@ jobs:
     env:
       CI_MODEL: qwen2.5:0.5b
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Documents and instructions for part 4
         run: |
@@ -257,7 +257,7 @@ jobs:
       CI_MODEL: qwen2:1.5b
       PYTHONUNBUFFERED: "1"
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Instructions for part 4
         run: |

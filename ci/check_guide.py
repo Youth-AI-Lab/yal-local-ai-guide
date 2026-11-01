@@ -32,12 +32,14 @@ Usage: python3 ci/check_guide.py <phase> [--os linux|macos|windows|raspberry-pi|
 (by default, the system it runs on, and hailo only for raspberry-pi-hat)
 
 Needs KIT_DIR (a copy of the workshop kit: its summaries are the documents; not with hailo) and
-OWUI_GUIDE_DIR (a copy of the Open WebUI guide: its filled example of instructions), and CI_HAILO_LOG
+OWUI_GUIDE_DIR (a copy of the Open WebUI guide: its filled example of instructions, and with hailo
+its template topic-assistant), and CI_HAILO_LOG
 with hailo. Only the standard library.
 """
 import argparse
 import json
 import os
+import re
 import shutil
 import socket
 import subprocess
@@ -445,13 +447,30 @@ def phase_chatbot(state):
     print("  " + ps.replace("\n", "\n  "))
 
 
+def never_rules(text):
+    """The section Never of instructions, without its line breaks."""
+    return " ".join(re.search(r"^## Never\n(.*?)(?=^## |\Z)", text, re.S | re.M).group(1).split())
+
+
+def hat_instructions():
+    """The box of step 10 of raspberry-pi.md: the page says to start from it, not from a template.
+    Its rules Never must stay those of the template topic-assistant, word for word. It goes to the
+    model as the reader finds it, with its lines TO BE COMPLETED."""
+    page = (Path(__file__).resolve().parent.parent / "raspberry-pi.md").read_text(encoding="utf-8")
+    box = re.search(r"```text\n(## Purpose\n.*?)```", page, re.S)
+    if not check(box is not None, "raspberry-pi.md, step 10: the box of instructions is there"):
+        sys.exit(1)
+    template = Path(os.environ["OWUI_GUIDE_DIR"]) / "templates" / "topic-assistant.md"
+    check(never_rules(box.group(1)) == never_rules(template.read_text(encoding="utf-8")),
+          "raspberry-pi.md, step 10: the box has the rules Never of the template topic-assistant")
+    return box.group(1).strip()
+
+
 def hat_chatbot(state):
     """AI HAT+ 2, step 10: part 4 without documents (no knowledge, no num_ctx: the context is fixed)."""
     admin = Api(state["admin"])
-    example = Path(os.environ["OWUI_GUIDE_DIR"]) / "templates" / "examples" / "topic-assistant.example.md"
     print("AI HAT+ 2, step 10: a chatbot without documents (Legacy, Builtin Tools off)")
-    text = example.read_text(encoding="utf-8")
-    instructions = text.split("\n---\n", 1)[1].strip()
+    instructions = hat_instructions()
     admin.request("POST", "/models/create", body={
         "id": CHATBOT_ID, "name": "Camp fire rules (test)", "base_model_id": MODEL, "is_active": True,
         "meta": {"description": "Test chatbot", "capabilities": {"builtin_tools": False}},
