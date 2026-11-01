@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 388" width="900" height="388" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">Real cuts of text into tokens</title>
+<desc id="d">Each token of the model drawn as a tile. English sentence: 8 tokens, French sentence: 17 tokens, A line with numbers: 18 tokens, The name Feurisson: 3 tokens. Words cut at surprising places: forêt becomes for and êt. Each digit is a token.</desc>
+<rect x="0" y="0" width="900" height="388" fill="#ffffff"/>
+<text x="20" y="34" font-size="16" fill="#1f2a37"><tspan font-weight="bold">English sentence</tspan><tspan fill="#4b5563">: 8 tokens</tspan></text>
+<rect x="20" y="42" width="44.21" height="36" fill="#dbe9f4" rx="5"/>
+<text x="42.11" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">Wild</text>
+<rect x="68.21" y="42" width="43.25" height="36" fill="#f8e3d6" rx="5"/>
+<text x="89.84" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">fires</text>
+<rect x="115.46" y="42" width="75.72" height="36" fill="#d3ede6" rx="5"/>
+<path d="M120.46 61.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="159.28" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">spread</text>
+<rect x="195.18" y="42" width="75.71" height="36" fill="#dbe9f4" rx="5"/>
+<path d="M200.18 61.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="239" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">quickly</text>
+<rect x="274.89" y="42" width="35.61" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M279.89 61.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="298.66" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">in</text>
+<rect x="314.5" y="42" width="46.37" height="36" fill="#d3ede6" rx="5"/>
+<path d="M319.5 61.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="343.65" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">dry</text>
+<rect x="364.87" y="42" width="94.27" height="36" fill="#dbe9f4" rx="5"/>
+<path d="M369.87 61.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="417.97" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">summers</text>
+<rect x="463.14" y="42" width="14.89" height="36" fill="#f8e3d6" rx="5"/>
+<text x="470.59" y="65.6" font-size="16" fill="#1f2a37" text-anchor="middle">.</text>
+<text x="20" y="116" font-size="16" fill="#1f2a37"><tspan font-weight="bold">French sentence</tspan><tspan fill="#4b5563">: 17 tokens</tspan></text>
+<rect x="20" y="124" width="38.37" height="36" fill="#dbe9f4" rx="5"/>
+<text x="39.19" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">Les</text>
+<rect x="62.37" y="124" width="44.41" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M67.37 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="90.54" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">inc</text>
+<rect x="110.78" y="124" width="39.36" height="36" fill="#d3ede6" rx="5"/>
+<text x="130.46" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">end</text>
+<rect x="154.14" y="124" width="32.49" height="36" fill="#dbe9f4" rx="5"/>
+<text x="170.39" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">ies</text>
+<rect x="190.63" y="124" width="41.49" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M195.63 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="217.34" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">de</text>
+<rect x="236.12" y="124" width="42.46" height="36" fill="#d3ede6" rx="5"/>
+<path d="M241.12 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="263.31" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">for</text>
+<rect x="282.58" y="124" width="24.68" height="36" fill="#dbe9f4" rx="5"/>
+<text x="294.92" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">êt</text>
+<rect x="311.26" y="124" width="40.51" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M316.26 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="337.48" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">se</text>
+<rect x="355.77" y="124" width="57.14" height="36" fill="#d3ede6" rx="5"/>
+<path d="M360.77 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="390.3" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">prop</text>
+<rect x="416.91" y="124" width="54.04" height="36" fill="#dbe9f4" rx="5"/>
+<text x="443.92" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">agent</text>
+<rect x="474.94" y="124" width="49.31" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M479.94 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="505.55" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">vite</text>
+<rect x="528.25" y="124" width="85.53" height="36" fill="#d3ede6" rx="5"/>
+<path d="M533.25 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="576.97" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">pendant</text>
+<rect x="617.77" y="124" width="44.41" height="36" fill="#dbe9f4" rx="5"/>
+<path d="M622.77 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="645.94" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">les</text>
+<rect x="666.19" y="124" width="36.6" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M671.19 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="690.44" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">ét</text>
+<rect x="706.78" y="124" width="28.59" height="36" fill="#d3ede6" rx="5"/>
+<text x="721.08" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">és</text>
+<rect x="739.37" y="124" width="58.11" height="36" fill="#dbe9f4" rx="5"/>
+<path d="M744.37 143.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="774.38" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">secs</text>
+<rect x="801.48" y="124" width="14.89" height="36" fill="#f8e3d6" rx="5"/>
+<text x="808.92" y="147.6" font-size="16" fill="#1f2a37" text-anchor="middle">.</text>
+<text x="20" y="198" font-size="16" fill="#1f2a37"><tspan font-weight="bold">A line with numbers</tspan><tspan fill="#4b5563">: 18 tokens</tspan></text>
+<rect x="20" y="206" width="19.79" height="36" fill="#dbe9f4" rx="5"/>
+<text x="29.89" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">1</text>
+<rect x="43.79" y="206" width="19.92" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M48.79 225.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="67.71" y="206" width="19.79" height="36" fill="#d3ede6" rx="5"/>
+<text x="77.6" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">0</text>
+<rect x="91.49" y="206" width="19.79" height="36" fill="#dbe9f4" rx="5"/>
+<text x="101.38" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">9</text>
+<rect x="115.28" y="206" width="19.79" height="36" fill="#f8e3d6" rx="5"/>
+<text x="125.17" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">2</text>
+<rect x="139.06" y="206" width="19.92" height="36" fill="#d3ede6" rx="5"/>
+<path d="M144.06 225.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="162.98" y="206" width="19.79" height="36" fill="#dbe9f4" rx="5"/>
+<text x="172.88" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">0</text>
+<rect x="186.77" y="206" width="19.79" height="36" fill="#f8e3d6" rx="5"/>
+<text x="196.66" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">9</text>
+<rect x="210.55" y="206" width="19.79" height="36" fill="#d3ede6" rx="5"/>
+<text x="220.45" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">5</text>
+<rect x="234.34" y="206" width="89.42" height="36" fill="#dbe9f4" rx="5"/>
+<path d="M239.34 225.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="285.01" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">hectares</text>
+<rect x="327.76" y="206" width="62.03" height="36" fill="#f8e3d6" rx="5"/>
+<path d="M332.76 225.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="364.73" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">burnt</text>
+<rect x="393.79" y="206" width="35.61" height="36" fill="#d3ede6" rx="5"/>
+<path d="M398.79 225.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="417.55" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">in</text>
+<rect x="433.4" y="206" width="19.92" height="36" fill="#dbe9f4" rx="5"/>
+<path d="M438.4 225.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="457.32" y="206" width="19.79" height="36" fill="#f8e3d6" rx="5"/>
+<text x="467.21" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">2</text>
+<rect x="481.1" y="206" width="19.79" height="36" fill="#d3ede6" rx="5"/>
+<text x="491" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">0</text>
+<rect x="504.89" y="206" width="19.79" height="36" fill="#dbe9f4" rx="5"/>
+<text x="514.78" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">2</text>
+<rect x="528.68" y="206" width="19.79" height="36" fill="#f8e3d6" rx="5"/>
+<text x="538.57" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">5</text>
+<rect x="552.46" y="206" width="14.89" height="36" fill="#d3ede6" rx="5"/>
+<text x="559.91" y="229.6" font-size="16" fill="#1f2a37" text-anchor="middle">.</text>
+<text x="20" y="280" font-size="16" fill="#1f2a37"><tspan font-weight="bold">The name Feurisson</tspan><tspan fill="#4b5563">: 3 tokens</tspan></text>
+<rect x="20" y="288" width="30.54" height="36" fill="#dbe9f4" rx="5"/>
+<text x="35.27" y="311.6" font-size="16" fill="#1f2a37" text-anchor="middle">Fe</text>
+<rect x="54.54" y="288" width="25.65" height="36" fill="#f8e3d6" rx="5"/>
+<text x="67.36" y="311.6" font-size="16" fill="#1f2a37" text-anchor="middle">ur</text>
+<rect x="84.19" y="288" width="51.08" height="36" fill="#d3ede6" rx="5"/>
+<text x="109.72" y="311.6" font-size="16" fill="#1f2a37" text-anchor="middle">isson</text>
+<rect x="20" y="346" width="25.92" height="26" fill="#e8eaee" rx="4"/>
+<path d="M28 358v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="55.92" y="364" font-size="16" fill="#1f2a37">this mark is the space before a word: it belongs to the token</text>
+</svg>

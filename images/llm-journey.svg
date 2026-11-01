@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 508" width="900" height="508" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">An answer built one token at a time</title>
+<desc id="d">The question "How do I put out a campfire?" and the first 8 steps of the answer. Step 1: To 64.0%, then Putting 35.6%. Step 2: safely 64.5%, then properly 25.4%. Step 3: put 75.4%, then extingu 24.2%. Step 4: out 100%, then a under 0.1%. Step 5: a 99.0%, then your 0.9%. Step 6: camp 100%, then camping under 0.1%. Step 7: fire 100%, then fire under 0.1%. Step 8: , 96.2%, then and 3.8%. The text grows to "To safely put out a campfire,"</desc>
+<rect x="0" y="0" width="900" height="508" fill="#ffffff"/>
+<text x="20" y="30" font-size="17" fill="#1f2a37"><tspan font-weight="bold">The question: </tspan>How do I put out a campfire?</text>
+<text x="56" y="72" font-size="16" fill="#1f2a37" font-weight="bold">Chosen token</text>
+<text x="306" y="72" font-size="16" fill="#1f2a37" font-weight="bold">Second best</text>
+<text x="572" y="72" font-size="16" fill="#1f2a37" font-weight="bold">The text so far</text>
+<path d="M20 84L880 84" fill="none" stroke="#9aa3af" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="36" y="116" font-size="16" fill="#4b5563" text-anchor="end">1</text>
+<rect x="56" y="94" width="34.54" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<text x="73.27" y="115.6" font-size="16" fill="#1f2a37" text-anchor="middle">To</text>
+<rect x="160" y="105" width="35.84" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="116" font-size="15" fill="#1f2a37">64.0%</text>
+<rect x="306" y="94" width="68.79" height="32" fill="#e8eaee" rx="5"/>
+<text x="340.39" y="115.6" font-size="16" fill="#1f2a37" text-anchor="middle">Putting</text>
+<rect x="410" y="105" width="19.94" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="116" font-size="15" fill="#1f2a37">35.6%</text>
+<text x="572" y="116" font-size="16" fill="#1f2a37"><tspan fill="#c8602a" font-weight="bold">To</tspan></text>
+<text x="36" y="159" font-size="16" fill="#4b5563" text-anchor="end">2</text>
+<rect x="56" y="137" width="71.89" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<path d="M63 154.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="97.91" y="158.6" font-size="16" fill="#1f2a37" text-anchor="middle">safely</text>
+<rect x="160" y="148" width="36.12" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="159" font-size="15" fill="#1f2a37">64.5%</text>
+<rect x="306" y="137" width="89.49" height="32" fill="#e8eaee" rx="5"/>
+<path d="M313 154.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="356.71" y="158.6" font-size="16" fill="#1f2a37" text-anchor="middle">properly</text>
+<rect x="410" y="148" width="14.22" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="159" font-size="15" fill="#1f2a37">25.4%</text>
+<text x="572" y="159" font-size="16" fill="#1f2a37">To<tspan fill="#c8602a" font-weight="bold"> safely</tspan></text>
+<text x="36" y="202" font-size="16" fill="#4b5563" text-anchor="end">3</text>
+<rect x="56" y="180" width="50.38" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<path d="M63 197.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="87.15" y="201.6" font-size="16" fill="#1f2a37" text-anchor="middle">put</text>
+<rect x="160" y="191" width="42.22" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="202" font-size="15" fill="#1f2a37">75.4%</text>
+<rect x="306" y="180" width="82.66" height="32" fill="#e8eaee" rx="5"/>
+<path d="M313 197.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="353.29" y="201.6" font-size="16" fill="#1f2a37" text-anchor="middle">extingu</text>
+<rect x="410" y="191" width="13.55" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="202" font-size="15" fill="#1f2a37">24.2%</text>
+<text x="572" y="202" font-size="16" fill="#1f2a37">To safely<tspan fill="#c8602a" font-weight="bold"> put</tspan></text>
+<text x="36" y="245" font-size="16" fill="#4b5563" text-anchor="end">4</text>
+<rect x="56" y="223" width="50.38" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<path d="M63 240.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="87.15" y="244.6" font-size="16" fill="#1f2a37" text-anchor="middle">out</text>
+<rect x="160" y="234" width="56" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="245" font-size="15" fill="#1f2a37">100%</text>
+<rect x="306" y="223" width="35.71" height="32" fill="#e8eaee" rx="5"/>
+<path d="M313 240.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="329.81" y="244.6" font-size="16" fill="#1f2a37" text-anchor="middle">a</text>
+<rect x="410" y="234" width="1.5" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="245" font-size="15" fill="#1f2a37">under 0.1%</text>
+<text x="572" y="245" font-size="16" fill="#1f2a37">To safely put<tspan fill="#c8602a" font-weight="bold"> out</tspan></text>
+<text x="36" y="288" font-size="16" fill="#4b5563" text-anchor="end">5</text>
+<rect x="56" y="266" width="35.71" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<path d="M63 283.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="79.81" y="287.6" font-size="16" fill="#1f2a37" text-anchor="middle">a</text>
+<rect x="160" y="277" width="55.44" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="288" font-size="15" fill="#1f2a37">99.0%</text>
+<rect x="306" y="266" width="60.15" height="32" fill="#e8eaee" rx="5"/>
+<path d="M313 283.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="342.04" y="287.6" font-size="16" fill="#1f2a37" text-anchor="middle">your</text>
+<rect x="410" y="277" width="1.5" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="288" font-size="15" fill="#1f2a37">0.9%</text>
+<text x="572" y="288" font-size="16" fill="#1f2a37">To safely put out<tspan fill="#c8602a" font-weight="bold"> a</tspan></text>
+<text x="36" y="331" font-size="16" fill="#4b5563" text-anchor="end">6</text>
+<rect x="56" y="309" width="68.95" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<path d="M63 326.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="96.44" y="330.6" font-size="16" fill="#1f2a37" text-anchor="middle">camp</text>
+<rect x="160" y="320" width="56" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="331" font-size="15" fill="#1f2a37">100%</text>
+<rect x="306" y="309" width="92.43" height="32" fill="#e8eaee" rx="5"/>
+<path d="M313 326.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="358.18" y="330.6" font-size="16" fill="#1f2a37" text-anchor="middle">camping</text>
+<rect x="410" y="320" width="1.5" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="331" font-size="15" fill="#1f2a37">under 0.1%</text>
+<text x="572" y="331" font-size="16" fill="#1f2a37">To safely put out a<tspan fill="#c8602a" font-weight="bold"> camp</tspan></text>
+<text x="36" y="374" font-size="16" fill="#4b5563" text-anchor="end">7</text>
+<rect x="56" y="352" width="38.45" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<text x="75.22" y="373.6" font-size="16" fill="#1f2a37" text-anchor="middle">fire</text>
+<rect x="160" y="363" width="56" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="374" font-size="15" fill="#1f2a37">100%</text>
+<rect x="306" y="352" width="50.37" height="32" fill="#e8eaee" rx="5"/>
+<path d="M313 369.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="337.14" y="373.6" font-size="16" fill="#1f2a37" text-anchor="middle">fire</text>
+<rect x="410" y="363" width="1.5" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="374" font-size="15" fill="#1f2a37">under 0.1%</text>
+<text x="572" y="374" font-size="16" fill="#1f2a37">To safely put out a camp<tspan fill="#c8602a" font-weight="bold">fire</tspan></text>
+<text x="36" y="417" font-size="16" fill="#4b5563" text-anchor="end">8</text>
+<rect x="56" y="395" width="18.89" height="32" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<text x="65.45" y="416.6" font-size="16" fill="#1f2a37" text-anchor="middle">,</text>
+<rect x="160" y="406" width="53.87" height="10" fill="#c8602a" rx="2"/>
+<text x="222" y="417" font-size="15" fill="#1f2a37">96.2%</text>
+<rect x="306" y="395" width="55.28" height="32" fill="#e8eaee" rx="5"/>
+<path d="M313 412.6v4h9.92v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="339.6" y="416.6" font-size="16" fill="#1f2a37" text-anchor="middle">and</text>
+<rect x="410" y="406" width="2.13" height="10" fill="#9aa3af" rx="2"/>
+<text x="472" y="417" font-size="15" fill="#1f2a37">3.8%</text>
+<text x="572" y="417" font-size="16" fill="#1f2a37">To safely put out a campfire<tspan fill="#c8602a" font-weight="bold">,</tspan></text>
+<text x="20" y="464" font-size="16" fill="#4b5563">These steps ran at temperature 0: the top token wins every time.</text>
+<text x="20" y="486" font-size="16" fill="#4b5563">With a draw, the second token can win in the first steps, and the sentence changes.</text>
+</svg>

@@ -245,6 +245,7 @@ Everything else is the same, with **three differences** when you create the chat
    computer with less than 24 GB of graphics memory. Your instructions, the passages of your
    documents and the answer must all fit in it. We did not test 4096 with documents: we measured
    with 8192, which leaves room (counted below).
+   [How a language model works](how-an-llm-works.md) explains tokens and this window.
 
    ![The row Advanced Params, open: it reads 2 modified. 2: Function Calling reads Legacy. 3: num_ctx (Ollama) reads Custom, with a slider and the number 8192. All the other settings read Default.](images/chatbot-advanced-params.png)
 
@@ -769,6 +770,7 @@ These links were checked in October 2026.
   questions must stay in the EU, read [where the data goes](https://github.com/Youth-AI-Lab/yal-opencode-guide#where-the-data-goes).
 - [The series of workshops](https://github.com/Youth-AI-Lab/yal-workshop-kit#the-series): what
   is behind each part of a chatbot, step by step, in pairs.
+- [How a language model works](how-an-llm-works.md): tokens, the window and the settings, with real numbers.
 - Ollama: [documentation](https://docs.ollama.com/), [context length](https://docs.ollama.com/context-length),
   [graphics cards](https://docs.ollama.com/gpu), [FAQ](https://docs.ollama.com/faq) (settings such
   as `OLLAMA_CONTEXT_LENGTH` and `OLLAMA_NUM_PARALLEL`; its examples with `OLLAMA_HOST=0.0.0.0` open

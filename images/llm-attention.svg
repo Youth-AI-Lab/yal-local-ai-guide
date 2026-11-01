@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 376" width="900" height="376" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">Attention: a token looks only at the tokens before it</title>
+<desc id="d">The sentence cut into tokens, with 'out' highlighted. Curved arrows go from it back to the 4 tokens of the question before it. The later tokens are greyed out; one dashed arrow towards a later token is crossed out, because a token cannot look ahead. Illustration, not a measure: the hidden tokens before the question count too, and some tokens get more weight than others.</desc>
+<defs>
+<marker id="arrow-c8602a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c8602a"/></marker>
+</defs>
+<rect x="0" y="0" width="900" height="376" fill="#ffffff"/>
+<text x="404.74" y="44" font-size="16" fill="#1f2a37" text-anchor="end"><tspan font-weight="bold">Looks back</tspan> at every earlier token</text>
+<path d="M450.05 234C440.05 9.8 203.4 9.8 193.4 233" fill="none" stroke="#c8602a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<path d="M444.95 234C434.95 46.2 272.81 46.2 262.81 233" fill="none" stroke="#c8602a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<path d="M439.84 234C429.84 82.6 331.11 82.6 321.11 233" fill="none" stroke="#c8602a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<path d="M434.74 234C424.74 119 392.32 119 382.32 233" fill="none" stroke="#c8602a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<path d="M467.16 234C481.16 116 580.41 116 594.41 233" fill="none" stroke="#9aa3af" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 6"/>
+<path d="M517.78 133L543.78 159M517.78 159L543.78 133" fill="none" stroke="#c8602a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="487.57" y="106" font-size="16" fill="#1f2a37"><tspan font-weight="bold">Cannot look ahead</tspan>: later tokens are not used</text>
+<rect x="163.5" y="236" width="59.8" height="42" fill="#dbe9f4" rx="5"/>
+<text x="193.4" y="263.65" font-size="19" fill="#1f2a37" text-anchor="middle">How</text>
+<rect x="235.3" y="236" width="55.02" height="42" fill="#dbe9f4" rx="5"/>
+<path d="M244.3 259.65v4h11.78v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="269.7" y="263.65" font-size="19" fill="#1f2a37" text-anchor="middle">do</text>
+<rect x="302.32" y="236" width="37.59" height="42" fill="#dbe9f4" rx="5"/>
+<path d="M311.32 259.65v4h11.78v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="328" y="263.65" font-size="19" fill="#1f2a37" text-anchor="middle">I</text>
+<rect x="351.91" y="236" width="60.83" height="42" fill="#dbe9f4" rx="5"/>
+<path d="M360.91 259.65v4h11.78v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="389.21" y="263.65" font-size="19" fill="#1f2a37" text-anchor="middle">put</text>
+<rect x="424.74" y="236" width="62.86" height="42" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<path d="M433.74 259.65v4h11.78v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="463.06" y="263.65" font-size="19" fill="#1f2a37" font-weight="bold" text-anchor="middle">out</text>
+<rect x="497.57" y="236" width="43.4" height="42" fill="#e8eaee" rx="5"/>
+<path d="M506.57 259.65v4h11.78v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="526.16" y="263.65" font-size="19" fill="#4b5563" text-anchor="middle">a</text>
+<rect x="552.97" y="236" width="82.88" height="42" fill="#e8eaee" rx="5"/>
+<path d="M561.97 259.65v4h11.78v-4" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="601.3" y="263.65" font-size="19" fill="#4b5563" text-anchor="middle">camp</text>
+<rect x="647.85" y="236" width="47.03" height="42" fill="#e8eaee" rx="5"/>
+<text x="671.37" y="263.65" font-size="19" fill="#4b5563" text-anchor="middle">fire</text>
+<rect x="706.88" y="236" width="29.62" height="42" fill="#e8eaee" rx="5"/>
+<text x="721.69" y="263.65" font-size="19" fill="#4b5563" text-anchor="middle">?</text>
+<path d="M163.5 290L163.5 298L412.74 298L412.74 290" fill="none" stroke="#9aa3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="288.12" y="320" font-size="15" fill="#1f2a37" text-anchor="middle">earlier tokens: used</text>
+<path d="M497.57 290L497.57 298L736.5 298L736.5 290" fill="none" stroke="#9aa3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="617.04" y="320" font-size="15" fill="#1f2a37" text-anchor="middle">later tokens: not used</text>
+<text x="450" y="358" font-size="15" fill="#4b5563" text-anchor="middle">Illustration: the hidden tokens before "How" count too, and some tokens get more weight than others.</text>
+</svg>

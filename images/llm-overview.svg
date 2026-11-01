@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 882" width="420" height="882" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">The whole chain, from question to next token</title>
+<desc id="d">The question "How do I put out a campfire?" and the hidden text around it are cut into 38 tokens, 9 for the question and 29 hidden. Each token becomes 3,584 numbers. 28 layers in a row change these numbers. The last stage gives a probability to each of the 152,064 tokens: To 64.0%, Putting 35.6%. The draw picks one, here the top token "To". An arrow adds "To" to the text and repeats for each token of the answer: only the new token goes through. Inside the model, 7.6 billion parameters, fixed, the file on disk, feed the numbers, the layers and the last stage.</desc>
+<defs>
+<marker id="arrow-14907a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#14907a"/></marker>
+<marker id="arrow-4b5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4b5563"/></marker>
+<marker id="arrow-c8602a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c8602a"/></marker>
+</defs>
+<rect x="0" y="0" width="420" height="882" fill="#ffffff"/>
+<rect x="16" y="10" width="356" height="112" fill="#ffffff" rx="9" stroke="#2a6fa8" stroke-width="1.5"/>
+<text x="28" y="34" font-size="15" fill="#1f2a37" font-weight="bold">The text</text>
+<text x="28" y="58" font-size="16" fill="#1f2a37">How do I put out a campfire?</text>
+<text x="28" y="82" font-size="15" fill="#4b5563">plus a hidden system message</text>
+<text x="28" y="102" font-size="15" fill="#4b5563">and role marks</text>
+<rect x="16" y="144" width="356" height="74" fill="#ffffff" rx="9" stroke="#2a6fa8" stroke-width="1.5"/>
+<text x="28" y="168" font-size="15" fill="#1f2a37" font-weight="bold">38 tokens</text>
+<text x="360" y="168" font-size="15" fill="#4b5563" text-anchor="end">9 shown here, 29 hidden</text>
+<rect x="28" y="180" width="43" height="28" fill="#dbe9f4" rx="5"/>
+<text x="49.5" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">How</text>
+<rect x="75" y="180" width="28.35" height="28" fill="#f8e3d6" rx="5"/>
+<text x="89.17" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">do</text>
+<rect x="107.35" y="180" width="14.59" height="28" fill="#d3ede6" rx="5"/>
+<text x="114.64" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">I</text>
+<rect x="125.94" y="180" width="32.94" height="28" fill="#dbe9f4" rx="5"/>
+<text x="142.4" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">put</text>
+<rect x="162.87" y="180" width="32.94" height="28" fill="#f8e3d6" rx="5"/>
+<text x="179.34" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">out</text>
+<rect x="199.81" y="180" width="19.17" height="28" fill="#d3ede6" rx="5"/>
+<text x="209.39" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">a</text>
+<rect x="222.98" y="180" width="50.34" height="28" fill="#dbe9f4" rx="5"/>
+<text x="248.15" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">camp</text>
+<rect x="277.32" y="180" width="32.92" height="28" fill="#f8e3d6" rx="5"/>
+<text x="293.78" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">fire</text>
+<rect x="314.24" y="180" width="19.17" height="28" fill="#d3ede6" rx="5"/>
+<text x="323.83" y="199.25" font-size="15" fill="#1f2a37" text-anchor="middle">?</text>
+<rect x="4" y="230" width="380" height="450" fill="#dbe9f4" rx="12"/>
+<text x="16" y="253" font-size="16" fill="#1f2a37" font-weight="bold">The model</text>
+<rect x="134" y="264" width="238" height="138" fill="#ffffff" rx="9" stroke="#2a6fa8" stroke-width="1.5"/>
+<text x="144" y="288" font-size="15" fill="#1f2a37" font-weight="bold">3,584 numbers</text>
+<text x="144" y="308" font-size="15" fill="#1f2a37" font-weight="bold">for each token</text>
+<text x="144" y="333" font-size="15" fill="#1f2a37">How</text>
+<rect x="184" y="322" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="197" y="322" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="210" y="322" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="223" y="322" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="236" y="322" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="249" y="322" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="262" y="322" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="275" y="322" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="288" y="322" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="301" y="322" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="314" y="322" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<text x="144" y="352" font-size="15" fill="#1f2a37">do</text>
+<rect x="184" y="341" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="197" y="341" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="210" y="341" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="223" y="341" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="236" y="341" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="249" y="341" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="262" y="341" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="275" y="341" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="288" y="341" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="301" y="341" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="314" y="341" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<text x="144" y="371" font-size="15" fill="#1f2a37">I</text>
+<rect x="184" y="360" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="197" y="360" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="210" y="360" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="223" y="360" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="236" y="360" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="249" y="360" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="262" y="360" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="275" y="360" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="288" y="360" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="301" y="360" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="314" y="360" width="11" height="11" fill="#8db6d6" rx="2"/>
+<text x="144" y="392" font-size="15" fill="#4b5563">and so on</text>
+<rect x="134" y="422" width="238" height="106" fill="#ffffff" rx="9" stroke="#2a6fa8" stroke-width="1.5"/>
+<text x="144" y="446" font-size="15" fill="#1f2a37" font-weight="bold">28 layers in a row</text>
+<rect x="144" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="152" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="160" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="168" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="176" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="184" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="192" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="200" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="208" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="216" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="224" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="232" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="240" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="248" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="256" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="264" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="272" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="280" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="288" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="296" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="304" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="312" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="320" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="328" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="336" y="458" width="5" height="38" fill="#8db6d6"/>
+<rect x="344" y="458" width="5" height="38" fill="#5b93c0"/>
+<rect x="352" y="458" width="5" height="38" fill="#2a6fa8"/>
+<rect x="360" y="458" width="5" height="38" fill="#8db6d6"/>
+<text x="144" y="516" font-size="15" fill="#4b5563">each changes the numbers</text>
+<rect x="134" y="548" width="238" height="122" fill="#ffffff" rx="9" stroke="#2a6fa8" stroke-width="1.5"/>
+<text x="144" y="572" font-size="15" fill="#1f2a37" font-weight="bold">Probabilities</text>
+<text x="144" y="592" font-size="15" fill="#1f2a37" font-weight="bold">for all 152,064 tokens</text>
+<text x="144" y="616" font-size="15" fill="#1f2a37">To</text>
+<rect x="206" y="605" width="46.08" height="12" fill="#c8602a" rx="3"/>
+<text x="362" y="616" font-size="15" fill="#1f2a37" text-anchor="end">64.0%</text>
+<text x="144" y="638" font-size="15" fill="#1f2a37">Putting</text>
+<rect x="206" y="627" width="25.63" height="12" fill="#8db6d6" rx="3"/>
+<text x="362" y="638" font-size="15" fill="#1f2a37" text-anchor="end">35.6%</text>
+<text x="144" y="660" font-size="15" fill="#4b5563">and 152,062 more</text>
+<rect x="12" y="264" width="104" height="406" fill="#d3ede6" rx="10" stroke="#14907a" stroke-width="1.5"/>
+<text x="64" y="423" font-size="16" fill="#1f2a37" font-weight="bold" text-anchor="middle">7.6 billion</text>
+<text x="64" y="445" font-size="15" fill="#1f2a37" font-weight="bold" text-anchor="middle">parameters</text>
+<text x="64" y="475" font-size="15" fill="#1f2a37" text-anchor="middle">fixed,</text>
+<text x="64" y="495" font-size="15" fill="#1f2a37" text-anchor="middle">the file</text>
+<text x="64" y="515" font-size="15" fill="#1f2a37" text-anchor="middle">on disk</text>
+<path d="M118 333L132 333" fill="none" stroke="#14907a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-14907a)"/>
+<path d="M118 475L132 475" fill="none" stroke="#14907a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-14907a)"/>
+<path d="M118 609L132 609" fill="none" stroke="#14907a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-14907a)"/>
+<rect x="16" y="702" width="356" height="104" fill="#ffffff" rx="9" stroke="#c8602a" stroke-width="1.5"/>
+<text x="28" y="726" font-size="15" fill="#1f2a37" font-weight="bold">The draw picks one</text>
+<rect x="28" y="738" width="60.97" height="54" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<text x="58.48" y="773.4" font-size="24" fill="#1f2a37" font-weight="bold" text-anchor="middle">To</text>
+<text x="100.81" y="770" font-size="15" fill="#4b5563">here, the top token</text>
+<path d="M253 124L253 142" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-4b5563)"/>
+<path d="M253 220L253 262" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-4b5563)"/>
+<path d="M253 404L253 420" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-4b5563)"/>
+<path d="M253 530L253 546" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-4b5563)"/>
+<path d="M253 672L253 700" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-4b5563)"/>
+<path d="M374 754L390 754Q402 754 402 742L402 310Q402 298 390 298L375 298" fill="none" stroke="#c8602a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-c8602a)"/>
+<text x="16" y="830" font-size="15" fill="#1f2a37">Add <tspan fill="#c8602a" font-weight="bold">"To"</tspan> to the text, then repeat for each</text>
+<text x="16" y="850" font-size="15" fill="#1f2a37">token of the answer: only the new token</text>
+<text x="16" y="870" font-size="15" fill="#1f2a37">goes through.</text>
+</svg>

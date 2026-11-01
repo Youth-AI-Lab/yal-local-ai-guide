@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">The next token: probabilities and lottery tickets</title>
+<desc id="d">After "To put out a campfire, pour", the model gives water 82.2%, then a 3.1%, (a space) 2.4%, soil 2.4%, sand 1.6%, cold 1.3%, and 7.0% for all the other tokens. The same shares as 100 lottery tickets: 82 for water, 11 for the next five tokens, 7 for all the others. Ollama draws one ticket.</desc>
+<rect x="0" y="0" width="900" height="400" fill="#ffffff"/>
+<text x="20" y="36" font-size="18" fill="#1f2a37">To put out a campfire, pour</text>
+<rect x="274.69" y="14" width="29.78" height="30" fill="#f8e3d6" rx="5" stroke="#c8602a" stroke-width="1.5"/>
+<text x="289.57" y="35.3" font-size="18" fill="#1f2a37" font-weight="bold" text-anchor="middle">?</text>
+<text x="182" y="96" font-size="16" fill="#1f2a37" font-weight="bold" text-anchor="end">water</text>
+<rect x="192" y="79" width="260" height="24" fill="#2a6fa8" rx="3"/>
+<text x="460" y="96" font-size="16" fill="#1f2a37" font-weight="bold">82.2%</text>
+<text x="182" y="136" font-size="16" fill="#1f2a37" text-anchor="end">a</text>
+<rect x="192" y="119" width="9.81" height="24" fill="#8db6d6" rx="3"/>
+<text x="209.81" y="136" font-size="16" fill="#1f2a37">3.1%</text>
+<text x="182" y="176" font-size="16" fill="#1f2a37" text-anchor="end">(a space)</text>
+<rect x="192" y="159" width="7.59" height="24" fill="#8db6d6" rx="3"/>
+<text x="207.59" y="176" font-size="16" fill="#1f2a37">2.4%</text>
+<text x="182" y="216" font-size="16" fill="#1f2a37" text-anchor="end">soil</text>
+<rect x="192" y="199" width="7.59" height="24" fill="#8db6d6" rx="3"/>
+<text x="207.59" y="216" font-size="16" fill="#1f2a37">2.4%</text>
+<text x="182" y="256" font-size="16" fill="#1f2a37" text-anchor="end">sand</text>
+<rect x="192" y="239" width="5.06" height="24" fill="#8db6d6" rx="3"/>
+<text x="205.06" y="256" font-size="16" fill="#1f2a37">1.6%</text>
+<text x="182" y="296" font-size="16" fill="#1f2a37" text-anchor="end">cold</text>
+<rect x="192" y="279" width="4.11" height="24" fill="#8db6d6" rx="3"/>
+<text x="204.11" y="296" font-size="16" fill="#1f2a37">1.3%</text>
+<text x="182" y="336" font-size="16" fill="#1f2a37" text-anchor="end">all the other tokens</text>
+<rect x="192" y="319" width="22.14" height="24" fill="#9aa3af" rx="3"/>
+<text x="222.14" y="336" font-size="16" fill="#1f2a37">7.0%</text>
+<text x="588" y="50" font-size="16" fill="#1f2a37" font-weight="bold">The same, as 100 lottery tickets</text>
+<rect x="588" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="76" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="95" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="114" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="133" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="152" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="171" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="190" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="675" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="704" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="733" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="762" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="791" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="820" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="849" y="209" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="588" y="228" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="617" y="228" width="25" height="14" fill="#2a6fa8" rx="3"/>
+<rect x="646" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="675" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="704" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="733" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="762" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="791" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="820" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="849" y="228" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="588" y="247" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="617" y="247" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="646" y="247" width="25" height="14" fill="#8db6d6" rx="3"/>
+<rect x="675" y="247" width="25" height="14" fill="#9aa3af" rx="3"/>
+<rect x="704" y="247" width="25" height="14" fill="#9aa3af" rx="3"/>
+<rect x="733" y="247" width="25" height="14" fill="#9aa3af" rx="3"/>
+<rect x="762" y="247" width="25" height="14" fill="#9aa3af" rx="3"/>
+<rect x="791" y="247" width="25" height="14" fill="#9aa3af" rx="3"/>
+<rect x="820" y="247" width="25" height="14" fill="#9aa3af" rx="3"/>
+<rect x="849" y="247" width="25" height="14" fill="#9aa3af" rx="3"/>
+<rect x="588" y="269" width="18" height="12" fill="#2a6fa8" rx="2"/>
+<text x="614" y="280" font-size="15" fill="#1f2a37">82 tickets for water</text>
+<rect x="588" y="292" width="18" height="12" fill="#8db6d6" rx="2"/>
+<text x="614" y="303" font-size="15" fill="#1f2a37">11 tickets for the next five</text>
+<rect x="588" y="315" width="18" height="12" fill="#9aa3af" rx="2"/>
+<text x="614" y="326" font-size="15" fill="#1f2a37">7 tickets for all the others</text>
+<text x="20" y="384" font-size="16" fill="#4b5563">These are the raw probabilities, before any setting. Ollama then draws one ticket.</text>
+</svg>

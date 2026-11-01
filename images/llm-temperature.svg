@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 316" width="900" height="316" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">Temperature: how often "Paris" is drawn</title>
+<desc id="d">50 draws of the first token after "The capital of France is", at temperatures 0, 0.2, 0.8, 1.5. Paris is drawn 50, 50, 38, 16 times out of 50. The higher the temperature, the less often the top token wins.</desc>
+<rect x="0" y="0" width="900" height="316" fill="#ffffff"/>
+<text x="20" y="30" font-size="17" fill="#1f2a37"><tspan font-weight="bold">50 draws</tspan> of the first token after "The capital of France is"</text>
+<circle cx="28" cy="60" r="7" fill="#c8602a"/>
+<text x="42" y="65" font-size="16" fill="#1f2a37">Paris</text>
+<circle cx="112" cy="60" r="7" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<text x="126" y="65" font-size="16" fill="#1f2a37">another token</text>
+<rect x="14" y="86" width="211.25" height="214" fill="#ffffff" rx="9" stroke="#9aa3af" stroke-width="1"/>
+<text x="119.62" y="116" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="middle">Temperature 0</text>
+<circle cx="38.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="56.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="74.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="92.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="110.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="128.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="146.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="164.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="182.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="200.62" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="38.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="56.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="74.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="92.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="110.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="128.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="146.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="164.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="182.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="200.62" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="38.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="56.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="74.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="92.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="110.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="128.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="146.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="164.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="182.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="200.62" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="38.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="56.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="74.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="92.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="110.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="128.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="146.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="164.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="182.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="200.62" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="38.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="56.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="74.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="92.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="110.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="128.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="146.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="164.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="182.62" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="200.62" cy="228" r="7.5" fill="#c8602a"/>
+<text x="119.62" y="278" font-size="16" fill="#1f2a37" text-anchor="middle"><tspan font-weight="bold">50</tspan> of 50: Paris</text>
+<rect x="234.25" y="86" width="211.25" height="214" fill="#ffffff" rx="9" stroke="#9aa3af" stroke-width="1"/>
+<text x="339.88" y="116" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="middle">Temperature 0.2</text>
+<circle cx="258.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="276.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="294.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="312.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="330.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="348.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="366.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="384.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="402.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="420.88" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="258.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="276.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="294.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="312.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="330.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="348.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="366.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="384.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="402.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="420.88" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="258.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="276.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="294.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="312.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="330.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="348.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="366.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="384.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="402.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="420.88" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="258.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="276.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="294.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="312.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="330.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="348.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="366.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="384.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="402.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="420.88" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="258.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="276.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="294.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="312.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="330.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="348.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="366.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="384.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="402.88" cy="228" r="7.5" fill="#c8602a"/>
+<circle cx="420.88" cy="228" r="7.5" fill="#c8602a"/>
+<text x="339.88" y="278" font-size="16" fill="#1f2a37" text-anchor="middle"><tspan font-weight="bold">50</tspan> of 50: Paris</text>
+<rect x="454.5" y="86" width="211.25" height="214" fill="#ffffff" rx="9" stroke="#9aa3af" stroke-width="1"/>
+<text x="560.12" y="116" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="middle">Temperature 0.8</text>
+<circle cx="479.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="497.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="515.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="533.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="551.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="569.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="587.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="605.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="623.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="641.12" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="479.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="497.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="515.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="533.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="551.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="569.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="587.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="605.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="623.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="641.12" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="479.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="497.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="515.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="533.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="551.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="569.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="587.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="605.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="623.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="641.12" cy="184" r="7.5" fill="#c8602a"/>
+<circle cx="479.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="497.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="515.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="533.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="551.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="569.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="587.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="605.12" cy="206" r="7.5" fill="#c8602a"/>
+<circle cx="623.12" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="641.12" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="479.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="497.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="515.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="533.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="551.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="569.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="587.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="605.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="623.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="641.12" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<text x="560.12" y="278" font-size="16" fill="#1f2a37" text-anchor="middle"><tspan font-weight="bold">38</tspan> of 50: Paris</text>
+<rect x="674.75" y="86" width="211.25" height="214" fill="#ffffff" rx="9" stroke="#9aa3af" stroke-width="1"/>
+<text x="780.38" y="116" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="middle">Temperature 1.5</text>
+<circle cx="699.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="717.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="735.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="753.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="771.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="789.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="807.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="825.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="843.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="861.38" cy="140" r="7.5" fill="#c8602a"/>
+<circle cx="699.38" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="717.38" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="735.38" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="753.38" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="771.38" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="789.38" cy="162" r="7.5" fill="#c8602a"/>
+<circle cx="807.38" cy="162" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="825.38" cy="162" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="843.38" cy="162" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="861.38" cy="162" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="699.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="717.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="735.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="753.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="771.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="789.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="807.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="825.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="843.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="861.38" cy="184" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="699.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="717.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="735.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="753.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="771.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="789.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="807.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="825.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="843.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="861.38" cy="206" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="699.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="717.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="735.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="753.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="771.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="789.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="807.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="825.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="843.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<circle cx="861.38" cy="228" r="6.5" fill="#ffffff" stroke="#9aa3af" stroke-width="2"/>
+<text x="780.38" y="278" font-size="16" fill="#1f2a37" text-anchor="middle"><tspan font-weight="bold">16</tspan> of 50: Paris</text>
+</svg>

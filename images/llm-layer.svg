@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 446" width="900" height="446" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">One layer of the model, opened</title>
+<desc id="d">An assembly line. The numbers of each token enter a layer. First station: look back at earlier tokens, also called attention, in 28 ways at once. Second station: the token's own calculation. The changed numbers go on to the next layer. Below, 28 numbered slots, each with two stations of the same kind and its own parameters.</desc>
+<defs>
+<marker id="arrow-4b5563" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#4b5563"/></marker>
+</defs>
+<rect x="0" y="0" width="900" height="446" fill="#ffffff"/>
+<text x="16" y="26" font-size="17" fill="#1f2a37" font-weight="bold">One layer, opened</text>
+<rect x="16" y="40" width="868" height="214" fill="#dbe9f4" rx="12"/>
+<path d="M30 196L870 196" fill="none" stroke="#4b5563" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-4b5563)"/>
+<circle cx="46" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="86" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="126" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="166" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="206" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="246" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="286" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="326" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="366" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="406" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="446" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="486" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="526" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="566" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="606" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="646" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="686" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="726" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="766" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<circle cx="806" cy="207" r="6" fill="#ffffff" stroke="#4b5563" stroke-width="1.5"/>
+<rect x="166" y="62" width="244" height="130" fill="#ffffff" rx="9" stroke="#2a6fa8" stroke-width="1.5"/>
+<text x="288" y="102" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="middle">Look back</text>
+<text x="288" y="126" font-size="17" fill="#1f2a37" text-anchor="middle">at earlier tokens</text>
+<text x="288" y="151" font-size="15" fill="#4b5563" text-anchor="middle">(attention, 28 ways at once)</text>
+<rect x="508" y="62" width="224" height="130" fill="#ffffff" rx="9" stroke="#2a6fa8" stroke-width="1.5"/>
+<text x="620" y="114" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="middle">Own calculation</text>
+<text x="620" y="138" font-size="17" fill="#1f2a37" text-anchor="middle">each token alone</text>
+<rect x="46" y="168" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="59" y="168" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="72" y="168" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="85" y="168" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="98" y="168" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="46" y="181" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="59" y="181" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="72" y="181" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="85" y="181" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="98" y="181" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="426" y="168" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="439" y="168" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="452" y="168" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="465" y="168" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="478" y="168" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="426" y="181" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="439" y="181" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="452" y="181" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="465" y="181" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="478" y="181" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<rect x="752" y="168" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="765" y="168" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="778" y="168" width="11" height="11" fill="#b7d2e7" rx="2"/>
+<rect x="791" y="168" width="11" height="11" fill="#5b93c0" rx="2"/>
+<rect x="804" y="168" width="11" height="11" fill="#8db6d6" rx="2"/>
+<rect x="752" y="181" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="765" y="181" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="778" y="181" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="791" y="181" width="11" height="11" fill="#2a6fa8" rx="2"/>
+<rect x="804" y="181" width="11" height="11" fill="#dbe9f4" rx="2"/>
+<text x="30" y="240" font-size="15" fill="#1f2a37">numbers in</text>
+<text x="870" y="240" font-size="15" fill="#1f2a37" text-anchor="end">changed numbers, on to the next layer</text>
+<path d="M22 254L30 322" fill="none" stroke="#9aa3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+<path d="M878 254L56 322" fill="none" stroke="#9aa3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4 4"/>
+<rect x="30" y="322" width="26" height="34" fill="#f8e3d6" rx="4" stroke="#c8602a" stroke-width="1.5"/>
+<text x="43" y="345" font-size="15" fill="#1f2a37" font-weight="bold" text-anchor="middle">1</text>
+<rect x="60" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="73" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">2</text>
+<rect x="90" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="103" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">3</text>
+<rect x="120" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="133" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">4</text>
+<rect x="150" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="163" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">5</text>
+<rect x="180" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="193" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">6</text>
+<rect x="210" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="223" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">7</text>
+<rect x="240" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="253" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">8</text>
+<rect x="270" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="283" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">9</text>
+<rect x="300" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="313" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">10</text>
+<rect x="330" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="343" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">11</text>
+<rect x="360" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="373" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">12</text>
+<rect x="390" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="403" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">13</text>
+<rect x="420" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="433" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">14</text>
+<rect x="450" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="463" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">15</text>
+<rect x="480" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="493" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">16</text>
+<rect x="510" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="523" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">17</text>
+<rect x="540" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="553" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">18</text>
+<rect x="570" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="583" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">19</text>
+<rect x="600" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="613" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">20</text>
+<rect x="630" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="643" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">21</text>
+<rect x="660" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="673" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">22</text>
+<rect x="690" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="703" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">23</text>
+<rect x="720" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="733" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">24</text>
+<rect x="750" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="763" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">25</text>
+<rect x="780" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="793" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">26</text>
+<rect x="810" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="823" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">27</text>
+<rect x="840" y="322" width="26" height="34" fill="#dbe9f4" rx="4"/>
+<text x="853" y="345" font-size="15" fill="#1f2a37" text-anchor="middle">28</text>
+<path d="M30 370L866 370" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-4b5563)"/>
+<text x="450" y="398" font-size="16" fill="#1f2a37" text-anchor="middle">Two stations of the same kind in each of the 28 layers, each layer with its own parameters.</text>
+</svg>

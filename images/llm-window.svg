@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 446" width="900" height="446" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">What a window keeps from a text of 4,122 tokens</title>
+<desc id="d">Two bars to scale, except that the first 4 tokens are drawn wider, for the same text of 4,122 tokens with three code words. With a window of 8192, the whole text is kept and all three words are found. With a window of 2048, only the first 4 tokens and the last 1,022 stay, 1,026 in all, about half the window; 3,096 tokens in between are dropped. TULIP comes just after the first 4, so TULIP and OTTER are lost and MAPLE is found.</desc>
+<defs>
+<pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="10" fill="#ffffff"/><line x1="0" y1="0" x2="0" y2="10" stroke="#9aa3af" stroke-width="3"/></pattern>
+</defs>
+<rect x="0" y="0" width="900" height="446" fill="#ffffff"/>
+<text x="30" y="28" font-size="17" fill="#1f2a37"><tspan font-weight="bold">Window of 8192</tspan>: all 4,122 tokens are kept</text>
+<rect x="30" y="86" width="840" height="40" fill="#2a6fa8"/>
+<text x="30" y="70" font-size="16" fill="#1f2a37"><tspan font-weight="bold">TULIP</tspan>: found</text>
+<path d="M48 80L48 126" fill="none" stroke="#c8602a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="450" y="70" font-size="16" fill="#1f2a37" text-anchor="middle"><tspan font-weight="bold">OTTER</tspan>: found</text>
+<path d="M450 80L450 126" fill="none" stroke="#c8602a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="870" y="70" font-size="16" fill="#1f2a37" text-anchor="end"><tspan font-weight="bold">MAPLE</tspan>: found</text>
+<path d="M868 80L868 126" fill="none" stroke="#c8602a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="30" y="172" font-size="17" fill="#1f2a37"><tspan font-weight="bold">Window of 2048</tspan>: only 1,026 of the 4,122 tokens are kept</text>
+<rect x="30" y="230" width="840" height="40" fill="url(#hatch)"/>
+<rect x="30" y="230" width="9" height="40" fill="#2a6fa8"/>
+<rect x="661.73" y="230" width="208.27" height="40" fill="#2a6fa8"/>
+<rect x="30" y="230" width="840" height="40" fill="none" stroke="#9aa3af" stroke-width="1"/>
+<text x="30" y="214" font-size="16" fill="#1f2a37"><tspan font-weight="bold">TULIP</tspan>: lost</text>
+<path d="M48 224L48 270" fill="none" stroke="#c8602a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="450" y="214" font-size="16" fill="#1f2a37" text-anchor="middle"><tspan font-weight="bold">OTTER</tspan>: lost</text>
+<path d="M450 224L450 270" fill="none" stroke="#c8602a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="870" y="214" font-size="16" fill="#1f2a37" text-anchor="end"><tspan font-weight="bold">MAPLE</tspan>: found</text>
+<path d="M868 224L868 270" fill="none" stroke="#c8602a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M34.5 270L34.5 294" fill="none" stroke="#2a6fa8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="30" y="312" font-size="15" fill="#1f2a37">first 4 tokens: kept</text>
+<text x="30" y="330" font-size="15" fill="#4b5563">(drawn wider)</text>
+<path d="M57 280L57 288L659.73 288L659.73 280" fill="none" stroke="#9aa3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="358.37" y="312" font-size="15" fill="#1f2a37" text-anchor="middle">3,096 tokens dropped</text>
+<path d="M661.73 280L661.73 288L870 288L870 280" fill="none" stroke="#2a6fa8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="870" y="312" font-size="15" fill="#1f2a37" text-anchor="end">last 1,022 tokens: kept</text>
+<path d="M452.65 338L452.65 348L870 348L870 338" fill="none" stroke="#4b5563" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="870" y="370" font-size="15" fill="#1f2a37" text-anchor="end">size of the window: 2,048 tokens, at the same scale</text>
+<text x="30" y="370" font-size="15" fill="#1f2a37" font-weight="bold">Kept: 1,026, about half</text>
+<text x="30" y="390" font-size="15" fill="#1f2a37" font-weight="bold">the window.</text>
+</svg>

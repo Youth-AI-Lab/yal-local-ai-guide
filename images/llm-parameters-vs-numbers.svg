@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 446" width="900" height="446" role="img" aria-labelledby="t d" font-family="Arial, Helvetica, 'Liberation Sans', sans-serif">
+<title id="t">Parameters against a token's numbers</title>
+<desc id="d">In the middle, one panel of fixed knobs: the 7.6 billion parameters, the same for all texts. Two texts, "How do I put out a campfire?" and "The capital of France is", pass through it. Each token has 3,584 numbers, which start from the table of parameters and are changed for that text. They give the probabilities and are not kept in the model. The knobs do not move when the model answers.</desc>
+<defs>
+<marker id="arrow-2a6fa8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" markerUnits="userSpaceOnUse" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2a6fa8"/></marker>
+</defs>
+<rect x="0" y="0" width="900" height="446" fill="#ffffff"/>
+<rect x="322" y="22" width="256" height="356" fill="#d3ede6" rx="12" stroke="#14907a" stroke-width="1.5"/>
+<text x="450" y="56" font-size="19" fill="#1f2a37" font-weight="bold" text-anchor="middle">Parameters</text>
+<text x="450" y="80" font-size="16" fill="#1f2a37" text-anchor="middle">fixed knobs</text>
+<circle cx="368" cy="126" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M368 126L360.96 140.37" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="423" cy="126" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M423 126L416.85 111.23" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="478" cy="126" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M478 126L462.25 128.84" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="533" cy="126" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M533 126L532.8 142" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="368" cy="186" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M368 186L368.39 170" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="423" cy="186" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M423 186L434.07 174.45" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="478" cy="186" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M478 186L464.34 194.34" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="533" cy="186" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M533 186L532.02 201.97" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="368" cy="246" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M368 246L359.75 232.29" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="423" cy="246" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M423 246L438.89 244.13" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="478" cy="246" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M478 246L473.53 261.36" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="533" cy="246" r="21" fill="#ffffff" stroke="#14907a" stroke-width="2"/>
+<path d="M533 246L523.12 233.41" fill="none" stroke="#14907a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="450" y="318" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="middle">7.6 billion</text>
+<text x="450" y="342" font-size="16" fill="#1f2a37" text-anchor="middle">the same for all texts</text>
+<text x="20" y="26" font-size="17" fill="#1f2a37" font-weight="bold">Numbers of a token</text>
+<text x="880" y="26" font-size="17" fill="#1f2a37" font-weight="bold" text-anchor="end">What comes out</text>
+<text x="20" y="104" font-size="16" fill="#1f2a37">How do I put out a campfire?</text>
+<rect x="20" y="118" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="36" y="118" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="52" y="118" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="68" y="118" width="14" height="14" fill="#dbe9f4" rx="2"/>
+<rect x="84" y="118" width="14" height="14" fill="#b7d2e7" rx="2"/>
+<rect x="100" y="118" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="116" y="118" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="132" y="118" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="148" y="118" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="164" y="118" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="180" y="118" width="14" height="14" fill="#dbe9f4" rx="2"/>
+<rect x="196" y="118" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="20" y="134" width="14" height="14" fill="#dbe9f4" rx="2"/>
+<rect x="36" y="134" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="52" y="134" width="14" height="14" fill="#b7d2e7" rx="2"/>
+<rect x="68" y="134" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="84" y="134" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="100" y="134" width="14" height="14" fill="#dbe9f4" rx="2"/>
+<rect x="116" y="134" width="14" height="14" fill="#b7d2e7" rx="2"/>
+<rect x="132" y="134" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="148" y="134" width="14" height="14" fill="#b7d2e7" rx="2"/>
+<rect x="164" y="134" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="180" y="134" width="14" height="14" fill="#dbe9f4" rx="2"/>
+<rect x="196" y="134" width="14" height="14" fill="#8db6d6" rx="2"/>
+<path d="M216 133L319 133" fill="none" stroke="#2a6fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-2a6fa8)"/>
+<path d="M581 133L620 133" fill="none" stroke="#2a6fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="638" y="104" font-size="15" fill="#4b5563">the probabilities</text>
+<rect x="638" y="112" width="242" height="44" fill="none" rx="8" stroke="#9aa3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+<rect x="648" y="128" width="12" height="12" fill="#e8eaee" rx="2"/>
+<rect x="662" y="128" width="12" height="12" fill="#e8eaee" rx="2"/>
+<rect x="676" y="128" width="12" height="12" fill="#e8eaee" rx="2"/>
+<text x="698" y="139" font-size="15" fill="#4b5563">not kept in the model</text>
+<path d="M620 133L635 133" fill="none" stroke="#2a6fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-2a6fa8)"/>
+<text x="20" y="258" font-size="16" fill="#1f2a37">The capital of France is</text>
+<rect x="20" y="272" width="14" height="14" fill="#dbe9f4" rx="2"/>
+<rect x="36" y="272" width="14" height="14" fill="#dbe9f4" rx="2"/>
+<rect x="52" y="272" width="14" height="14" fill="#b7d2e7" rx="2"/>
+<rect x="68" y="272" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="84" y="272" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="100" y="272" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="116" y="272" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="132" y="272" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="148" y="272" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="164" y="272" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="180" y="272" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="196" y="272" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="20" y="288" width="14" height="14" fill="#b7d2e7" rx="2"/>
+<rect x="36" y="288" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="52" y="288" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="68" y="288" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="84" y="288" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="100" y="288" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="116" y="288" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="132" y="288" width="14" height="14" fill="#b7d2e7" rx="2"/>
+<rect x="148" y="288" width="14" height="14" fill="#8db6d6" rx="2"/>
+<rect x="164" y="288" width="14" height="14" fill="#5b93c0" rx="2"/>
+<rect x="180" y="288" width="14" height="14" fill="#2a6fa8" rx="2"/>
+<rect x="196" y="288" width="14" height="14" fill="#8db6d6" rx="2"/>
+<path d="M216 287L319 287" fill="none" stroke="#2a6fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-2a6fa8)"/>
+<path d="M581 287L620 287" fill="none" stroke="#2a6fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="638" y="258" font-size="15" fill="#4b5563">the probabilities</text>
+<rect x="638" y="266" width="242" height="44" fill="none" rx="8" stroke="#9aa3af" stroke-width="1.5" stroke-dasharray="6 5"/>
+<rect x="648" y="282" width="12" height="12" fill="#e8eaee" rx="2"/>
+<rect x="662" y="282" width="12" height="12" fill="#e8eaee" rx="2"/>
+<rect x="676" y="282" width="12" height="12" fill="#e8eaee" rx="2"/>
+<text x="698" y="293" font-size="15" fill="#4b5563">not kept in the model</text>
+<path d="M620 287L635 287" fill="none" stroke="#2a6fa8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-2a6fa8)"/>
+<text x="20" y="186" font-size="15" fill="#4b5563">3,584 numbers for each token:</text>
+<text x="20" y="206" font-size="15" fill="#4b5563">they start from the table,</text>
+<text x="20" y="226" font-size="15" fill="#4b5563">then change for each text</text>
+<text x="450" y="412" font-size="16" fill="#1f2a37" text-anchor="middle">Training set the knobs. They do not move when the model answers,</text>
+<text x="450" y="434" font-size="16" fill="#1f2a37" text-anchor="middle">so the model does not learn from your conversations.</text>
+</svg>
