@@ -244,7 +244,7 @@ Everything else is the same, with **three differences** when you create the chat
    (its *context window*), in *tokens*, small pieces of words. Ollama's default is 4096 on a
    computer with less than 24 GB of graphics memory. Your instructions, the passages of your
    documents and the answer must all fit in it. We did not test 4096 with documents: we measured
-   with 8192, which leaves room.
+   with 8192, which leaves room (counted below).
 
    ![The row Advanced Params, open: it reads 2 modified. 2: Function Calling reads Legacy. 3: num_ctx (Ollama) reads Custom, with a slider and the number 8192. All the other settings read Default.](images/chatbot-advanced-params.png)
 
@@ -278,8 +278,14 @@ own tools to the model (search, memory, notes…) with each question. On our lap
 0.12.4, a short "Hello, who are you?" sent that way to `mistral:7b` was about 2,050 tokens, half of
 Ollama's default of 4096, before any document (with 0.11.4, about 3,600 tokens to `qwen2.5:7b`:
 another model cuts words into tokens differently, so do not compare the two). A question to our
-chatbot in **Legacy**, its passages included, was about 2,030 tokens, as with 0.11.4: it leaves room
-in 8192. These figures are for Linux; we did not measure them on macOS or Windows.
+chatbot in **Legacy**, its passages included, was about 2,030 tokens, as with 0.11.4.
+
+**What 8192 leaves.** In a window of 8192, that question leaves about 6,100 tokens for the answer
+and the rest of the conversation (8192 minus 2,030 is 6,162). In 4096 it would leave about 2,000
+(not tested). This is one question to one chatbot: longer instructions or more passages take more.
+A larger window takes more memory: with `qwen2.5:7b` on our 6 GB graphics card, Ollama used 4.8 GB
+at 4096, all of it on the card, and 5.4 GB at 8192, with 13% of it moved to the processor. Keep 8192, the size we measured. These figures are for Linux; we did not measure them on
+macOS or Windows.
 On the AI HAT+ 2, these figures do not apply (TO BE COMPLETED).
 
 > [!TIP]
@@ -618,9 +624,12 @@ electricity. On a Raspberry Pi, the AI HAT+ 2 is an extra board at $200
   per conversation, so no documents, and one question at a time.
 - **A small model invents without documents**, and the one we tested did not search them by itself:
   keep **Function Calling: Legacy**.
-- **The search can miss, and the model can misread.** An answer that is only in a long text may not
-  come back. When two documents disagree, the chatbot may give only one side. Write short, clear
-  documents, as the Open WebUI guide advises, and test your chatbot ([part 5](#part-5---test-it)).
+- **The search can miss, and the model can misread.** With one knowledge base, each question brings
+  back only **3 passages** of at most 1,000 characters. The 37 documents of the workshop make about
+  320 passages (322 counted in the workshop kit, same cutting), so for one question the model reads
+  about 1 in 100 of them, not the rest. An answer that is only in a long text may not come back.
+  When two documents disagree, the chatbot may give only one side. Write short, clear documents, as
+  the Open WebUI guide advises, and test your chatbot ([part 5](#part-5---test-it)).
 - **The scores move**: one model gained 2 points between our two series, the other lost 2.
 - **Languages**: we measured English only.
 - **The computer must stay on, on the same network** as the participants (a Linux laptop must stay

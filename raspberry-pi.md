@@ -641,8 +641,8 @@ setting changes it
 ([Hailo](https://github.com/hailo-ai/hailo_model_zoo_genai/blob/v5.1.1/docs/MODELS.rst),
 [HailoRT](https://github.com/hailo-ai/hailort/blob/v5.1.1/hailort/libhailort/include/hailo/genai/llm/llm.hpp)).
 A question to the chatbot of part 4, with the passages of its
-documents, was about 2,030 tokens on our laptop, with another model
-([part 4 of the guide](README.md#part-4---build-the-chatbot)). So on the HAT, build a chatbot
+documents, was about 2,030 tokens on our laptop, with another model: almost all of the 2,048, before
+any answer ([part 4 of the guide](README.md#part-4---build-the-chatbot)). So on the HAT, build a chatbot
 **without documents**, for short conversations
 ([step 10](#step-10---build-chatbots-for-the-ai-hat-2-not-tested)).
 
