@@ -252,13 +252,11 @@ number of numbers in a label, so that long lists do not give huge scores. Our su
 out, to stay short. With $q$ the question of a token, $k_j$ the label of token $j$, $v_j$ its content,
 $s_j$ its score and $a_j$ its share:
 
-$$
-s_j = \frac{q \cdot k_j}{\sqrt{d}}
-\qquad
-a_j = \frac{e^{s_j}}{\sum_i e^{s_i}}
-\qquad
-\text{mix} = \sum_j a_j v_j
-$$
+$$s_j = \frac{q \cdot k_j}{\sqrt{d}}$$
+
+$$a_j = \frac{e^{s_j}}{\sum_i e^{s_i}}$$
+
+$$\text{mix} = \sum_j a_j v_j$$
 
 The share $a_j$ is the formula of the [temperature](#temperature), with $T = 1$.
 
@@ -412,9 +410,7 @@ become probabilities. This is the [softmax with a temperature](https://arxiv.org
 with $s_i$ the score of token $i$, $T$ the temperature, $p_i$ the probability and $e$ a fixed
 number, about 2.718. The sum at the bottom makes all the probabilities add up to 1:
 
-$$
-p_i = \frac{e^{s_i / T}}{\sum_j e^{s_j / T}}
-$$
+$$p_i = \frac{e^{s_i / T}}{\sum_j e^{s_j / T}}$$
 
 The ratio of two tokens at temperature $T$ is their ratio at temperature 1, to the power $1/T$. This
 is where the 5 and the 2/3 above come from.
