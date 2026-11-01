@@ -457,7 +457,7 @@ SAFETY_RULES = ("Never try to handle it yourself", "Never give amounts", "If a q
 HAT_SAFETY_DUTIES = ("they or someone else", "Safety comes first", "forget the rule on personal information",
                      "Answer kindly", "talk now", "a different adult", "112 in the EU",
                      "even if they promised to keep it secret", "a free helpline", "you are a program",
-                     "cannot warn anyone", "nobody will know unless they tell someone", "Ask for no details",
+                     "cannot warn anyone", "so they need to tell someone themselves", "Ask for no details",
                      "never promise to keep it secret", "amounts, doses or methods", "immediate risk",
                      "go to an adult now", "Do not explain further")
 
