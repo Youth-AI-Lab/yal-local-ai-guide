@@ -4,6 +4,8 @@ Give this notice to the participants before they use the chatbot (on paper, on a
 group's page). Replace each `TO BE COMPLETED: …` with your text, and have it checked by your
 organisation's data protection officer. You can translate it into the language of your group.
 For participants under 18, also check what your organisation asks of their parents or guardians.
+The notice says that nobody reads the messages live: if someone in your organisation reads them
+during the sessions, change this sentence so that it stays true.
 
 ---
 
@@ -49,6 +51,11 @@ account empty: the chatbot does not need them. On a shared tablet or computer, s
 **Who can read your conversations.** TO BE COMPLETED: who (for example: "your youth workers, and
 the person who looks after the computer"), as the administrators of the chatbot and of the
 computer, can read them. The other participants cannot.
+
+**If you are not well or in danger.** The chatbot cannot warn anyone, and nobody reads your messages
+live: the people named above can read them later, but do not count on it. If you are not well or
+in danger, talk to an adult, or to TO BE COMPLETED: a contact who is not the facilitator of this
+group.
 
 **How long.** Your account and conversations are deleted TO BE COMPLETED: when (for example: "on
 30 June" or "at the end of the project").

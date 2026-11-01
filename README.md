@@ -376,9 +376,9 @@ organisation: the same Wi-Fi as the computer.
       [step 7](raspberry-pi.md#step-7---check-the-connection-to-ollama) and
       [step 9](raspberry-pi.md#step-9---set-the-model-of-the-ai-hat-2-not-tested)),
       and change three things:
-      - in **System Prompt**, paste the *Never* rules of your template, then add: "You are not the
-        group's chatbot. To any question, answer only: please choose the group's chatbot in the
-        list.";
+      - in **System Prompt**, paste the *Never* rules of your filled template, with no
+        `TO BE COMPLETED` left, then add: "You are not the group's chatbot. To any question, answer
+        only: please choose the group's chatbot in the list.";
       - click the row **Advanced Params** to open it, find **Function Calling**, and click its
         button until it reads **Legacy**, as in [part 4](#part-4---build-the-chatbot). The row
         **Advanced Params** then reads **1 modified**;

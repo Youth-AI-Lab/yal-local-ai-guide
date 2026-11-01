@@ -452,17 +452,40 @@ def never_rules(text):
     return " ".join(re.search(r"^## Never\n(.*?)(?=^## |\Z)", text, re.S | re.M).group(1).split())
 
 
+# The three rules on safety of the templates. The box of step 10 of raspberry-pi.md shortens them.
+SAFETY_RULES = ("Never try to handle it yourself", "Never give amounts", "If a question shows")
+HAT_SAFETY_DUTIES = ("they or someone else", "Safety comes first", "forget the rule on personal information",
+                     "Answer kindly", "talk now", "a different adult", "112 in the EU",
+                     "even if they promised to keep it secret", "a free helpline", "you are a program",
+                     "cannot warn anyone", "nobody will know unless they tell someone", "Ask for no details",
+                     "never promise to keep it secret", "amounts, doses or methods", "immediate risk",
+                     "go to an adult now", "Do not explain further")
+
+
+def rules_by_kind(rules):
+    """A section Never without its line breaks, cut into two lists: the other rules, the rules on safety."""
+    rules = [rule.strip() for rule in re.split(r"(?:^| )- ", rules) if rule.strip()]
+    return [r for r in rules if not r.startswith(SAFETY_RULES)], [r for r in rules if r.startswith(SAFETY_RULES)]
+
+
 def hat_instructions():
     """The box of step 10 of raspberry-pi.md: the page says to start from it, not from a template.
-    Its rules Never must stay those of the template topic-assistant, word for word. It goes to the
-    model as the reader finds it, with its lines TO BE COMPLETED."""
+    Its rules Never must stay those of the template topic-assistant, word for word, except the
+    three rules on safety: the box shortens them to save tokens, and they must keep every duty of
+    HAT_SAFETY_DUTIES. It goes to the model as the reader finds it, with its lines TO BE COMPLETED."""
     page = (Path(__file__).resolve().parent.parent / "raspberry-pi.md").read_text(encoding="utf-8")
     box = re.search(r"```text\n(## Purpose\n.*?)```", page, re.S)
     if not check(box is not None, "raspberry-pi.md, step 10: the box of instructions is there"):
         sys.exit(1)
     template = Path(os.environ["OWUI_GUIDE_DIR"]) / "templates" / "topic-assistant.md"
-    check(never_rules(box.group(1)) == never_rules(template.read_text(encoding="utf-8")),
+    in_box = rules_by_kind(never_rules(box.group(1)))
+    in_template = rules_by_kind(never_rules(template.read_text(encoding="utf-8")))
+    check(in_box[0] == in_template[0],
           "raspberry-pi.md, step 10: the box has the rules Never of the template topic-assistant")
+    check(len(in_box[1]) == len(in_template[1]) == len(SAFETY_RULES),
+          "raspberry-pi.md, step 10: the box and the template have the three rules on safety")
+    missing = [duty for duty in HAT_SAFETY_DUTIES if duty not in " ".join(in_box[1])]
+    check(not missing, f"raspberry-pi.md, step 10: the short rules on safety keep every duty (missing: {missing})")
     return box.group(1).strip()
 
 
