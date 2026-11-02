@@ -630,7 +630,7 @@ electricity. On a Raspberry Pi, the AI HAT+ 2 is an extra board at $200
   keep **Function Calling: Legacy**.
 - **The search can miss, and the model can misread.** With one knowledge base, each question brings
   back only **3 passages** of at most 1,000 characters. The 37 documents of the workshop make about
-  320 passages (322 counted in the workshop kit, same cutting), so for one question the model reads
+  320 passages (322 counted in the workshop kit on 2026-10-31, same cutting), so for one question the model reads
   about 1 in 100 of them, not the rest. An answer that is only in a long text may not come back.
   When two documents disagree, the chatbot may give only one side. Write short, clear documents, as
   the Open WebUI guide advises, and test your chatbot ([part 5](#part-5---test-it)).
