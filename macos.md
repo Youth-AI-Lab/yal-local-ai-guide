@@ -362,6 +362,12 @@ people:
   search);
 - the participants do not see the buttons to change a chatbot, or to upload files or photos. This
   hides the buttons; it is not a lock: a participant with technical skills could still send a file;
+- when a chatbot answers from your documents, the text that Open WebUI adds around the passages it
+  found tells the model to say that it does not know when the answer is not in them. Open WebUI's
+  own text tells it the opposite: to answer from what the model knows. We changed this on
+  4 November 2026; the scores of this guide were measured before, with Open WebUI's text;
+- **Notes**, **Calendar** and **Automations** are off: Open WebUI gives the model tools to write in
+  them, and this guide does not use them;
 - a banner asks them not to write personal information;
 - a sign-in lasts 12 hours, and the participants do not see your name and e-mail;
 - Open WebUI writes only warnings and errors in its log, not the e-mail used at each sign-in or the
@@ -388,6 +394,14 @@ show the banner in the language of your group, change its text after
 [step 6](#step-6---create-your-administrator-account), in **Admin Panel** → **Settings** →
 **General**, in the part about banners ("Create announcements shown to users in the app."), then
 click **Save**.
+
+**If you installed Open WebUI before 4 November 2026**, your `openwebui.env` did not have two of
+these settings, and downloading the new file changes nothing. Make the two changes once, by hand,
+in **Admin Panel** → **Settings**. In **General**, turn off **Automations** (**Notes** and
+**Calendar** were already off). In **Documents**, replace the text of **RAG Template** with the
+text between the two double quotes after `RAG_TEMPLATE=` in [`openwebui.env`](openwebui.env),
+and write `"` where the file has `\"`. Then click **Save**. We read these names in the code of
+Open WebUI 0.12.4; we did not try these two changes on screen.
 
 ### Step 5 - Start Open WebUI as a service
 

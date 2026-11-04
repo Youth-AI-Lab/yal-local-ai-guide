@@ -69,7 +69,11 @@ curl -fsSLO https://raw.githubusercontent.com/Youth-AI-Lab/yal-local-ai-guide/ma
 
 **What is done in the browser** (part 3 steps 6 and 7, parts 4 to 6) is done by
 [`check_guide.py`](check_guide.py) through the programming interface of Open WebUI, with the same
-settings as the guide: the administrator account, the settings of `openwebui.env`, a chatbot with
+settings as the guide: the administrator account, the settings of `openwebui.env` (its
+**RAG Template** of several lines, the same text in Open WebUI as in the file, and **Notes**,
+**Calendar** and **Automations** off; on Linux and the Raspberry Pi, every setting that systemd gave
+the service compared with what [`owui-start.py`](../owui-start.py) reads, so that a difference
+between the Linux service and the macOS and Windows program shows up), a chatbot with
 **Legacy** and **num_ctx 8192** on four summaries of the workshop kit, its sources, the safety net
 of the base model, **Public** access, a participant account and what it sees, and no e-mail or
 address in the journal (on Linux) or in `~/owui-local/open-webui.log`, the log that

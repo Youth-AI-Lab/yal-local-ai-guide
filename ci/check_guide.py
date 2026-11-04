@@ -2,8 +2,11 @@
 Open WebUI, with the same settings, and checks what the guide says should happen.
 
 Phases, run in this order between the stages of run_guide.py:
-    admin         part 3, steps 6-7: the administrator account, the settings of openwebui.env (on
-                  the Raspberry Pi page, step 7 also sets Legacy and Builtin Tools off on the model)
+    admin         part 3, steps 6-7: the administrator account, the settings of openwebui.env,
+                  its RAG_TEMPLATE of several lines and Notes, Calendar, Automations off included,
+                  and on Linux what systemd gave the service, compared with what owui-start.py
+                  reads (on the Raspberry Pi page, step 7 also sets Legacy and Builtin Tools off on
+                  the model)
     chatbot       parts 4 and 5: knowledge, chatbot with Legacy and num_ctx 8192, an answer with sources
     participants  part 6, after the stage "network": safety net of the base model, Public access,
                   a participant account, what it sees and what the base model answers it
@@ -37,6 +40,7 @@ its template topic-assistant), and CI_HAILO_LOG
 with hailo. Only the standard library.
 """
 import argparse
+import importlib.util
 import json
 import os
 import re
@@ -52,6 +56,10 @@ import uuid
 from pathlib import Path
 
 URL = os.environ.get("OPENWEBUI_URL", "http://localhost:3000")
+GUIDE = Path(__file__).resolve().parent.parent
+# The settings that Open WebUI was started with: run_guide.py puts there the openwebui.env of this
+# commit. OWUI_ENV_FILE: another file, to run these checks without the guide's install.
+ENV_FILE = Path(os.environ.get("OWUI_ENV_FILE", Path.home() / "owui-local" / "openwebui.env"))
 MODEL = os.environ.get("CI_MODEL", "qwen2.5:0.5b")
 STATE = Path(os.environ.get("CI_STATE", Path.home() / ".cache" / "guide-ci" / "state.json"))
 ADMIN = {"name": "Facilitator", "email": "facilitator@group.local", "password": "Ci-admin-pass-2026"}
@@ -310,6 +318,52 @@ def ollama_program():
     return found or "ollama"
 
 
+def env_settings():
+    """The settings of ~/owui-local/openwebui.env (the file of this commit, run_guide.py), read by
+    the reader of owui-start.py, which the macOS and Windows pages use and which reads it as systemd
+    does."""
+    spec = importlib.util.spec_from_file_location("owui_start", GUIDE / "owui-start.py")
+    owui_start = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(owui_start)
+    return owui_start.read_env_file(ENV_FILE)
+
+
+def check_rag_template(admin):
+    """openwebui.env, RAG_TEMPLATE: Open WebUI received the text of several lines, and kept it."""
+    wanted = env_settings().get("RAG_TEMPLATE", "")
+    check(wanted.count("\n") > 20 and "{{CONTEXT}}" in wanted and '<source id="1">' in wanted,
+          f"openwebui.env has a RAG_TEMPLATE of {wanted.count(chr(10))} lines, with its quotes")
+    template = admin.request("GET", "/retrieval/config").get("RAG_TEMPLATE") or ""
+    check(template == wanted, "Open WebUI's RAG Template (Admin Panel > Settings > Documents) is the "
+                              f"text of openwebui.env ({len(template)} and {len(wanted)} characters)")
+    check("never answer from your own knowledge" in template and "using your own understanding" not in template,
+          "the RAG Template says \"I don't know\" rather than answer from the model's own knowledge")
+    kit = Path(os.environ.get("KIT_DIR", "")) / ".devcontainer" / "bin" / "openwebui"
+    if os.environ.get("KIT_DIR") and kit.exists():
+        # Information only: the published kit may change before or after this guide.
+        same = template in kit.read_text(encoding="utf-8")
+        print(f"  info  the same text as the RAG_TEMPLATE of the kit's openwebui: {'yes' if same else 'no'}")
+
+
+def check_service_environment():
+    """Linux and Raspberry Pi: what systemd gave the service is what owui-start.py reads (macOS,
+    Windows), setting by setting, new lines of RAG_TEMPLATE included."""
+    pid = subprocess.run(["systemctl", "show", "-p", "MainPID", "--value", "owui-local"],
+                         capture_output=True, text=True).stdout.strip()
+    try:
+        raw = Path(f"/proc/{pid}/environ").read_bytes()
+    except OSError:
+        raw = subprocess.run(["sudo", "cat", f"/proc/{pid}/environ"], capture_output=True).stdout
+    service = dict(item.split("=", 1) for item in raw.decode(errors="replace").split("\0") if "=" in item)
+    wanted = env_settings()
+    different = [name for name, value in wanted.items() if service.get(name) != value]
+    version = subprocess.run(["systemctl", "--version"], capture_output=True, text=True).stdout.split("\n")[0]
+    # Names only, and the first ones: a reader that goes wrong can take a line of text for a name.
+    check(bool(service) and not different,
+          f"the {len(wanted)} settings of openwebui.env reach the service as owui-start.py reads them "
+          f"({version}; different: {', '.join(name[:40] for name in different[:5]) or 'none'})")
+
+
 def phase_admin(state):
     print("Part 3, step 6: the administrator account")
     first = Api().request("POST", "/auths/signup", body=ADMIN)
@@ -335,6 +389,15 @@ def phase_admin(state):
           "no hidden questions to the model (titles, follow-ups)")
     openai = admin.request("GET", "/openai/config")
     check(openai.get("ENABLE_OPENAI_API") is False, "no AI company: the OpenAI connection is off")
+    features = config.get("features") or {}
+    off = ("NOTES", "CALENDAR", "AUTOMATIONS")
+    check(all(auth.get(f"ENABLE_{name}") is False and features.get(f"enable_{name.lower()}") is False
+              for name in off),
+          "no Notes, no Calendar, no Automations: "
+          + ", ".join(f"{name.lower()} {auth.get(f'ENABLE_{name}')}" for name in off))
+    check_rag_template(admin)
+    if SYSTEM in LINUX_LIKE:
+        check_service_environment()
 
     if SERVER == "hailo":
         hat_connection(admin, state)

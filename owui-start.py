@@ -9,13 +9,18 @@ pages start this small program instead, with the Python of the virtual environme
 
 It must sit in the folder of Open WebUI (owui-local), next to openwebui.env, venv and data. It:
 
-1. reads openwebui.env as systemd reads an EnvironmentFile, for the kind of lines this file has:
-   blank lines and lines starting with '#' or ';' are skipped, each other line is cut at its first
-   '=', and a value that starts and ends with the same quote (" or ') loses these two quotes. Other
-   quotes are kept as they are. With this rule, the 32 settings of openwebui.env come out the same
-   as under systemd (checked with systemd-run), including WEBUI_BANNERS, whose JSON has quotes and an
-   apostrophe. systemd reads backslashes, and some other quotes, in its own way: after adding a value
-   with a backslash or a new quote to openwebui.env, compare again with systemd-run;
+1. reads openwebui.env as systemd reads an EnvironmentFile, with the same steps as systemd's own
+   reader (read_env_file below): blank lines and lines starting with '#' or ';' are skipped, a
+   value between double quotes (") can go on several lines and keeps its new lines, as
+   RAG_TEMPLATE does, and inside it \\" gives ", \\\\ gives \\, \\$ gives $ and \\` gives `.
+   Quotes in the middle of a value without quotes are kept as they are (WEBUI_BANNERS). On
+   4 November 2026, the 34 settings of openwebui.env came out the same as under systemd 259
+   (systemd-run --user), and so did 312 small test files without a carriage return (quotes,
+   backslashes, '#', ';', '=', spaces, new lines; 12 written by hand, 300 random). One difference
+   is known: a carriage
+   return (\\r, as in a Windows line end) inside quotes is read here as a new line, as Python
+   reads any text file; systemd keeps it. The CI of the guide compares the 34 settings again with
+   the systemd of each Linux job (ci/check_guide.py);
 2. sets DATA_DIR (the folder of the data) and SENTENCE_TRANSFORMERS_HOME (the search model
    downloaded in part 3), as the service of linux.md does, whatever the account already has (only
    openwebui.env can change them), and drops an inherited DATABASE_URL, which would move the
@@ -34,6 +39,7 @@ The only argument is the address to listen on: 127.0.0.1 (this computer only, th
 0.0.0.0 (every network of the computer, part 6). Standard library only: Python 3.11 or newer.
 """
 import os
+import re
 import signal
 import subprocess
 import sys
@@ -44,20 +50,96 @@ PORT = "3000"
 WINDOWS = os.name == "nt"
 
 
+NAME = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
+NEWLINE, BLANK = "\n\r", " \t"
+
+
 def read_env_file(path):
-    """The settings of an env file, read like systemd's EnvironmentFile (see point 1 above)."""
+    """The settings of an env file, read like systemd's EnvironmentFile (see point 1 above).
+
+    The same steps as systemd's reader, one character at a time. "state" says where we are: before a
+    name, in a name, in a comment, before a value, in a value without quotes, between single quotes,
+    between double quotes, or just after a backslash in one of the last two.
+    """
+    text = path.read_text(encoding="utf-8")  # a Windows line end (\r\n) is read as \n
     settings = {}
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line or line.startswith(("#", ";")):
-            continue
-        key, sep, value = line.partition("=")
-        if not sep:  # a line without '=' is ignored, as systemd does
-            continue
-        value = value.strip()
-        if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
-            value = value[1:-1]  # KEY="value" gives value, as under systemd
-        settings[key.strip()] = value
+    state, name, value, blanks_from = "before name", [], [], None
+
+    def keep():
+        key = "".join(name).rstrip(BLANK)
+        if NAME.fullmatch(key):  # systemd also drops a line whose name is not a valid name
+            settings[key] = "".join(value)
+
+    for c in text:
+        if state == "before name":
+            if c in "#;":
+                state = "comment"
+            elif c not in BLANK + NEWLINE:
+                state, name, value, blanks_from = "name", [c], [], None
+        elif state == "name":
+            if c in NEWLINE:  # a line without '=' is ignored
+                state = "before name"
+            elif c == "=":
+                state = "before value"
+            else:
+                name.append(c)
+        elif state == "comment":
+            if c in NEWLINE:
+                state = "before name"
+        elif state == "before value":  # also after a closing quote: KEY="a"b gives ab
+            if c in NEWLINE:
+                keep()
+                state = "before name"
+            elif c == "'":
+                state = "single quotes"
+            elif c == '"':
+                state = "double quotes"
+            elif c == "\\":
+                state = "value, backslash"
+            elif c not in BLANK:
+                state = "value"
+                value.append(c)
+        elif state == "value":
+            if c in NEWLINE:
+                if blanks_from is not None:  # the spaces at the end of the line are dropped
+                    del value[blanks_from:]
+                keep()
+                state = "before name"
+            elif c == "\\":
+                state, blanks_from = "value, backslash", None
+            else:
+                if c not in BLANK:
+                    blanks_from = None
+                elif blanks_from is None:
+                    blanks_from = len(value)
+                value.append(c)
+        elif state == "value, backslash":  # \x gives x; at the end of a line, joins the next line
+            state = "value"
+            if c not in NEWLINE:
+                value.append(c)
+        elif state == "single quotes":  # everything is kept, new lines included, up to the next '
+            if c == "'":
+                state = "before value"
+            else:
+                value.append(c)
+        elif state == "double quotes":  # everything is kept, new lines included, up to the next "
+            if c == '"':
+                state = "before value"
+            elif c == "\\":
+                state = "double quotes, backslash"
+            else:
+                value.append(c)
+        elif state == "double quotes, backslash":
+            state = "double quotes"
+            if c in "\"\\`$":  # \" \\ \` \$ give " \ ` $
+                value.append(c)
+            elif c != "\n":  # a backslash at the end of a line joins the next; \n stays \n
+                value.append("\\" + c)
+    if state in ("before value", "value", "value, backslash", "single quotes", "double quotes",
+                 "double quotes, backslash"):  # the last line, without a new line at its end
+        if state == "value" and blanks_from is not None:
+            del value[blanks_from:]
+        keep()
     return settings
 
 

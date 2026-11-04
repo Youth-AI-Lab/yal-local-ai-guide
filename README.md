@@ -118,6 +118,12 @@ not enough, **0** wrong or invented. The scores below are those of an **automati
 model that compares each answer with the expected one). TO BE COMPLETED: the check of these scores
 by a person, which may move a total by one or two points.
 
+These scores, and the other figures of this guide (times, tokens), were measured before
+4 November 2026, with the text that Open WebUI adds around the passages of the documents. Since
+that date, [`openwebui.env`](openwebui.env) changes one line of this text, so that the model says
+it does not know rather than answer from its own knowledge (part 3, step 4, on the page of your
+system). We did not measure them again.
+
 The computer was a laptop **Lenovo ThinkPad P14s Gen 6** (Intel Core Ultra 7 255H processor, 30 GB
 of memory). We used it first with its **processor only**, then with its **NVIDIA RTX PRO 500
 graphics card (6 GB)**. Software: Ollama 0.40.8 and Open WebUI v0.11.4 with its default document
@@ -282,7 +288,8 @@ own tools to the model (search, memory, notes…) with each question. On our lap
 0.12.4, a short "Hello, who are you?" sent that way to `mistral:7b` was about 2,050 tokens, half of
 Ollama's default of 4096, before any document (with 0.11.4, about 3,600 tokens to `qwen2.5:7b`:
 another model cuts words into tokens differently, so do not compare the two). A question to our
-chatbot in **Legacy**, its passages included, was about 2,030 tokens, as with 0.11.4.
+chatbot in **Legacy**, its passages included, was about 2,030 tokens, as with 0.11.4 (before
+4 November 2026: see [What we measured](#what-we-measured)).
 
 **What 8192 leaves.** In a window of 8192, that question leaves about 6,100 tokens for the answer
 and the rest of the conversation (8192 minus 2,030 is 6,162). In 4096 it would leave about 2,000
