@@ -72,7 +72,8 @@ SAFETY = ("You are not the group's chatbot. To any question, answer only: please
 EVERYONE = [{"principal_type": "user", "principal_id": "*", "permission": "read"}]
 CHATBOT_ID = "camp-fire-rules-test"
 # Open WebUI's own tools add about 2,800 tokens to each question (measured on the guide's laptop with
-# Open WebUI 0.11.4; TO BE COMPLETED: with 0.12.4, which offers the model more tools).
+# Open WebUI 0.11.4; TO BE COMPLETED: with 0.12.5, the version the guide installs, which offers the
+# model more tools).
 TOOLS_TOKENS = 1500
 # The system of the guide's page that was followed (--os): by default, the one this runs on. A
 # Raspberry Pi says linux: pass --os raspberry-pi or raspberry-pi-hat.
@@ -454,7 +455,7 @@ def hat_connection(admin, state):
         print(f"  info  Open WebUI shows: {str(e)[:160]}")
     refused = [e for e in hailo_requests(mark, wait=10) if e.get("has_tools")]
     check(any(e.get("status") == 500 for e in refused),
-          "with the default settings, Open WebUI 0.12.4 sends its tools, and hailo-ollama 5.1.1 refuses "
+          "with the default settings, Open WebUI sends its tools, and hailo-ollama 5.1.1 refuses "
           "them: HTTP 500, as on Hailo's forum"
           + (f" ({refused[0].get('error')})" if refused and refused[0].get("error") else ""))
 

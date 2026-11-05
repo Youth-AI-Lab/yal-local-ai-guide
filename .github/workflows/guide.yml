@@ -265,7 +265,8 @@ jobs:
           git clone --depth 1 https://github.com/Youth-AI-Lab/yal-openwebui-guide "$RUNNER_TEMP/openwebui-guide"
 
       # The tokenizer of Qwen2-1.5B-Instruct at a fixed revision, checked by its hash, read with the
-      # version of tokenizers that open-webui 0.12.4 installs on this processor.
+      # version of tokenizers that open-webui 0.12.4 installed on this processor (0.12.5 declares the
+      # same dependencies on PyPI; its tokenizers not checked).
       - name: The stand-in for hailo-ollama - Qwen2 tokenizer
         timeout-minutes: 5
         run: |

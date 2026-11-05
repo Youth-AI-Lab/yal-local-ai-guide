@@ -284,7 +284,7 @@ In this part, only this computer can open it. You open it to your local network 
 ### Step 1 - Install uv
 
 **uv** is a free tool that installs Python programs, and the version of Python they need. Open
-WebUI 0.12.4 needs Python 3.11 or 3.12: uv downloads Python 3.12 for Open WebUI, without changing
+WebUI 0.12.5 needs Python 3.11 or 3.12: uv downloads Python 3.12 for Open WebUI, without changing
 anything else on the Mac.
 
 Do this whole part in your normal account on the Mac, the one you will use for Open WebUI. Open
@@ -327,19 +327,19 @@ terminal before the end of this part, open a new one and type
 
 ### Step 3 - Install Open WebUI
 
-<!-- ci macos stage=install check="uv pip show open-webui" expect="Version: 0.12.4" -->
+<!-- ci macos stage=install check="uv pip show open-webui" expect="Version: 0.12.5" -->
 ```bash
-uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.4
+uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.5
 ```
 
-This installs Open WebUI 0.12.4 in `venv`, with the programs it needs: the same command as on Linux.
-On our Linux laptop, it was about 830 MB to download, 2.4 GB once on the disk, and it took 40
-seconds. TO BE COMPLETED: these figures on a Mac. Open WebUI uses **torch** to search in your
+This installs Open WebUI 0.12.5 in `venv`, with the programs it needs: the same command as on Linux.
+On our Linux laptop, with 0.12.4, it was about 830 MB to download, 2.4 GB once on the disk, and it
+took 40 seconds. TO BE COMPLETED: these figures on a Mac. Open WebUI uses **torch** to search in your
 documents. `--torch-backend cpu` takes torch from PyTorch's own website, as on Linux. On a Mac, this
 torch can also use the graphics of the chip, and Open WebUI uses them to search in your documents:
 Ollama and Open WebUI share the graphics. TO BE COMPLETED: whether this slows the answers.
-`torch<=2.9.1` is the version in Open WebUI's own installation, the one we measured. The Mac of
-GitHub installed every program of this command.
+`torch<=2.9.1` is the version in Open WebUI's own installation, the one we measured. With 0.12.4, the
+Mac of GitHub installed every program of this command.
 
 Then download the small model that Open WebUI uses to search in your documents (about 90 MB). With
 the settings of this guide, Open WebUI never downloads anything by itself, so it needs it now:
@@ -349,7 +349,7 @@ the settings of this guide, Open WebUI never downloads anything by itself, so it
 SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 ```
 
-**What you should see.** Type `uv pip show open-webui`: it shows `Version: 0.12.4`. The download
+**What you should see.** Type `uv pip show open-webui`: it shows `Version: 0.12.5`. The download
 of the search model may show a warning about "unauthenticated requests" and a "LOAD REPORT" with the
 word `UNEXPECTED`: they are normal. It must not end with `Error`.
 

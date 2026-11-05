@@ -232,7 +232,7 @@ part, only this computer can open it. You open it to your local network in
 ### Step 1 - Install uv
 
 **uv** is a free tool that installs Python programs, and the version of Python they need. Open
-WebUI 0.12.4 needs Python 3.11 or 3.12. Ubuntu 26.04 comes with Python 3.14, which is too new: uv
+WebUI 0.12.5 needs Python 3.11 or 3.12. Ubuntu 26.04 comes with Python 3.14, which is too new: uv
 downloads Python 3.12 for Open WebUI, without changing the Python of the computer.
 
 Do this whole part in a normal account of the computer, the one you will use for Open WebUI, not
@@ -283,15 +283,15 @@ terminal before the end of this part, open a new one and type
 
 ### Step 3 - Install Open WebUI
 
-<!-- ci linux stage=install check="uv pip show open-webui" expect="Version: 0.12.4" -->
+<!-- ci linux stage=install check="uv pip show open-webui" expect="Version: 0.12.5" -->
 ```bash
-uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.4
+uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.5
 ```
 
-This installs Open WebUI 0.12.4 in `venv`, with the programs it needs. On our laptop, it was about
-830 MB to download, 2.4 GB once on the disk, and it took 40 seconds. We measured the answers with an
-earlier version, 0.11.4 ([About](README.md#about)). Open WebUI uses **torch** to search in your
-documents.
+This installs Open WebUI 0.12.5 in `venv`, with the programs it needs. On our laptop, with 0.12.4,
+it was about 830 MB to download, 2.4 GB once on the disk, and it took 40 seconds. We measured the
+answers with an earlier version, 0.11.4 ([About](README.md#about)). Open WebUI uses **torch** to
+search in your documents.
 `--torch-backend cpu` installs the version of torch for the processor: the graphics card
 is for Ollama, and the version for the card is a much bigger download. `torch<=2.9.1` is the
 version in Open WebUI's own installation, the one we measured.
@@ -305,7 +305,7 @@ itself, so it needs it now:
 SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 ```
 
-**What you should see.** Type `uv pip show open-webui`: it shows `Version: 0.12.4`. The command that
+**What you should see.** Type `uv pip show open-webui`: it shows `Version: 0.12.5`. The command that
 downloads the model may show a warning about "unauthenticated requests" and a "LOAD REPORT" with the
 word `UNEXPECTED`: they are normal. It must not end with `Error`.
 
@@ -537,7 +537,7 @@ uv cache clean
 
 These lines delete Open WebUI, and every account, conversation, memory, feedback, chatbot and
 document it holds. `uv cache clean` deletes the copies of the downloads that uv kept (about 2.7 GB
-with Open WebUI 0.11.4; TO BE COMPLETED for 0.12.4). It also deletes what other projects of the same
+with Open WebUI 0.11.4; TO BE COMPLETED for 0.12.5). It also deletes what other projects of the same
 account put in this cache: they download it again when they need it. Backups of this computer may
 still hold copies. The journal of the computer also keeps the warnings and errors of Open WebUI for
 a while. They hold no e-mail and no address, but an error may quote part of a request (see

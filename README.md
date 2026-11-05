@@ -188,7 +188,7 @@ seconds (4). With the AI HAT+ 2: times TO BE COMPLETED.
   we measured `qwen2.5:1.5b` only: 9 / 22 with the documents, and it presented a figure about
   something else as the answer;
 - the Ollama setting that answers several questions in parallel (`OLLAMA_NUM_PARALLEL`);
-- the answers of the larger models with Open WebUI 0.12.4, the version that part 3 installs: our
+- the answers of the larger models with Open WebUI 0.12.5, the version that part 3 installs: our
   measures of these models used 0.11.4 ([About](#about)).
 
 ---
@@ -413,8 +413,8 @@ organisation: the same Wi-Fi as the computer.
       question, and ignored the instruction. With the three changes, it answered as asked.
    2. **Hide it, then let the participants read it.** On the same line, click **…** (**More**) →
       **Hide Model**, then **…** again → **Make Public**. With Open WebUI 0.12.4, the order of these
-      two does not matter. Do not trust the green message ("… is now hidden"): it appears even
-      when Open WebUI did not save the change. Step 3 checks it.
+      two did not matter (not checked with 0.12.5). Do not trust the green message ("… is now
+      hidden"): it appears even when Open WebUI did not save the change. Step 3 checks it.
 
       **Never click Reset** in this menu: it erases the safety net, and undoes **Hide Model** and
       **Make Public**. Open WebUI asks first: click **Cancel**. If you did reset the model, do the
@@ -810,9 +810,9 @@ Measured on 28 October 2026 with Ollama 0.40.8 and Open WebUI v0.11.4, on Ubuntu
 ThinkPad P14s Gen 6 with an NVIDIA RTX PRO 500 (6 GB), with the 11 test questions of the workshop
 kit.
 
-For the measures, Open WebUI v0.11.4 ran from its official Docker image. Part 3 installs v0.12.4,
+For the measures, Open WebUI v0.11.4 ran from its official Docker image. Part 3 installs v0.12.5,
 with the same search model (`all-MiniLM-L6-v2`) and the same version of torch (2.9.1, for the
-processor). We did not measure the answers of these models again with 0.12.4.
+processor). We did not measure the answers of these models again with 0.12.4 or 0.12.5.
 
 Checked on 28 October 2026 (with Open WebUI v0.11.4) on another computer, under Ubuntu 26.04
 (Python 3.14), through Open WebUI's programming interface:
@@ -904,6 +904,11 @@ hailo-ollama 5.1.1. Run on 29 October 2026 by an arm64 machine of GitHub (Ubuntu
 hailo-ollama 5.1.1 package and a stand-in program in place of hailo-ollama and the HAT
 ([`ci/README.md`](ci/README.md)). TO BE COMPLETED: a real AI HAT+ 2, and a group.
 
-TO BE COMPLETED: follow parts 3 to 6 on a fresh installation of 0.12.4 (new editor: row
+Since 5 November 2026, part 3 installs Open WebUI 0.12.5 instead of 0.12.4. Its release notes say
+that it has security fixes. It does not change the database of 0.12.4. Everything above was checked
+or measured with 0.12.4 or an earlier version. With 0.12.5, nobody has looked at the screens yet,
+and the automatic test of this guide has not run yet: TO BE COMPLETED.
+
+TO BE COMPLETED: follow parts 3 to 6 on a fresh installation of 0.12.5 (new editor: row
 **Advanced Params**, switches of **Capabilities**, **Access** saved at once), with a real model,
 and part 6 with a real group, from phones on the Wi-Fi.

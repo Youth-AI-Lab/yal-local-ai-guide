@@ -393,7 +393,7 @@ part, only this computer can open it. You open it to your local network in
 ### Step 1 - Install uv
 
 **uv** is a free tool that installs Python programs, and the version of Python they need. Open
-WebUI 0.12.4 needs Python 3.11 or 3.12 ([PyPI](https://pypi.org/pypi/open-webui/0.12.4/json)).
+WebUI 0.12.5 needs Python 3.11 or 3.12 ([PyPI](https://pypi.org/pypi/open-webui/0.12.5/json)).
 Raspberry Pi OS Trixie comes with Python 3.13, which is too new
 ([Debian](https://packages.debian.org/trixie/python3)). This is why Raspberry Pi's own documentation
 runs Open WebUI in Docker: "Open WebUI is incompatible with Python 3.13 (as used on Raspberry Pi OS
@@ -452,13 +452,13 @@ terminal before the end of this part, open a new one and type
 
 ### Step 3 - Install Open WebUI
 
-<!-- ci raspberry-pi,raspberry-pi-hat stage=install check="uv pip show open-webui" expect="Version: 0.12.4" -->
+<!-- ci raspberry-pi,raspberry-pi-hat stage=install check="uv pip show open-webui" expect="Version: 0.12.5" -->
 ```bash
-uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.4
+uv pip install --torch-backend cpu "torch<=2.9.1" open-webui==0.12.5
 ```
 
-This installs Open WebUI 0.12.4 in `venv`, with the programs it needs: 2.1 GB on the disk, in 75
-seconds on our Pi. Our 11 questions on the Pi used this version. The larger models of
+This installs Open WebUI 0.12.5 in `venv`, with the programs it needs. With 0.12.4, it was 2.1 GB on
+the disk, in 75 seconds on our Pi. Our 11 questions on the Pi used 0.12.4. The larger models of
 [What we measured](README.md#what-we-measured) used an earlier one, 0.11.4
 ([About](README.md#about)). Open WebUI uses **torch** to search in your documents.
 `--torch-backend cpu` installs the version of torch for the processor. `torch<=2.9.1` is the
@@ -473,7 +473,7 @@ itself, so it needs it now:
 SENTENCE_TRANSFORMERS_HOME=$HOME/owui-local/data/cache/embedding/models python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')"
 ```
 
-**What you should see.** Type `uv pip show open-webui`: it shows `Version: 0.12.4`. The command that
+**What you should see.** Type `uv pip show open-webui`: it shows `Version: 0.12.5`. The command that
 downloads the model may show a warning about "unauthenticated requests" and a "LOAD REPORT" with the
 word `UNEXPECTED`: they are normal. It must not end with `Error`.
 
@@ -612,8 +612,8 @@ them in [part 6](README.md#part-6---open-it-to-your-group).
 
 ### Step 7 - Check the connection to Ollama
 
-By default, Open WebUI 0.12.4 sends a list of its own tools with each question. On our Pi, a first
-"Hello, who are you?" to the model counted about 2,700 tokens with the settings by default, against
+By default, Open WebUI sends a list of its own tools with each question. On our Pi, with Open WebUI
+0.12.4, a first "Hello, who are you?" to the model counted about 2,700 tokens with the settings by default, against
 35 with the two settings below (30 October 2026, counted by Ollama). The processor of the Pi must read all of them before it answers. So set the
 model first. Part 6 asks for the same two settings anyway.
 
@@ -1126,7 +1126,7 @@ Your models of Ollama stay on the computer. To use Ollama again, type
 
 ### Step 9 - Set the model of the AI HAT+ 2 (not tested)
 
-By default, Open WebUI 0.12.4 sends a list of its own tools with each question (the mode
+By default, Open WebUI sends a list of its own tools with each question (the mode
 **Native**, the default since Open WebUI 0.10.0,
 [Open WebUI](https://github.com/open-webui/open-webui/blob/main/CHANGELOG.md)). hailo-ollama 5.1.1
 expects text in that place
@@ -1134,7 +1134,7 @@ expects text in that place
 and refuses the question with an error 500, "Node is NOT a STRING". Users on Hailo's forum fixed it
 with the two settings below, with hailo-ollama 5.1.1 and Open WebUI 0.11.0
 ([Hailo forum](https://community.hailo.ai/t/hailo-ollama-return-type-unsuitable-for-open-webui/19327)).
-We did not test them with 0.12.4 on a Pi. On a machine of GitHub, the test of this guide checks
+We did not test them on a Pi. On a machine of GitHub, the test of this guide checks
 them with the small program that stands in for hailo-ollama and the HAT.
 
 Your name at the bottom left → **Admin Panel** → **Settings** → **Models**. Click the pencil
@@ -1394,7 +1394,7 @@ uv cache clean
 ```
 
 These lines delete Open WebUI, and every account, conversation, memory, feedback, chatbot and
-document it holds. `uv cache clean` deletes the copies of the downloads that uv kept (2.0 GB on our Pi: the same files
+document it holds. `uv cache clean` deletes the copies of the downloads that uv kept (2.0 GB on our Pi with Open WebUI 0.12.4: the same files
 as `venv`, so the disk gets them back only with this command). It also deletes what other projects of the same account put in this cache: they
 download it again when they need it. Backups of this computer may still hold copies. The journal of
 the computer also keeps the warnings and errors of Open WebUI for a while. They hold no e-mail and no

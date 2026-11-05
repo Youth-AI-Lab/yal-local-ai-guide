@@ -5,7 +5,7 @@
 This program is NOT hailo-ollama and runs no model. GitHub has no AI HAT+ 2, so the CI job
 `raspberry-pi-hat` installs the real hailo-ollama 5.1.1 package, then starts this program in place
 of `/usr/bin/hailo-ollama` (run_guide.py replaces the ExecStart line of the service). It answers
-the HTTP API of hailo-ollama 5.1.1 as its source code does, so that Open WebUI 0.12.4 can be
+the HTTP API of hailo-ollama 5.1.1 as its source code does, so that Open WebUI 0.12.5 can be
 checked against it:
 
 - the same endpoints, the same JSON fields in the same order, the same status codes, the same

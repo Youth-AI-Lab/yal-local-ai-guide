@@ -244,7 +244,7 @@ PowerShell window (not "Administrator"). Open WebUI will run with the rights of 
 ### Step 1 - Install uv
 
 **uv** is a free tool that installs Python programs, and the version of Python they need. Open
-WebUI 0.12.4 needs Python 3.11 or 3.12. uv downloads Python 3.12 for Open WebUI, without changing
+WebUI 0.12.5 needs Python 3.11 or 3.12. uv downloads Python 3.12 for Open WebUI, without changing
 any other Python of the computer. uv documents its installation with winget
 ([uv](https://docs.astral.sh/uv/getting-started/installation/)):
 
@@ -295,14 +295,14 @@ followed by a number. If you close PowerShell before the end of this part, open 
 
 ### Step 3 - Install Open WebUI
 
-<!-- ci windows stage=install check="uv pip show --python venv open-webui" expect="Version: 0.12.4" -->
+<!-- ci windows stage=install check="uv pip show --python venv open-webui" expect="Version: 0.12.5" -->
 ```powershell
-uv pip install --python venv --torch-backend cpu "torch<=2.9.1" open-webui==0.12.4
+uv pip install --python venv --torch-backend cpu "torch<=2.9.1" open-webui==0.12.5
 ```
 
-This installs Open WebUI 0.12.4 in `venv` (`--python venv`), with the programs it needs. On our
-Linux laptop, it was about 830 MB to download, 2.4 GB once on the disk, and it took 40 seconds.
-TO BE COMPLETED: these figures on Windows. We measured the answers with an earlier version, 0.11.4,
+This installs Open WebUI 0.12.5 in `venv` (`--python venv`), with the programs it needs. On our
+Linux laptop, with 0.12.4, it was about 830 MB to download, 2.4 GB once on the disk, and it took 40
+seconds. TO BE COMPLETED: these figures on Windows. We measured the answers with an earlier version, 0.11.4,
 on Linux ([About](README.md#about)). Open WebUI uses **torch** to search in
 your documents. `--torch-backend cpu` installs the version of torch for the processor: the graphics
 card is for Ollama, and the version for the card is a much bigger download. `torch<=2.9.1` is the
@@ -320,7 +320,7 @@ $env:SENTENCE_TRANSFORMERS_HOME = "$HOME\owui-local\data\cache\embedding\models"
 The first line says where to keep this model: in the folder of Open WebUI's data. The second one
 downloads it.
 
-**What you should see.** Type `uv pip show --python venv open-webui`: it shows `Version: 0.12.4`. The
+**What you should see.** Type `uv pip show --python venv open-webui`: it shows `Version: 0.12.5`. The
 command that downloads the model may show warnings, for example about "unauthenticated requests",
 and a "LOAD REPORT" with the word `UNEXPECTED`: they are normal. It must not end with `Error`. Then type
 `Test-Path "$HOME\owui-local\data\cache\embedding\models\models--sentence-transformers--all-MiniLM-L6-v2"`:
