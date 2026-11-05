@@ -25,6 +25,11 @@ on your own computer, with the numbers we measured.
 New to these models? [How a language model works](how-an-llm-works.md) shows, with pictures, what a model is, what a
 token is, and why it does not write the same answer twice. You can build your chatbot without it.
 
+**You took part in a workshop of [the series](https://github.com/Youth-AI-Lab/yal-workshop-kit#the-series)**:
+this guide is easiest after workshop 2, where you gave a chatbot its instructions and its knowledge
+in Open WebUI. Here you build the same kind of chatbot, with the model on your own computer. Part 4
+goes with workshops 1 and 2 (the instructions, the knowledge), part 5 with the scoring of workshop 1.
+
 ---
 
 ## Goals
@@ -780,6 +785,8 @@ These links were checked in October 2026.
   questions must stay in the EU, read [where the data goes](https://github.com/Youth-AI-Lab/yal-opencode-guide#where-the-data-goes).
 - [The series of workshops](https://github.com/Youth-AI-Lab/yal-workshop-kit#the-series): what
   is behind each part of a chatbot, step by step, in pairs.
+- [The dev containers guide](https://github.com/Youth-AI-Lab/yal-devcontainer-guide): the
+  repositories of the workshops on your own computer, without a Codespace (not for a group).
 - [How a language model works](how-an-llm-works.md): tokens, the window and the settings, with real numbers.
 - Ollama: [documentation](https://docs.ollama.com/), [context length](https://docs.ollama.com/context-length),
   [graphics cards](https://docs.ollama.com/gpu), [FAQ](https://docs.ollama.com/faq) (settings such
