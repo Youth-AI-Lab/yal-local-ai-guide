@@ -248,18 +248,18 @@ WebUI 0.12.4 needs Python 3.11 or 3.12. uv downloads Python 3.12 for Open WebUI,
 any other Python of the computer. uv documents its installation with winget
 ([uv](https://docs.astral.sh/uv/getting-started/installation/)):
 
-<!-- ci windows stage=install check="uv --version" expect="uv 0.13.6" -->
+<!-- ci windows stage=install check="uv --version" expect="uv 0.13.7" -->
 ```powershell
-winget install --id astral-sh.uv -e --version 0.13.6 --source winget --accept-source-agreements --accept-package-agreements
+winget install --id astral-sh.uv -e --version 0.13.7 --source winget --accept-source-agreements --accept-package-agreements
 $env:Path = [Environment]::GetEnvironmentVariable("Path", "Machine") + ";" + [Environment]::GetEnvironmentVariable("Path", "User")
 ```
 
-The first command installs uv 0.13.6 for your account. winget may first install a package of
+The first command installs uv 0.13.7 for your account. winget may first install a package of
 Microsoft that uv needs (Visual C++ Redistributable): if Windows asks whether this program may make
 changes, accept. The second line gives this window the new `PATH`, as in
 [part 2](#step-1---install-ollama).
 
-**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.6`.
+**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.7`.
 
 ### Step 2 - Create a virtual environment
 

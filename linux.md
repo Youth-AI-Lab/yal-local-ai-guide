@@ -238,16 +238,16 @@ downloads Python 3.12 for Open WebUI, without changing the Python of the compute
 Do this whole part in a normal account of the computer, the one you will use for Open WebUI, not
 as `root`: `whoami` must not answer `root`. Open WebUI will run with the rights of this account.
 
-<!-- ci linux stage=install check="uv --version" expect="uv 0.13.6" -->
+<!-- ci linux stage=install check="uv --version" expect="uv 0.13.7" -->
 ```bash
-curl -LsSf https://astral.sh/uv/0.13.6/install.sh | sh
+curl -LsSf https://astral.sh/uv/0.13.7/install.sh | sh
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
 The first command installs uv for your user, in `~/.local/bin`. The second one lets this terminal
 find it; the next terminals find it by themselves.
 
-**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.6`. If uv
+**What you should see.** Type `uv --version`: it answers a line that starts with `uv 0.13.7`. If uv
 was already installed in `~/.local/bin`, the installer has replaced it with this version.
 
 > [!IMPORTANT]

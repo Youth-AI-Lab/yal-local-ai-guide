@@ -4,7 +4,7 @@ The commands come from the pages of the guide themselves: README.md (what every 
 then the page of the system (linux.md, macos.md, windows.md or raspberry-pi.md). Each code block to
 run has a marker just before it, an HTML comment that GitHub does not show:
 
-    <!-- ci linux stage=install check="uv --version" expect="uv 0.13.6" -->
+    <!-- ci linux stage=install check="uv --version" expect="uv 0.13.7" -->
 
 - `linux` (or `macos`, `windows`, `raspberry-pi`, `raspberry-pi-hat`, or several: `linux,macos`):
   the systems this block is for. `raspberry-pi` is the Raspberry Pi with the model on its processor
