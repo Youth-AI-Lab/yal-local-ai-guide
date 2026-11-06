@@ -263,7 +263,7 @@ Everything else is the same, with **three differences** when you create the chat
 
    ![The row Advanced Params, open: it reads 2 modified. 2: Function Calling reads Legacy. 3: num_ctx (Ollama) reads Custom, with a slider and the number 8192. All the other settings read Default.](images/chatbot-advanced-params.png)
 
-**On the AI HAT+ 2** ([Raspberry Pi page](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested)):
+**On the AI HAT+ 2** ([Raspberry Pi page](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2)):
 its models hold 2,048 tokens, and **num_ctx** has no effect on them: skip difference 3 and leave
 **num_ctx** on **Default**. Build a chatbot **without
 documents**, keep **Legacy**, and also switch off **Builtin Tools** in the row **Capabilities** of
@@ -279,7 +279,7 @@ with the large models of that guide, but the small local model we tested never s
 
 **What you should see.** (On the AI HAT+ 2: no labels, no **Sources** and no `ollama ps`; check
 only that it answers, see
-[step 10](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested).) Ask a question on
+[step 10](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2).) Ask a question on
 your topic. In the text of the answer, small grey labels
 name the document each part comes from, and the button **Sources** under the answer lists them, as
 in step 4 of the Open WebUI guide. The line "Explored list_knowledge…" of that step does not
@@ -308,7 +308,7 @@ On the AI HAT+ 2, these figures do not apply (TO BE COMPLETED).
 > If you already have chatbots from the Open WebUI guide, their instructions and documents work here
 > too: create each chatbot again with these three settings. On the AI HAT+ 2, reuse only the
 > instructions, without the rules about documents, and no documents: see
-> [step 10 of the Raspberry Pi page](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested).
+> [step 10 of the Raspberry Pi page](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2).
 
 ---
 
@@ -396,7 +396,7 @@ organisation: the same Wi-Fi as the computer.
       `qwen2.5:7b`; on a Raspberry Pi, `qwen2.5:1.5b`, or `qwen2:1.5b` on the AI HAT+ 2, where
       **Legacy** and **Builtin Tools** are already set:
       [step 7](raspberry-pi.md#step-7---check-the-connection-to-ollama) and
-      [step 9](raspberry-pi.md#step-9---set-the-model-of-the-ai-hat-2-not-tested)),
+      [step 9](raspberry-pi.md#step-9---set-the-model-of-the-ai-hat-2)),
       and change three things:
       - in **System Prompt**, paste the *Never* rules of your filled template, with no
         `TO BE COMPLETED` left, then add: "You are not the group's chatbot. To any question, answer
@@ -576,7 +576,7 @@ with your organisation who may read the data, and when it is deleted.
 - On a Raspberry Pi with the AI HAT+ 2: hailo-ollama downloads its models from Hailo's server
   (dev-public.hailo.ai). It writes every question it receives, with the conversation, to its
   output. The service of the
-  [Raspberry Pi page](raspberry-pi.md#step-5---start-hailo-ollama-as-a-service-not-tested) sends this
+  [Raspberry Pi page](raspberry-pi.md#step-5---start-hailo-ollama-as-a-service) sends this
   output nowhere, and turns off the log file of Hailo's software (not tested on a Pi). We did not
   check its network traffic either.
 - On the Wi-Fi, the questions and the passwords travel without encryption (`http://`).

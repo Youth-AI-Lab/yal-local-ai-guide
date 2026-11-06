@@ -372,7 +372,7 @@ text. We read this in the program and did not test it.
 
 > [!NOTE]
 > On the AI HAT+ 2, the models hold 2,048 tokens and **num_ctx** has no effect on them: leave it on
-> **Default** ([step 10](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2-not-tested)). The
+> **Default** ([step 10](raspberry-pi.md#step-10---build-chatbots-for-the-ai-hat-2)). The
 > test above ran with Ollama. What happens beyond 2,048 tokens on the HAT is not documented, and we
 > did not measure it.
 

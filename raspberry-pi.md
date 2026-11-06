@@ -145,7 +145,7 @@ wait until the light next to the power button turns red, unplug the Pi, and fit 
 Raspberry Pi shows in "Mount an Active Cooler"
 ([Raspberry Pi](https://www.raspberrypi.com/documentation/accessories/ai-hat-plus.html)).
 Then plug the Pi in again. With the AI HAT+ 2, Raspberry Pi also recommends the heatsink of the
-HAT: you fit it in [step 1 of the AI HAT+ 2](#step-1---fit-the-ai-hat-2-not-tested).
+HAT: you fit it in [step 1 of the AI HAT+ 2](#step-1---fit-the-ai-hat-2).
 
 To see whether the Pi gets too hot, type these two commands while the model answers
 ([part 2, step 4](#step-4---download-the-model)):
@@ -243,7 +243,7 @@ fewer after a longer text: about 6 after 3,205 tokens, about 4 after 4,717.
 
 **Only the AI HAT+ 2?** If you have the AI HAT+ 2 and want to use only it, you may skip this part,
 except the first command of step 1, which installs `curl`. Skip also step 7 of part 3:
-[step 8 of the AI HAT+ 2](#step-8---connect-open-webui-to-hailo-ollama-not-tested) checks the
+[step 8 of the AI HAT+ 2](#step-8---connect-open-webui-to-hailo-ollama) checks the
 connection instead.
 
 ### Step 1 - Install Ollama
@@ -631,7 +631,7 @@ message box, choose `qwen2.5:1.5b` (Open WebUI may have chosen another model of 
 reloaded it on our Pi, not measured through Open WebUI.
 
 Only the AI HAT+ 2, no part 2? Skip this step:
-[step 8 of the AI HAT+ 2](#step-8---connect-open-webui-to-hailo-ollama-not-tested) checks the
+[step 8 of the AI HAT+ 2](#step-8---connect-open-webui-to-hailo-ollama) checks the
 connection.
 
 ---
@@ -644,6 +644,15 @@ AI, and its "own 8 GB onboard memory"
 is "$200" on its product page, checked on 29 October 2026
 ([Raspberry Pi](https://www.raspberrypi.com/products/ai-hat-plus-2/)). Do this section after part 3,
 and before part 4 of the guide.
+
+> [!WARNING]
+> **Nothing in this section ran on a real AI HAT+ 2.** The titles of the steps do not repeat it,
+> but it holds for the whole section. Steps 1, 2, 5 and 7 to 10 need the board (and steps 8 to 10 a
+> browser). On a machine of GitHub, the test of this guide installs the real package of
+> hailo-ollama 5.1.1 (steps 3 and 4), but a small program runs in place of hailo-ollama and the HAT
+> (steps 5 to 7): the real `/usr/bin/hailo-ollama` needs HailoRT, the Hailo software that talks to
+> the chip (installed at step 2), and the chip itself. The test does steps 8
+> to 10 through Open WebUI's programming interface ([`ci/README.md`](ci/README.md)).
 
 **A different server of models.** On the HAT, the model does not run with Ollama but with Hailo's
 **hailo-ollama**, version 5.1.1, the version that Raspberry Pi documents
@@ -658,7 +667,7 @@ A question to the chatbot of part 4, with the passages of its
 documents, was about 2,030 tokens on our laptop, with another model: almost all of the 2,048, before
 any answer ([part 4 of the guide](README.md#part-4---build-the-chatbot)). So on the HAT, build a chatbot
 **without documents**, for short conversations
-([step 10](#step-10---build-chatbots-for-the-ai-hat-2-not-tested)).
+([step 10](#step-10---build-chatbots-for-the-ai-hat-2)).
 
 **One question at a time.** hailo-ollama answers one request at a time
 ([Hailo](https://github.com/hailo-ai/hailo_model_zoo_genai/blob/v5.1.1/docs/USAGE.rst)): the others
@@ -686,15 +695,7 @@ knowledge set available to the larger models"
 > ([Raspberry Pi](https://pip-assets.raspberrypi.com/categories/1319-raspberry-pi-ai-hat-2/documents/RP-009655-MM-6-raspberry-pi-ai-hat-plus-2-product-brief.pdf)).
 > Keep the Pi and its HAT with the facilitator, not in the participants' hands.
 
-> [!NOTE]
-> **Not tested with a real AI HAT+ 2.** Steps 1, 2, 5 and 7 to 10 need the board (and steps 8 to
-> 10 a browser). On a machine of GitHub, the test of this guide installs the real package of
-> hailo-ollama 5.1.1 (steps 3 and 4), but a small program runs in place of hailo-ollama and the HAT
-> (steps 5 to 7): the real `/usr/bin/hailo-ollama` needs HailoRT, the Hailo software that talks to
-> the chip (installed at step 2), and the chip itself. The test does steps 8
-> to 10 through Open WebUI's programming interface ([`ci/README.md`](ci/README.md)).
-
-### Step 1 - Fit the AI HAT+ 2 (not tested)
+### Step 1 - Fit the AI HAT+ 2
 
 Raspberry Pi's documentation shows each step with pictures
 ([Raspberry Pi](https://www.raspberrypi.com/documentation/accessories/ai-hat-plus.html)). Follow
@@ -723,7 +724,7 @@ it. In short:
 
 The only command in this step is `sudo poweroff`.
 
-### Step 2 - Install the driver of the AI HAT+ 2 (not tested)
+### Step 2 - Install the driver of the AI HAT+ 2
 
 The **driver** of the HAT is the program that lets the system use it. Raspberry Pi installs it with
 three commands: `sudo apt install dkms`, then `sudo apt install hailo-h10-all`, then `sudo reboot`
@@ -840,9 +841,9 @@ sudo install -d -o "$USER" -g "$USER" -m 755 /usr/share/hailo-ollama/models/blob
 
 The first command takes the right to write from every account except the owner of the folder,
 `root`, the administrator of the system. The second one makes the folder `blob`, where hailo-ollama
-puts the models it downloads ([step 7](#step-7---download-a-model-for-the-ai-hat-2-not-tested)), and
+puts the models it downloads ([step 7](#step-7---download-a-model-for-the-ai-hat-2)), and
 gives it to your account, the one that runs hailo-ollama
-([step 5](#step-5---start-hailo-ollama-as-a-service-not-tested)): hailo-ollama writes nowhere else
+([step 5](#step-5---start-hailo-ollama-as-a-service)): hailo-ollama writes nowhere else
 (read in its code). We tried these two commands on the package in a container of a Linux PC, not on
 a Pi.
 
@@ -898,7 +899,7 @@ The setting `OLLAMA_HOST` of Ollama does not work with hailo-ollama 5.1.1: it ca
 > steps 3, 4 and 7 again: a new installation also puts back `0.0.0.0`, and the rights that step 3
 > took back.
 
-### Step 5 - Start hailo-ollama as a service (not tested)
+### Step 5 - Start hailo-ollama as a service
 
 Raspberry Pi's documentation starts `hailo-ollama` by hand, in a terminal that must stay open, and
 the package has no service of its own. This step makes it a service, like Open WebUI. Copy this
@@ -978,7 +979,7 @@ until curl -sf http://127.0.0.1:8000/ >/dev/null; do sleep 2; done; echo "hailo-
 
 **What you should see.** `hailo-ollama is ready`. This message only says that hailo-ollama answers
 on port 8000. It opens the chip at the first question, so the real test comes in
-[step 7](#step-7---download-a-model-for-the-ai-hat-2-not-tested). Time on a Pi: TO BE COMPLETED. If
+[step 7](#step-7---download-a-model-for-the-ai-hat-2). Time on a Pi: TO BE COMPLETED. If
 nothing appears after a minute, press `Ctrl+C` and type
 `sudo journalctl -u hailo-ollama -n 20 --no-pager` (see
 [Troubleshooting](#hailo-ollama-does-not-start-ai-hat-2)).
@@ -1014,7 +1015,7 @@ other models of the list are left out: `qwen2.5-coder:1.5b` is made for computer
 table repeats the load and first-word figures of `llama3.2:3b` on the line of
 `deepseek_r1_distill_qwen:1.5b`, which looks like a mistake.
 
-### Step 7 - Download a model for the AI HAT+ 2 (not tested)
+### Step 7 - Download a model for the AI HAT+ 2
 
 hailo-ollama has no `ollama` command: `curl` sends it requests, as in Raspberry Pi's documentation
 ([Raspberry Pi](https://www.raspberrypi.com/documentation/computers/ai.html),
@@ -1078,12 +1079,12 @@ sudo journalctl -u hailo-ollama --since today --no-pager | grep -e "got prompt" 
 ```
 
 **What you should see.** `No question in the journal`. If lines appear, the file of the service
-lacks `StandardOutput=null`: write it again ([step 5](#step-5---start-hailo-ollama-as-a-service-not-tested)),
+lacks `StandardOutput=null`: write it again ([step 5](#step-5---start-hailo-ollama-as-a-service)),
 then type `sudo systemctl daemon-reload && sudo systemctl restart hailo-ollama`. The lines already
 written stay in the journal. They hold only this test question, and
 [Delete Open WebUI and its data](#delete-open-webui-and-its-data) shows how to empty the journal.
 
-### Step 8 - Connect Open WebUI to hailo-ollama (not tested)
+### Step 8 - Connect Open WebUI to hailo-ollama
 
 Open WebUI talks to hailo-ollama as it talks to Ollama, with a connection of the kind **Ollama
 API**, as in the documentation of Raspberry Pi and Hailo
@@ -1124,7 +1125,7 @@ Your models of Ollama stay on the computer. To use Ollama again, type
 `sudo systemctl enable --now ollama`, and put its address, `http://127.0.0.1:11434`, back in
 **URL**, as above.
 
-### Step 9 - Set the model of the AI HAT+ 2 (not tested)
+### Step 9 - Set the model of the AI HAT+ 2
 
 By default, Open WebUI sends a list of its own tools with each question (the mode
 **Native**, the default since Open WebUI 0.10.0,
@@ -1145,7 +1146,7 @@ Your name at the bottom left → **Admin Panel** → **Settings** → **Models**
 2. click the row **Capabilities** to open it, and switch off **Builtin Tools**.
 
 These settings protect the model when someone uses it directly: your test below, and the safety net
-of part 6. Each chatbot built on it needs them too ([step 10](#step-10---build-chatbots-for-the-ai-hat-2-not-tested)).
+of part 6. Each chatbot built on it needs them too ([step 10](#step-10---build-chatbots-for-the-ai-hat-2)).
 
 Click **Save & Update**. Then click **New Chat**, choose `qwen2:1.5b` in the list of models, and ask
 "Hello, who are you?". Time on a Pi: TO BE COMPLETED.
@@ -1155,7 +1156,7 @@ the safety net of this model has three settings: **Function Calling: Legacy**, *
 off, and a **System Prompt**. You did the first two here. In part 6, add the System Prompt, and
 check that the first two are still set.
 
-### Step 10 - Build chatbots for the AI HAT+ 2 (not tested)
+### Step 10 - Build chatbots for the AI HAT+ 2
 
 Follow [part 4 of the guide](README.md#part-4---build-the-chatbot), with these differences for
 **every** chatbot on the HAT:
@@ -1431,12 +1432,12 @@ rm -rf ~/.hailo/hailort ~/hailort.log
 `dpkg -r` removes hailo-ollama, its settings file, and the folder `/usr/share/hailo-ollama` with the
 downloaded models (we read this in the package, and saw it in a container of a Linux PC). The
 fourth line deletes the downloaded package. The last line deletes the log files that the commands
-of Hailo, such as `hailortcli` in [step 2](#step-2---install-the-driver-of-the-ai-hat-2-not-tested),
+of Hailo, such as `hailortcli` in [step 2](#step-2---install-the-driver-of-the-ai-hat-2),
 may have written in your home folder (their content: TO BE COMPLETED). Other programs of Hailo in
 this account write their messages to the same files: they make new ones when they need them. These
 lines leave the folders `~/.config/hailo-ollama` and `~/.local/share/hailo-ollama`, if they exist.
 This guide never makes them: Hailo's own instructions for another way to install hailo-ollama do
-([step 5](#step-5---start-hailo-ollama-as-a-service-not-tested)). They belong to that other
+([step 5](#step-5---start-hailo-ollama-as-a-service)). They belong to that other
 installation, and hold no data of the participants.
 
 The driver of the HAT stays. `hailo-h10-all` only brings in the other packages: it holds no file of
@@ -1454,7 +1455,7 @@ another program needs them: answer `n` and keep them. `h10-hailort-pcie-driver` 
 and the firmware of the chip, and removing it deletes both. apt may then say that other packages
 are "no longer required" and suggest `apt autoremove`. Do not run it: it can also remove packages
 that have nothing to do with the HAT. `dkms`, installed in
-[step 2](#step-2---install-the-driver-of-the-ai-hat-2-not-tested), stays: other drivers may use it.
+[step 2](#step-2---install-the-driver-of-the-ai-hat-2), stays: other drivers may use it.
 
 ### Delete Ollama too
 
@@ -1525,8 +1526,8 @@ same user, in the folder `~/owui-local`: the service uses the paths of this user
 The chatbot, or the model you chose, sends Open WebUI's tools, and hailo-ollama refuses them
 ([Hailo forum](https://community.hailo.ai/t/hailo-ollama-return-type-unsuitable-for-open-webui/19327)).
 Set **Function Calling** to **Legacy** and switch off **Builtin Tools**: on the model, as in
-[step 9](#step-9---set-the-model-of-the-ai-hat-2-not-tested), and on each chatbot, as in
-[step 10](#step-10---build-chatbots-for-the-ai-hat-2-not-tested). Then reload the page, and ask
+[step 9](#step-9---set-the-model-of-the-ai-hat-2), and on each chatbot, as in
+[step 10](#step-10---build-chatbots-for-the-ai-hat-2). Then reload the page, and ask
 again. In our test on 29 October 2026 (Open WebUI 0.12.4 on a Linux PC, with the small program that
 stands in for hailo-ollama, not the HAT), Open WebUI answered "Open WebUI: Server Connection Error"
 through its programming interface; the text in the browser: TO BE COMPLETED.
@@ -1534,7 +1535,7 @@ through its programming interface; the text in the browser: TO BE COMPLETED.
 ### The answer stops in the middle, or is empty (AI HAT+ 2)
 
 The conversation, with the instructions, may be near or above 2,048 tokens. Start a **New Chat**,
-and shorten the instructions ([step 10](#step-10---build-chatbots-for-the-ai-hat-2-not-tested)).
+and shorten the instructions ([step 10](#step-10---build-chatbots-for-the-ai-hat-2)).
 Not measured: TO BE COMPLETED.
 
 ### The first answer is slow after a pause (AI HAT+ 2)
@@ -1546,14 +1547,14 @@ hailo-ollama loads the model again after 5 minutes without a question: see
 
 Open WebUI lists only the models that hailo-ollama has already downloaded. Type
 `curl -s http://localhost:8000/api/tags`. If the list is empty (`{"models":[]}`), do
-[step 7](#step-7---download-a-model-for-the-ai-hat-2-not-tested). If `qwen2:1.5b` is there, check the address
-of [step 8](#step-8---connect-open-webui-to-hailo-ollama-not-tested): `http://127.0.0.1:8000`.
+[step 7](#step-7---download-a-model-for-the-ai-hat-2). If `qwen2:1.5b` is there, check the address
+of [step 8](#step-8---connect-open-webui-to-hailo-ollama): `http://127.0.0.1:8000`.
 
 ### hailo-ollama does not start (AI HAT+ 2)
 
 Type `sudo journalctl -u hailo-ollama -n 20 --no-pager`: it says whether the service started,
 stopped or failed. The messages of hailo-ollama itself are not there (`StandardOutput=null`,
-[step 5](#step-5---start-hailo-ollama-as-a-service-not-tested)). To see them once, without the group, stop the
+[step 5](#step-5---start-hailo-ollama-as-a-service)). To see them once, without the group, stop the
 service and start hailo-ollama by hand, as in Raspberry Pi's documentation
 ([Raspberry Pi](https://www.raspberrypi.com/documentation/computers/ai.html)):
 
@@ -1572,10 +1573,10 @@ appears there, so do it without the group. Press `Ctrl+C` to stop it, then type
 
 You see `code=500` and `Failed to create VDevice`. hailo-ollama runs, but it could not open the
 chip. The service looks fine, and the journal shows no error (`StandardOutput=null`,
-[step 5](#step-5---start-hailo-ollama-as-a-service-not-tested)). First type
+[step 5](#step-5---start-hailo-ollama-as-a-service)). First type
 `hailortcli fw-control identify`. If it fails too, the problem is the HAT or its driver, not
-hailo-ollama: check [step 1](#step-1---fit-the-ai-hat-2-not-tested) and
-[step 2](#step-2---install-the-driver-of-the-ai-hat-2-not-tested). If it works, start hailo-ollama by
+hailo-ollama: check [step 1](#step-1---fit-the-ai-hat-2) and
+[step 2](#step-2---install-the-driver-of-the-ai-hat-2). If it works, start hailo-ollama by
 hand, as in [hailo-ollama does not start](#hailo-ollama-does-not-start-ai-hat-2), and ask the
 question again from a second terminal. The lines that start with `[HailoRT] [error]` say what went
 wrong.
