@@ -19,7 +19,7 @@ It must sit in the folder of Open WebUI (owui-local), next to openwebui.env, ven
    backslashes, '#', ';', '=', spaces, new lines; 12 written by hand, 300 random). One difference
    is known: a carriage
    return (\\r, as in a Windows line end) inside quotes is read here as a new line, as Python
-   reads any text file; systemd keeps it. The CI of the guide compares the 34 settings again with
+   reads any text file; systemd keeps it. The CI of the guide compares all the settings again (36 since 6 November 2026) with
    the systemd of each Linux job (ci/check_guide.py);
 2. sets DATA_DIR (the folder of the data) and SENTENCE_TRANSFORMERS_HOME (the search model
    downloaded in part 3), as the service of linux.md does, whatever the account already has (only

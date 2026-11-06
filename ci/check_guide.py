@@ -625,6 +625,10 @@ def phase_participants(state):
     config = admin.request("GET", "/auths/admin/config")
     config.update({"ENABLE_SIGNUP": True, "DEFAULT_USER_ROLE": "user"})
     admin.request("POST", "/auths/admin/config", body=config)
+    weak = Api().try_request("POST", "/auths/signup",
+                             body={"name": "weak", "email": "weak@group.local", "password": "password"})
+    check(isinstance(weak, RuntimeError) and "8 characters" in str(weak),
+          f"a weak password is refused, with the hint of openwebui.env ({str(weak)[:120]!r})")
     signup = Api().request("POST", "/auths/signup", body=PARTICIPANT)
     user = Api(signup["token"])
     chat = (signup.get("permissions") or {}).get("chat") or {}

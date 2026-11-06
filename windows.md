@@ -443,7 +443,9 @@ form **Get started with Group chatbots (Open WebUI)**, type:
 - as name, a role rather than your own name, for example `Facilitator`;
 - as e-mail, an address that is only your login, for example `facilitator@group.local` (Open WebUI
   sends no mail to it);
-- a strong password. Keep it in your organisation's password manager: you are the only
+- a strong password: at least 8 characters, with a lowercase letter, an uppercase letter, a
+  number and a symbol such as `-` or `!` (`openwebui.env` makes Open WebUI refuse any other). Keep
+  it in your organisation's password manager: you are the only
   administrator, and this guide has no command to show it again.
 
 Click **Create Admin Account**.

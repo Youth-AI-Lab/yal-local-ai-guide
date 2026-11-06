@@ -506,9 +506,11 @@ organisation: the same Wi-Fi as the computer.
 ### During the session
 
 1. On the computer itself (<http://localhost:3000>): your name at the bottom left → **Admin Panel**
-   → **Settings** → **Authentication**. Turn **New Sign Ups** on. In **Default User Role**, choose
-   `user` (never `admin`), or keep `pending` if you prefer to approve each account in the list of
-   users. Click **Save**.
+   → **Settings** → **Authentication**. Turn **New Sign Ups** on. In **Default User Role**, choose `user` (never `admin`). On a Wi-Fi
+   that people outside your group also use (a school, a library, a public place), keep `pending`
+   instead: each new account then waits until you open **Admin Panel** → **Users**, click it and
+   give it the role `user`. It takes one click per participant, and nobody else on the Wi-Fi gets
+   in. Click **Save**.
 2. Give the participants the address of the day: on the board, or as a QR code if `qrencode` is
    installed (on Ubuntu or Raspberry Pi OS: `sudo apt install qrencode`; on a Mac: `brew install qrencode`):
    `qrencode -t ANSI http://YOUR-ADDRESS:3000`, where `YOUR-ADDRESS` is
@@ -518,8 +520,9 @@ organisation: the same Wi-Fi as the computer.
    **Sign Out** before handing it over. Closing the tab is not enough.
 4. The rest is as in
    **[part 5 of the Open WebUI guide](https://github.com/Youth-AI-Lab/yal-openwebui-guide#part-5---open-it-to-your-group)**:
-   the participants sign up with a nickname, never their real name, and give feedback with the
-   thumbs. Skip its steps about the Codespace, GitHub's warning page and the PORTS tab. Where it
+   the participants sign up with a nickname, never their real name, and a password of at least 8
+   characters with a lowercase letter, an uppercase letter, a number and a symbol (Open WebUI says
+   so when one is missing), and give feedback with the thumbs. Skip its steps about the Codespace, GitHub's warning page and the PORTS tab. Where it
    says `openwebui share open`, `share status` or `share close`, do this instead:
    - **Count the accounts**: in **Admin Panel** → **Users**, on your own screen, never projected.
      While sign-ups are open, anyone on your Wi-Fi who has the address can create an account.
@@ -560,7 +563,8 @@ with your organisation who may read the data, and when it is deleted.
 
 **What still goes out, or can be seen.**
 - The downloads: Ollama, the models, uv, Python, Open WebUI and its search model come from the
-  internet, the first time.
+  internet, the first time. Open WebUI and uv are pinned to the versions we tested; Ollama and the
+  models are the versions of the day you install them, so they may differ from ours.
 - With [`openwebui.env`](openwebui.env), Open WebUI is set not to send anything by itself, and
   Ollama's cloud features are off (part 2 on the page of [your
   system](#parts-1-to-3---install-on-your-computer)). We did not check the network traffic of either
