@@ -221,8 +221,9 @@ question is (2, 1).
    2 × 1 + 1 × 2 = 4. A high score means that the label fits the question.
    [Workshop 2](https://github.com/Youth-AI-Lab/yal-workshop-rag#how-a-text-becomes-numbers) compares
    its lists with the same kind of sum.
-2. **Turn the scores into shares.** This is the calculation that gives the probabilities of the next
-   token. On a calculator, 2.718 to the power of each score gives 2.7, 54.6 and 7.4, which add up to
+2. **Turn the scores into shares.** Each share says how much " out" takes from a token already in
+   the text: these are weights on the context, not probabilities of the next token. (The same
+   calculation, softmax, gives those probabilities at the end of the model.) On a calculator, 2.718 to the power of each score gives 2.7, 54.6 and 7.4, which add up to
    64.7. Divide each one by 64.7: 4.2%, 84.4% and 11.4%.
 3. **Mix the contents by these shares.** First number: 0.042 × 0 + 0.844 × 10 + 0.114 × 5, about 9.
    Second number: 0.042 × 10 + 0.844 × 0 + 0.114 × 5, about 1.
@@ -258,7 +259,7 @@ $$\displaystyle a_j = \frac{e^{s_j}}{\sum_i e^{s_i}}$$
 
 $$\displaystyle \text{mix} = \sum_j a_j v_j$$
 
-The share $a_j$ is the formula of the [temperature](#temperature), with $T = 1$.
+The share $a_j$ is an attention weight on a token of the context. The same normalisation (softmax) also gives, at the end of the model, the probabilities of the next token, with the formula of the [temperature](#temperature) at $T = 1$.
 
 </details>
 
