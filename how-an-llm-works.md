@@ -127,7 +127,7 @@ The text goes through three stages.
    two numbers, a token gets 3,584, and no single number means anything you can read. Unlike a town,
    a token does not stay in its place: the layers move it.
 2. **The layers change these numbers.** This model has 28 layers. In each one, every token looks at
-   the tokens before it, some more than others, and changes its own numbers, then goes through a
+   the tokens before it and at itself, some more than others, and changes its own numbers, then goes through a
    second calculation of its own. Looking back is *attention*: a
    word takes its meaning from the words before it. Each layer looks back in 28 ways at once
    (28 *attention heads*, a separate figure from the 28 layers).
@@ -137,7 +137,7 @@ The text goes through three stages.
    from the tokens before it. A token cannot use the tokens after it: the model was trained to
    predict what comes next, so it must not see what comes next.
 
-   ![The tokens of "How do I put out a campfire?" with " out" highlighted: curved arrows go back to the four earlier tokens of the question, and one dashed arrow to a later token is crossed out; an illustration, not a measure.](images/llm-attention.svg)
+   ![The tokens of "How do I put out a campfire?" with " out" highlighted: curved arrows go back to the four earlier tokens of the question (the token also looks at itself, not drawn), and one dashed arrow to a later token is crossed out; an illustration, not a measure.](images/llm-attention.svg)
 
    The layers work like an assembly line. One layer is one section of the line, with two stations:
    looking back, then the second calculation. The numbers go through the 28 layers, one after the
